@@ -30,6 +30,8 @@ SNAPSHOT_EVERY = 25
 SNAPSHOT_KEEP = 8          # elites stored per snapshot
 SAT_EPS = 1.0
 SAT_PATIENCE = 8           # snapshot evaluations (= 200 generations)
+STATION_PATIENCE = 4       # station: saturated after 4 evaluations (100 gens) without gain
+STATION_CAP = 600          # station: give up (censored) after this many generations
 
 
 def source_hashes():
@@ -48,7 +50,11 @@ def make_spec(cfg, calib):
 def run(cfg, out_dir):
     os.makedirs(os.path.join(out_dir, "snapshots"), exist_ok=True)
     calib = Calibration.load(CALIBRATION)
-    V1 = load_sets()["V1"]
+    sets = load_sets()
+    V1 = sets["V1"]
+    stations = list(cfg.get("stations") or [])
+    station_log = []
+    st = None                      # state of the station currently being trained, if any
     spec = make_spec(cfg, calib)
     sizes = layer_sizes(spec.input_dim, cfg["depth"], cfg["width"])
     ss = np.random.SeedSequence(cfg["seed"])
@@ -95,8 +101,9 @@ def run(cfg, out_dir):
                        f"{finished.mean():.3f}", int(all3), f"{sim_seconds:.0f}", f"{time.time() - t_start:.0f}"])
         hist_f.flush()
 
-        if streak >= ADVANCE_STREAK and difficulty < MAX_DIFFICULTY:
-            difficulty = round(min(MAX_DIFFICULTY, difficulty + DIFF_STEP), 4)
+        ceiling = stations[0] if stations else MAX_DIFFICULTY
+        if st is None and streak >= ADVANCE_STREAK and difficulty < ceiling:
+            difficulty = round(min(ceiling, difficulty + DIFF_STEP), 4)
             streak = 0
             last_advance = gen
             if difficulty >= 1.0 and reached_full_at is None:
@@ -125,7 +132,35 @@ def run(cfg, out_dir):
             print(f"[{cfg['name']} s{cfg['seed']}] gen {gen} diff {difficulty:.2f} "
                   f"V1 {score[champ]:.1f} finish {r['finished'][:, champ].mean():.0%} "
                   f"({time.time() - t_start:.0f}s)", flush=True)
-            if cfg.get("saturate") and since_best >= SAT_PATIENCE:
+            if stations and st is None and difficulty >= stations[0]:
+                st = {"level": stations[0], "start": gen, "best": -np.inf, "since": 0, "best_gen": None}
+            if st is not None:
+                # station: train at this level until the champion stops improving
+                # on the station's own validation tracks, then keep that model
+                vs = [it for it in sets["VS"] if abs(it["difficulty"] - st["level"]) < 1e-6]
+                rs = evaluate(elites, spec, vs, rng_seed=cfg["seed"])
+                sscore = rs["score"].mean(axis=0)
+                sc = int(np.argmax(sscore))
+                if sscore[sc] > st["best"] + SAT_EPS:
+                    st.update(best=float(sscore[sc]), since=0, best_gen=gen)
+                    elites.save(os.path.join(out_dir, f"station_{st['level']:.2f}.npz"),
+                                meta={"gen": gen, "difficulty": difficulty, "champion": sc, "station": st["level"],
+                                      "vs_scores": sscore.tolist()})
+                else:
+                    st["since"] += 1
+                done = st["since"] >= STATION_PATIENCE or gen - st["start"] >= STATION_CAP
+                print(f"[{cfg['name']} s{cfg['seed']}] station {st['level']:.2f} gen {gen} VS {sscore[sc]:.1f} "
+                      f"best {st['best']:.1f} since {st['since']}", flush=True)
+                if done:
+                    station_log.append({"level": st["level"], "entered_gen": st["start"], "best_gen": st["best_gen"],
+                                        "left_gen": gen, "best_vs": st["best"],
+                                        "outcome": "saturated" if st["since"] >= STATION_PATIENCE else "censored"})
+                    stations.pop(0)
+                    st = None
+                    if not stations:
+                        stop_reason = "stations_done"
+                        break
+            elif cfg.get("saturate") and since_best >= SAT_PATIENCE:
                 stop_reason = "saturated"
                 break
         if cfg.get("saturate"):
@@ -141,7 +176,8 @@ def run(cfg, out_dir):
     with open(os.path.join(out_dir, "status.json"), "w") as f:
         json.dump({"stop_reason": stop_reason, "generations": gen, "reached_full_difficulty_at": reached_full_at,
                    "final_difficulty": difficulty, "best_v1": best_v1 if np.isfinite(best_v1) else None,
-                   "wall_seconds": time.time() - t_start, "sim_seconds": sim_seconds}, f, indent=1)
+                   "wall_seconds": time.time() - t_start, "sim_seconds": sim_seconds,
+                   "stations": station_log}, f, indent=1)
     return out_dir
 
 
@@ -157,10 +193,12 @@ def main():
     ap.add_argument("--gens", type=int, default=300)
     ap.add_argument("--saturate", action="store_true")
     ap.add_argument("--max-gens", type=int, default=3000)
+    ap.add_argument("--stations", default=None, help="comma-separated station levels, e.g. 1.0,1.5,2.0")
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
     cfg = {"name": a.name, "rays": a.rays, "reduction": a.reduction, "k": a.k, "depth": a.depth,
-           "width": a.width, "seed": a.seed, "gens": a.gens, "saturate": a.saturate, "max_gens": a.max_gens}
+           "width": a.width, "seed": a.seed, "gens": a.gens, "saturate": a.saturate, "max_gens": a.max_gens,
+           "stations": [float(x) for x in a.stations.split(",")] if a.stations else None}
     out = a.out or os.path.join(ROOT, "experiments", "results", a.name, f"seed{a.seed}")
     run(cfg, out)
 

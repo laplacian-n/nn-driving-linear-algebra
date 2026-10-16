@@ -27,7 +27,7 @@ def representative(run_dir, max_gen=None):
     return int(best["gen"]), float(best["v1_score"])
 
 
-def evaluate_run(run_dir, max_gen=None, tag="final"):
+def evaluate_run(run_dir, max_gen=None, tag="final", snapshot=None):
     from racing.inputs import Calibration, InputSpec
     from racing.network import Population
     from racing.sets import load as load_sets
@@ -37,8 +37,12 @@ def evaluate_run(run_dir, max_gen=None, tag="final"):
         return run_dir, "skip"
     with open(os.path.join(run_dir, "config.json")) as f:
         cfg = json.load(f)
-    gen, v1 = representative(run_dir, max_gen)
-    pop, meta = Population.load(os.path.join(run_dir, "snapshots", f"gen_{gen:05d}.npz"))
+    if snapshot is None:
+        gen, v1 = representative(run_dir, max_gen)
+        pop, meta = Population.load(os.path.join(run_dir, "snapshots", f"gen_{gen:05d}.npz"))
+    else:  # a station model: the champion saved when that station saturated
+        pop, meta = Population.load(snapshot)
+        gen, v1 = meta["gen"], None
     champ = pop.subset([meta["champion"]])
     calib = Calibration.load(os.path.join(ROOT, "data", "calibration.json"))
     spec = InputSpec(cfg["rays"], calib, reduction=cfg.get("reduction"), k=cfg.get("k"), seed=cfg["seed"])
@@ -67,9 +71,15 @@ def main():
     for st in a.stages:
         for status in sorted(glob.glob(os.path.join(ROOT, "experiments", "results", st, "*", "seed*", "status.json"))):
             runs.append(os.path.dirname(status))
-    jobs = [(r, None, "final") for r in runs]
+    jobs = [(r, None, "final", None) for r in runs]
+    # station models: each one sits the whole test (all 7 levels) - the
+    # cross-test matrix that also shows forgetting
+    for r in runs:
+        for st in sorted(glob.glob(os.path.join(r, "station_*.npz"))):
+            lvl = os.path.basename(st)[len("station_"):-4]
+            jobs.append((r, None, f"station{lvl}", st))
     if a.budget:
-        jobs += [(r, a.budget, f"budget{a.budget}") for r in runs]
+        jobs += [(r, a.budget, f"budget{a.budget}", None) for r in runs]
     print(f"{len(jobs)} evaluations", flush=True)
     with ProcessPoolExecutor(a.jobs) as ex:
         for run, msg in ex.map(evaluate_run, *zip(*jobs)):

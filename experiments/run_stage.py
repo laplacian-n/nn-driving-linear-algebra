@@ -16,6 +16,7 @@ import time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESULTS = os.path.join(ROOT, "experiments", "results")
 SEEDS5 = [0, 1, 2, 3, 4]
+STATIONS = [1.0, 1.5, 2.0]
 
 
 def stage_runs(stage, a):
@@ -39,10 +40,11 @@ def stage_runs(stage, a):
         tag = f"{a.reduction}{a.k}" if a.reduction else f"S{a.rays}"
         archs = [(0, 0)] + [(d, w) for d in (1, 2, 3) for w in (4, 8, 16, 32)]
         return [dict(name=f"stage3/{tag}_{d}x{w}" if d else f"stage3/{tag}_linear", depth=d, width=w, seed=s,
-                     gens=G, saturate=True, max_gens=a.max_gens, **inp) for d, w in archs for s in SEEDS5]
+                     gens=G, saturate=True, max_gens=a.max_gens, stations=STATIONS, **inp)
+                for d, w in archs for s in SEEDS5]
     if stage == "stage3b":
         return [dict(name=f"stage3b/S17_2x{w}", rays=17, depth=2, width=w, seed=s, gens=G, saturate=True,
-                     max_gens=a.max_gens) for w in (8, 32) for s in SEEDS5]
+                     max_gens=a.max_gens, stations=STATIONS) for w in (8, 32) for s in SEEDS5]
     raise ValueError(stage)
 
 
@@ -54,6 +56,8 @@ def command(run):
         cmd += ["--reduction", run["reduction"], "--k", str(run["k"])]
     if run.get("saturate"):
         cmd += ["--saturate", "--max-gens", str(run["max_gens"])]
+    if run.get("stations"):
+        cmd += ["--stations", ",".join(str(x) for x in run["stations"])]
     return cmd
 
 

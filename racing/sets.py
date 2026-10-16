@@ -18,15 +18,23 @@ SPEC = {
     "V1": [(1.0, 100000, 4), (1.5, 110000, 4), (2.0, 120000, 4)],
     "V2": [(1.0, 200000, 8), (1.5, 210000, 8), (2.0, 220000, 8)],
     "C": [(1.0, 300000, 10)],
+    # station validation: decides saturation at each curriculum station
+    "VS": [(1.0, 130000, 8), (1.5, 140000, 8), (2.0, 150000, 8)],
     "T": [(lvl, 400000 + 1000 * i, 30) for i, lvl in enumerate(TEST_LEVELS)],
 }
 
 
 def build():
+    """Verify and cache every set; sets already in the cache are kept as is."""
     from .sim import reference_speed
     import numpy as np
     sets = {}
+    if os.path.exists(CACHE):
+        with open(CACHE) as f:
+            sets = json.load(f)
     for name, parts in SPEC.items():
+        if name in sets:
+            continue
         items = []
         for diff, first, count in parts:
             seed, got, rejected = first, 0, 0
@@ -50,7 +58,10 @@ def load():
     if not os.path.exists(CACHE):
         return build()
     with open(CACHE) as f:
-        return json.load(f)
+        sets = json.load(f)
+    if any(name not in sets for name in SPEC):
+        return build()
+    return sets
 
 
 if __name__ == "__main__":

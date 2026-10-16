@@ -1,0 +1,3 @@
+[stage0/3x32 s2] gen 25 diff 0.15 V1 2.2 finish 0% (329s)
+[stage0/3x32 s2] gen 50 diff 0.38 V1 1.3 finish 0% (711s)
+[stage0/3x32 s2] gen 75 diff 0.57 V1 1.4 finish 0% (1170s)
