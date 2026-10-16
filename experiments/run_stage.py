@@ -21,7 +21,7 @@ SEEDS5 = [0, 1, 2, 3, 4]
 def stage_runs(stage, a):
     G = a.gens
     if stage == "stage0":
-        return [dict(name=f"stage0/{n}", rays=17, depth=d, width=w, seed=s, gens=800)
+        return [dict(name=f"stage0/{n}", rays=17, depth=d, width=w, seed=s, gens=600)
                 for n, d, w in [("linear", 0, 0), ("2x16", 2, 16), ("3x32", 3, 32)] for s in [0, 1, 2]]
     if stage == "stage1":
         matched = [(3, 21), (5, 20), (9, 18), (17, 16)]

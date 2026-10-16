@@ -6,7 +6,7 @@
  "depth": 3,
  "width": 32,
  "seed": 0,
- "gens": 800,
+ "gens": 600,
  "saturate": false,
  "max_gens": 3000,
  "layer_sizes": [
@@ -29,6 +29,6 @@
   "sets.py": "95f9c20e33ce",
   "sim.py": "5cf5ca175654",
   "track.py": "2f5edb440929",
-  "train.py": "569ea16eea4e"
+  "train.py": "5167e933449a"
  }
 }

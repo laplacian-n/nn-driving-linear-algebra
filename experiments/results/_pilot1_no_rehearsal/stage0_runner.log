@@ -1,0 +1,10 @@
+9 runs, 0 already done, 9 to run, 9 in parallel
+[   8035s] stage0/linear seed0 ok; 0 queued, 8 running
+[   8750s] stage0/linear seed1 ok; 0 queued, 7 running
+[   9000s] stage0/2x16 seed1 ok; 0 queued, 6 running
+[  10180s] stage0/2x16 seed0 ok; 0 queued, 5 running
+[  10360s] stage0/3x32 seed2 ok; 0 queued, 4 running
+[  10805s] stage0/2x16 seed2 ok; 0 queued, 3 running
+[  10830s] stage0/3x32 seed1 ok; 0 queued, 2 running
+[  10955s] stage0/3x32 seed0 ok; 0 queued, 1 running
+[  10995s] stage0/linear seed2 ok; 0 queued, 0 running

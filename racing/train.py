@@ -22,7 +22,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CALIBRATION = os.path.join(ROOT, "data", "calibration.json")
 
 POP = 100
-TRACKS_PER_GEN = 3
+TRACKS_PER_GEN = 4
+REHEARSAL = 2      # of the 4 tracks, this many are drawn uniformly from [0, current level]
 DIFF_STEP = 0.025
 ADVANCE_STREAK = 3
 SNAPSHOT_EVERY = 25
@@ -75,9 +76,13 @@ def run(cfg, out_dir):
     stop_reason = "budget"
     while True:
         seeds = rng_tracks.integers(0, 2**31, size=TRACKS_PER_GEN)
+        # rehearsal: keep practising easier (wider) roads so the population does
+        # not forget them once the curriculum has moved on (pilot v1 finding)
+        levels = [difficulty] * (TRACKS_PER_GEN - REHEARSAL) + \
+            [float(np.round(rng_tracks.uniform(0, difficulty) / DIFF_STEP) * DIFF_STEP) for _ in range(REHEARSAL)]
         fits, finished = [], []
-        for s in seeds:
-            res = rollout(pop, spec, get_track(int(s), difficulty), rng_sensor)
+        for s, lvl in zip(seeds, levels):
+            res = rollout(pop, spec, get_track(int(s), lvl), rng_sensor)
             fits.append(fitness_of(res))
             finished.append(res["finished"])
             sim_seconds += res["sim_time"]

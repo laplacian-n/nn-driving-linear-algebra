@@ -1,0 +1,9 @@
+{
+ "stop_reason": "budget",
+ "generations": 800,
+ "reached_full_difficulty_at": 162,
+ "final_difficulty": 2.0,
+ "best_v1": 106.35599896127071,
+ "wall_seconds": 8749.225308895111,
+ "sim_seconds": 236337.1333333227
+}
