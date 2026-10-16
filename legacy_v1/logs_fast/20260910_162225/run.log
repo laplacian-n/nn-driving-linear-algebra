@@ -1,0 +1,109 @@
+16:22:25  starting fresh run
+16:22:27  run_dir=logs_fast/20260910_162225 pca_explained_variance=[0.238, 0.216, 0.077, 0.07, 0.056, 0.05, 0.028, 0.023]
+16:22:27  track index=0 seed=7 (length=1838), laps_since_track_start=0
+16:23:06  gen=0    steps=2397  elapsed= 39.7s alive_at_end= 0/50 laps= 0 (track_total=  0/50) best_dist=   894 best_fit=  1000 mean_fit=    47 median_fit=     0 best_ever=  1000 best_lap_speed=    0 stagnant=  0
+16:23:57  gen=1    steps=2973  elapsed= 50.1s alive_at_end= 0/50 laps= 0 (track_total=  0/50) best_dist=  1290 best_fit=  1369 mean_fit=   121 median_fit=     8 best_ever=  1369 best_lap_speed=    0 stagnant=  0
+16:24:46  gen=2    steps=2973  elapsed= 49.7s alive_at_end= 0/50 laps= 0 (track_total=  0/50) best_dist=  1290 best_fit=  1369 mean_fit=   229 median_fit=     8 best_ever=  1369 best_lap_speed=    0 stagnant=  1
+16:26:02  gen=3    steps=4004  elapsed= 75.6s alive_at_end= 1/50 laps= 1 (track_total=  1/50) best_dist=  1838 best_fit=  2219 mean_fit=   289 median_fit=     8 best_ever=  2219 best_lap_speed=   28 stagnant=  0
+16:27:24  gen=4    steps=4437  elapsed= 82.5s alive_at_end= 1/50 laps= 1 (track_total=  2/50) best_dist=  1838 best_fit=  2219 mean_fit=   318 median_fit=    14 best_ever=  2219 best_lap_speed=   28 stagnant=  1
+16:28:47  gen=5    steps=4500  elapsed= 82.3s alive_at_end= 2/50 laps= 1 (track_total=  3/50) best_dist=  1838 best_fit=  2219 mean_fit=   325 median_fit=     8 best_ever=  2219 best_lap_speed=   28 stagnant=  2
+16:30:10  gen=6    steps=4437  elapsed= 82.9s alive_at_end= 1/50 laps= 1 (track_total=  4/50) best_dist=  1838 best_fit=  2219 mean_fit=   270 median_fit=     8 best_ever=  2219 best_lap_speed=   28 stagnant=  3
+16:31:33  gen=7    steps=4437  elapsed= 82.8s alive_at_end= 1/50 laps= 1 (track_total=  5/50) best_dist=  1838 best_fit=  2219 mean_fit=   342 median_fit=    14 best_ever=  2219 best_lap_speed=   28 stagnant=  4
+16:32:56  gen=8    steps=4437  elapsed= 83.4s alive_at_end= 1/50 laps= 1 (track_total=  6/50) best_dist=  1838 best_fit=  2219 mean_fit=   302 median_fit=    27 best_ever=  2219 best_lap_speed=   28 stagnant=  5
+16:34:20  gen=9    steps=4500  elapsed= 84.2s alive_at_end= 3/50 laps= 1 (track_total=  7/50) best_dist=  1838 best_fit=  2219 mean_fit=   392 median_fit=    23 best_ever=  2219 best_lap_speed=   28 stagnant=  6
+16:35:45  gen=10   steps=4500  elapsed= 84.3s alive_at_end= 3/50 laps= 2 (track_total=  9/50) best_dist=  1838 best_fit=  2219 mean_fit=   342 median_fit=     8 best_ever=  2219 best_lap_speed=   28 stagnant=  7
+16:37:09  gen=11   steps=4500  elapsed= 84.7s alive_at_end= 3/50 laps= 2 (track_total= 11/50) best_dist=  1838 best_fit=  2219 mean_fit=   288 median_fit=     8 best_ever=  2219 best_lap_speed=   28 stagnant=  8
+16:38:34  gen=12   steps=4500  elapsed= 84.5s alive_at_end= 5/50 laps= 3 (track_total= 14/50) best_dist=  1838 best_fit=  2265 mean_fit=   315 median_fit=     8 best_ever=  2265 best_lap_speed=   28 stagnant=  0
+16:39:58  gen=13   steps=4490  elapsed= 83.9s alive_at_end= 3/50 laps= 3 (track_total= 17/50) best_dist=  1838 best_fit=  2265 mean_fit=   325 median_fit=    14 best_ever=  2265 best_lap_speed=   28 stagnant=  1
+16:41:23  gen=14   steps=4500  elapsed= 85.0s alive_at_end= 4/50 laps= 3 (track_total= 20/50) best_dist=  1838 best_fit=  2265 mean_fit=   332 median_fit=     4 best_ever=  2265 best_lap_speed=   28 stagnant=  2
+16:42:48  gen=15   steps=4490  elapsed= 85.1s alive_at_end= 3/50 laps= 3 (track_total= 23/50) best_dist=  1838 best_fit=  2265 mean_fit=   316 median_fit=     8 best_ever=  2265 best_lap_speed=   28 stagnant=  3
+16:44:13  gen=16   steps=4500  elapsed= 85.2s alive_at_end= 5/50 laps= 3 (track_total= 26/50) best_dist=  1838 best_fit=  2265 mean_fit=   468 median_fit=    30 best_ever=  2265 best_lap_speed=   28 stagnant=  4
+16:45:39  gen=17   steps=4490  elapsed= 85.6s alive_at_end= 3/50 laps= 3 (track_total= 29/50) best_dist=  1838 best_fit=  2265 mean_fit=   393 median_fit=     8 best_ever=  2265 best_lap_speed=   28 stagnant=  5
+16:47:04  gen=18   steps=4490  elapsed= 85.3s alive_at_end= 3/50 laps= 3 (track_total= 32/50) best_dist=  1838 best_fit=  2265 mean_fit=   361 median_fit=    21 best_ever=  2265 best_lap_speed=   28 stagnant=  6
+16:48:30  gen=19   steps=4500  elapsed= 85.7s alive_at_end= 4/50 laps= 3 (track_total= 35/50) best_dist=  1838 best_fit=  2265 mean_fit=   306 median_fit=     8 best_ever=  2265 best_lap_speed=   28 stagnant=  7
+16:49:54  gen=20   steps=4490  elapsed= 84.3s alive_at_end= 4/50 laps= 4 (track_total= 39/50) best_dist=  1838 best_fit=  2265 mean_fit=   379 median_fit=     8 best_ever=  2265 best_lap_speed=   28 stagnant=  8
+16:51:16  gen=21   steps=4490  elapsed= 82.0s alive_at_end= 5/50 laps= 5 (track_total= 44/50) best_dist=  1838 best_fit=  3038 mean_fit=   494 median_fit=    14 best_ever=  3038 best_lap_speed=   41 stagnant=  0
+16:52:37  gen=22   steps=4500  elapsed= 81.3s alive_at_end= 6/50 laps= 5 (track_total= 49/50) best_dist=  1838 best_fit=  3333 mean_fit=   478 median_fit=    11 best_ever=  3333 best_lap_speed=   49 stagnant=  0
+16:53:55  gen=23   steps=4283  elapsed= 78.1s alive_at_end= 4/50 laps= 4 (track_total= 53/50) best_dist=  1838 best_fit=  3333 mean_fit=   389 median_fit=     8 best_ever=  3333 best_lap_speed=   49 stagnant=  1
+16:53:55  track rotated -> index=1 seed=8 (length=1881)
+16:55:10  gen=24   steps=4131  elapsed= 74.8s alive_at_end= 3/50 laps= 3 (track_total=  3/50) best_dist=  1881 best_fit=  3128 mean_fit=   331 median_fit=    14 best_ever=  3333 best_lap_speed=   43 stagnant=  0
+16:56:26  gen=25   steps=4131  elapsed= 75.5s alive_at_end= 6/50 laps= 6 (track_total=  9/50) best_dist=  1881 best_fit=  3474 mean_fit=   491 median_fit=    15 best_ever=  3474 best_lap_speed=   53 stagnant=  0
+16:57:22  gen=26   steps=3076  elapsed= 55.9s alive_at_end= 7/50 laps= 7 (track_total= 16/50) best_dist=  1881 best_fit=  3474 mean_fit=   621 median_fit=    39 best_ever=  3474 best_lap_speed=   53 stagnant=  1
+16:58:35  gen=27   steps=4004  elapsed= 72.9s alive_at_end= 8/50 laps= 8 (track_total= 24/50) best_dist=  1881 best_fit=  3474 mean_fit=   664 median_fit=    29 best_ever=  3474 best_lap_speed=   53 stagnant=  2
+16:59:57  gen=28   steps=4500  elapsed= 82.1s alive_at_end= 8/50 laps= 7 (track_total= 31/50) best_dist=  1881 best_fit=  3474 mean_fit=   610 median_fit=    16 best_ever=  3474 best_lap_speed=   53 stagnant=  3
+17:01:08  gen=29   steps=3903  elapsed= 71.0s alive_at_end= 8/50 laps= 8 (track_total= 39/50) best_dist=  1881 best_fit=  3474 mean_fit=   647 median_fit=    15 best_ever=  3474 best_lap_speed=   53 stagnant=  4
+17:02:16  gen=30   steps=3691  elapsed= 68.3s alive_at_end=10/50 laps=10 (track_total= 49/50) best_dist=  1881 best_fit=  3608 mean_fit=   797 median_fit=    61 best_ever=  3608 best_lap_speed=   59 stagnant=  0
+17:03:24  gen=31   steps=3570  elapsed= 67.4s alive_at_end=10/50 laps=10 (track_total= 59/50) best_dist=  1881 best_fit=  3608 mean_fit=   818 median_fit=    76 best_ever=  3608 best_lap_speed=   59 stagnant=  1
+17:03:24  track rotated -> index=2 seed=9 (length=2154)
+17:04:05  gen=32   steps=2159  elapsed= 41.3s alive_at_end= 0/50 laps= 0 (track_total=  0/50) best_dist=  1538 best_fit=  1674 mean_fit=   319 median_fit=    75 best_ever=  3608 best_lap_speed=    0 stagnant=  0
+17:05:05  gen=33   steps=3093  elapsed= 59.5s alive_at_end= 1/50 laps= 1 (track_total=  1/50) best_dist=  2154 best_fit=  3290 mean_fit=   335 median_fit=    15 best_ever=  3608 best_lap_speed=   46 stagnant=  0
+17:06:08  gen=34   steps=3321  elapsed= 63.5s alive_at_end= 5/50 laps= 5 (track_total=  6/50) best_dist=  2154 best_fit=  3319 mean_fit=   596 median_fit=    12 best_ever=  3608 best_lap_speed=   46 stagnant=  0
+17:07:27  gen=35   steps=4500  elapsed= 79.2s alive_at_end= 9/50 laps= 8 (track_total= 14/50) best_dist=  2154 best_fit=  3451 mean_fit=   696 median_fit=    11 best_ever=  3608 best_lap_speed=   50 stagnant=  0
+17:08:32  gen=36   steps=4040  elapsed= 64.4s alive_at_end= 8/50 laps= 8 (track_total= 22/50) best_dist=  2154 best_fit=  3451 mean_fit=   775 median_fit=    17 best_ever=  3608 best_lap_speed=   50 stagnant=  1
+17:09:34  gen=37   steps=3455  elapsed= 62.7s alive_at_end=11/50 laps=11 (track_total= 33/50) best_dist=  2154 best_fit=  3451 mean_fit=   897 median_fit=    89 best_ever=  3608 best_lap_speed=   50 stagnant=  2
+17:10:56  gen=38   steps=4500  elapsed= 81.1s alive_at_end= 5/50 laps= 4 (track_total= 37/50) best_dist=  2154 best_fit=  3451 mean_fit=   598 median_fit=    23 best_ever=  3608 best_lap_speed=   50 stagnant=  3
+17:11:56  gen=39   steps=3328  elapsed= 60.3s alive_at_end= 9/50 laps= 9 (track_total= 46/50) best_dist=  2154 best_fit=  3451 mean_fit=   698 median_fit=    19 best_ever=  3608 best_lap_speed=   50 stagnant=  4
+17:13:17  gen=40   steps=4500  elapsed= 81.0s alive_at_end=14/50 laps=13 (track_total= 59/50) best_dist=  2154 best_fit=  3460 mean_fit=   996 median_fit=    25 best_ever=  3608 best_lap_speed=   50 stagnant=  0
+17:13:17  track rotated -> index=3 seed=10 (length=1946)
+17:14:25  gen=41   steps=3763  elapsed= 67.8s alive_at_end=13/50 laps=13 (track_total= 13/50) best_dist=  1946 best_fit=  3511 mean_fit=  1165 median_fit=   662 best_ever=  3608 best_lap_speed=   54 stagnant=  0
+17:15:39  gen=42   steps=4105  elapsed= 74.5s alive_at_end=19/50 laps=19 (track_total= 32/50) best_dist=  1946 best_fit=  3563 mean_fit=  1406 median_fit=   634 best_ever=  3608 best_lap_speed=   56 stagnant=  0
+17:16:37  gen=43   steps=3206  elapsed= 57.8s alive_at_end=15/50 laps=15 (track_total= 47/50) best_dist=  1946 best_fit=  3563 mean_fit=  1306 median_fit=   643 best_ever=  3608 best_lap_speed=   56 stagnant=  1
+17:17:59  gen=44   steps=4500  elapsed= 81.4s alive_at_end=17/50 laps=16 (track_total= 63/50) best_dist=  1946 best_fit=  3563 mean_fit=  1378 median_fit=   668 best_ever=  3608 best_lap_speed=   56 stagnant=  2
+17:17:59  track rotated -> index=4 seed=11 (length=1908)
+17:19:03  gen=45   steps=3871  elapsed= 64.5s alive_at_end=12/50 laps=12 (track_total= 12/50) best_dist=  1908 best_fit=  3627 mean_fit=  1229 median_fit=   831 best_ever=  3627 best_lap_speed=   59 stagnant=  0
+17:19:59  gen=46   steps=3304  elapsed= 55.7s alive_at_end=16/50 laps=16 (track_total= 28/50) best_dist=  1908 best_fit=  3627 mean_fit=  1351 median_fit=   848 best_ever=  3627 best_lap_speed=   59 stagnant=  1
+17:21:14  gen=47   steps=4116  elapsed= 75.6s alive_at_end=19/50 laps=19 (track_total= 47/50) best_dist=  1908 best_fit=  3651 mean_fit=  1755 median_fit=  1597 best_ever=  3651 best_lap_speed=   60 stagnant=  0
+17:22:39  gen=48   steps=4500  elapsed= 84.3s alive_at_end=18/50 laps=17 (track_total= 64/50) best_dist=  1908 best_fit=  3702 mean_fit=  1604 median_fit=  1409 best_ever=  3702 best_lap_speed=   63 stagnant=  0
+17:22:39  track rotated -> index=5 seed=12 (length=1963)
+17:24:03  gen=49   steps=4500  elapsed= 84.5s alive_at_end=10/50 laps= 9 (track_total=  9/50) best_dist=  1963 best_fit=  3380 mean_fit=  1097 median_fit=   839 best_ever=  3702 best_lap_speed=   49 stagnant=  0
+17:25:27  gen=50   steps=4500  elapsed= 84.2s alive_at_end=16/50 laps=15 (track_total= 24/50) best_dist=  1963 best_fit=  3380 mean_fit=  1355 median_fit=   830 best_ever=  3702 best_lap_speed=   49 stagnant=  1
+17:26:51  gen=51   steps=4500  elapsed= 83.3s alive_at_end=21/50 laps=19 (track_total= 43/50) best_dist=  1963 best_fit=  3380 mean_fit=  1517 median_fit=   855 best_ever=  3702 best_lap_speed=   49 stagnant=  2
+17:28:07  gen=52   steps=4094  elapsed= 75.9s alive_at_end=17/50 laps=17 (track_total= 60/50) best_dist=  1963 best_fit=  3380 mean_fit=  1515 median_fit=   922 best_ever=  3702 best_lap_speed=   49 stagnant=  3
+17:28:07  track rotated -> index=6 seed=13 (length=1976)
+17:29:27  gen=53   steps=4322  elapsed= 80.1s alive_at_end= 2/50 laps= 2 (track_total=  2/50) best_dist=  1976 best_fit=  3231 mean_fit=   560 median_fit=   309 best_ever=  3702 best_lap_speed=   45 stagnant=  0
+17:30:50  gen=54   steps=4476  elapsed= 83.4s alive_at_end= 5/50 laps= 5 (track_total=  7/50) best_dist=  1976 best_fit=  3231 mean_fit=   755 median_fit=   337 best_ever=  3702 best_lap_speed=   45 stagnant=  1
+17:32:14  gen=55   steps=4500  elapsed= 83.5s alive_at_end=10/50 laps= 9 (track_total= 16/50) best_dist=  1976 best_fit=  3231 mean_fit=   854 median_fit=   333 best_ever=  3702 best_lap_speed=   45 stagnant=  2
+17:33:31  gen=56   steps=4500  elapsed= 77.2s alive_at_end=14/50 laps=12 (track_total= 28/50) best_dist=  1976 best_fit=  3231 mean_fit=  1073 median_fit=   504 best_ever=  3702 best_lap_speed=   45 stagnant=  3
+17:34:46  gen=57   steps=4500  elapsed= 75.1s alive_at_end=15/50 laps=12 (track_total= 40/50) best_dist=  1976 best_fit=  3231 mean_fit=  1157 median_fit=   508 best_ever=  3702 best_lap_speed=   45 stagnant=  4
+17:36:09  gen=58   steps=4500  elapsed= 82.9s alive_at_end=16/50 laps=15 (track_total= 55/50) best_dist=  1976 best_fit=  3259 mean_fit=  1133 median_fit=   541 best_ever=  3702 best_lap_speed=   46 stagnant=  0
+17:36:09  track rotated -> index=7 seed=14 (length=2031)
+17:37:27  gen=59   steps=4065  elapsed= 78.0s alive_at_end= 3/50 laps= 3 (track_total=  3/50) best_dist=  2031 best_fit=  2986 mean_fit=   788 median_fit=   939 best_ever=  3702 best_lap_speed=   39 stagnant=  0
+17:38:45  gen=60   steps=4065  elapsed= 78.1s alive_at_end= 9/50 laps= 9 (track_total= 12/50) best_dist=  2031 best_fit=  2986 mean_fit=  1141 median_fit=  1091 best_ever=  3702 best_lap_speed=   39 stagnant=  1
+17:40:09  gen=61   steps=4500  elapsed= 83.7s alive_at_end=15/50 laps=13 (track_total= 25/50) best_dist=  2031 best_fit=  3068 mean_fit=  1288 median_fit=  1057 best_ever=  3702 best_lap_speed=   41 stagnant=  0
+17:41:24  gen=62   steps=4084  elapsed= 74.7s alive_at_end=15/50 laps=15 (track_total= 40/50) best_dist=  2031 best_fit=  3096 mean_fit=  1437 median_fit=  1086 best_ever=  3702 best_lap_speed=   42 stagnant=  0
+17:42:49  gen=63   steps=4500  elapsed= 85.6s alive_at_end=12/50 laps=10 (track_total= 50/50) best_dist=  2031 best_fit=  3096 mean_fit=  1291 median_fit=  1096 best_ever=  3702 best_lap_speed=   42 stagnant=  1
+17:42:49  track rotated -> index=8 seed=15 (length=1874)
+17:44:12  gen=64   steps=4500  elapsed= 83.0s alive_at_end=16/50 laps=15 (track_total= 15/50) best_dist=  1874 best_fit=  3128 mean_fit=  1006 median_fit=   191 best_ever=  3702 best_lap_speed=   43 stagnant=  0
+17:45:38  gen=65   steps=4500  elapsed= 85.7s alive_at_end=16/50 laps=15 (track_total= 30/50) best_dist=  1874 best_fit=  3382 mean_fit=  1150 median_fit=   812 best_ever=  3702 best_lap_speed=   50 stagnant=  0
+17:46:51  gen=66   steps=3846  elapsed= 73.2s alive_at_end=14/50 laps=14 (track_total= 44/50) best_dist=  1874 best_fit=  3402 mean_fit=  1104 median_fit=   682 best_ever=  3702 best_lap_speed=   51 stagnant=  0
+17:47:57  gen=67   steps=3445  elapsed= 65.7s alive_at_end=12/50 laps=12 (track_total= 56/50) best_dist=  1874 best_fit=  3488 mean_fit=   947 median_fit=   256 best_ever=  3702 best_lap_speed=   54 stagnant=  0
+17:47:57  track rotated -> index=9 seed=16 (length=1993)
+17:48:48  gen=68   steps=2674  elapsed= 50.7s alive_at_end= 4/50 laps= 4 (track_total=  4/50) best_dist=  1993 best_fit=  3505 mean_fit=   834 median_fit=   801 best_ever=  3702 best_lap_speed=   53 stagnant=  0
+17:50:04  gen=69   steps=4053  elapsed= 76.7s alive_at_end=10/50 laps=10 (track_total= 14/50) best_dist=  1993 best_fit=  3539 mean_fit=  1182 median_fit=   883 best_ever=  3702 best_lap_speed=   54 stagnant=  0
+17:51:29  gen=70   steps=4500  elapsed= 84.4s alive_at_end=12/50 laps=11 (track_total= 25/50) best_dist=  1993 best_fit=  3539 mean_fit=  1119 median_fit=   770 best_ever=  3702 best_lap_speed=   54 stagnant=  1
+17:52:53  gen=71   steps=4500  elapsed= 84.4s alive_at_end=13/50 laps=12 (track_total= 37/50) best_dist=  1993 best_fit=  3584 mean_fit=  1232 median_fit=   919 best_ever=  3702 best_lap_speed=   56 stagnant=  0
+17:54:11  gen=72   steps=4199  elapsed= 77.9s alive_at_end=14/50 laps=14 (track_total= 51/50) best_dist=  1993 best_fit=  3584 mean_fit=  1339 median_fit=   910 best_ever=  3702 best_lap_speed=   56 stagnant=  1
+17:54:11  track rotated -> index=10 seed=17 (length=1899)
+17:55:36  gen=73   steps=4500  elapsed= 85.1s alive_at_end= 5/50 laps= 3 (track_total=  3/50) best_dist=  1899 best_fit=  3227 mean_fit=   757 median_fit=   835 best_ever=  3702 best_lap_speed=   45 stagnant=  0
+17:56:59  gen=74   steps=4500  elapsed= 82.4s alive_at_end=13/50 laps=11 (track_total= 14/50) best_dist=  1899 best_fit=  3288 mean_fit=  1081 median_fit=   815 best_ever=  3702 best_lap_speed=   47 stagnant=  0
+17:58:21  gen=75   steps=4500  elapsed= 82.1s alive_at_end=19/50 laps=17 (track_total= 31/50) best_dist=  1899 best_fit=  3325 mean_fit=  1449 median_fit=   846 best_ever=  3702 best_lap_speed=   48 stagnant=  0
+17:59:43  gen=76   steps=4500  elapsed= 82.0s alive_at_end=15/50 laps=14 (track_total= 45/50) best_dist=  1899 best_fit=  3368 mean_fit=  1264 median_fit=   823 best_ever=  3702 best_lap_speed=   50 stagnant=  0
+18:01:07  gen=77   steps=4500  elapsed= 84.3s alive_at_end=21/50 laps=20 (track_total= 65/50) best_dist=  1899 best_fit=  3389 mean_fit=  1640 median_fit=   863 best_ever=  3702 best_lap_speed=   50 stagnant=  0
+18:01:07  track rotated -> index=11 seed=18 (length=1833)
+18:02:31  gen=78   steps=4500  elapsed= 84.1s alive_at_end=14/50 laps=13 (track_total= 13/50) best_dist=  1833 best_fit=  3393 mean_fit=  1117 median_fit=   224 best_ever=  3702 best_lap_speed=   51 stagnant=  0
+18:03:31  gen=79   steps=3182  elapsed= 59.4s alive_at_end=15/50 laps=15 (track_total= 28/50) best_dist=  1833 best_fit=  3393 mean_fit=  1216 median_fit=   493 best_ever=  3702 best_lap_speed=   51 stagnant=  1
+18:04:42  gen=80   steps=4500  elapsed= 71.8s alive_at_end=16/50 laps=15 (track_total= 43/50) best_dist=  1833 best_fit=  3395 mean_fit=  1201 median_fit=   230 best_ever=  3702 best_lap_speed=   51 stagnant=  0
+18:05:37  gen=81   steps=3061  elapsed= 54.7s alive_at_end=20/50 laps=20 (track_total= 63/50) best_dist=  1833 best_fit=  3462 mean_fit=  1463 median_fit=   584 best_ever=  3702 best_lap_speed=   54 stagnant=  0
+18:05:37  track rotated -> index=12 seed=19 (length=2045)
+18:07:00  gen=82   steps=4490  elapsed= 83.1s alive_at_end= 6/50 laps= 6 (track_total=  6/50) best_dist=  2045 best_fit=  3266 mean_fit=   601 median_fit=    90 best_ever=  3702 best_lap_speed=   46 stagnant=  0
+18:08:25  gen=83   steps=4493  elapsed= 84.4s alive_at_end=11/50 laps=11 (track_total= 17/50) best_dist=  2045 best_fit=  3266 mean_fit=   916 median_fit=   613 best_ever=  3702 best_lap_speed=   46 stagnant=  1
+18:09:40  gen=84   steps=4035  elapsed= 74.9s alive_at_end=11/50 laps=11 (track_total= 28/50) best_dist=  2045 best_fit=  3266 mean_fit=   963 median_fit=   795 best_ever=  3702 best_lap_speed=   46 stagnant=  2
+18:11:05  gen=85   steps=4500  elapsed= 85.4s alive_at_end=11/50 laps= 8 (track_total= 36/50) best_dist=  2045 best_fit=  3267 mean_fit=   851 median_fit=   562 best_ever=  3702 best_lap_speed=   46 stagnant=  0
+18:12:19  gen=86   steps=3890  elapsed= 74.1s alive_at_end= 8/50 laps= 8 (track_total= 44/50) best_dist=  2045 best_fit=  3267 mean_fit=   792 median_fit=   330 best_ever=  3702 best_lap_speed=   46 stagnant=  1
+18:13:44  gen=87   steps=4500  elapsed= 85.1s alive_at_end=11/50 laps= 8 (track_total= 52/50) best_dist=  2045 best_fit=  3320 mean_fit=   805 median_fit=   348 best_ever=  3702 best_lap_speed=   47 stagnant=  0
+18:13:44  track rotated -> index=13 seed=20 (length=1909)
+18:15:10  gen=88   steps=4500  elapsed= 85.5s alive_at_end= 9/50 laps= 7 (track_total=  7/50) best_dist=  1909 best_fit=  3286 mean_fit=  1039 median_fit=   842 best_ever=  3702 best_lap_speed=   47 stagnant=  0
+18:16:32  gen=89   steps=4314  elapsed= 82.3s alive_at_end=16/50 laps=16 (track_total= 23/50) best_dist=  1909 best_fit=  3365 mean_fit=  1235 median_fit=   809 best_ever=  3702 best_lap_speed=   49 stagnant=  0
+18:17:54  gen=90   steps=4500  elapsed= 81.8s alive_at_end=14/50 laps=13 (track_total= 36/50) best_dist=  1909 best_fit=  3365 mean_fit=  1092 median_fit=   818 best_ever=  3702 best_lap_speed=   49 stagnant=  1
+18:19:06  gen=91   steps=4055  elapsed= 72.1s alive_at_end=11/50 laps=11 (track_total= 47/50) best_dist=  1909 best_fit=  3365 mean_fit=  1019 median_fit=   693 best_ever=  3702 best_lap_speed=   49 stagnant=  2
+18:19:55  finished after generation 92, best_ever=3702, logs at logs_fast/20260910_162225, checkpoint at checkpoints_fast

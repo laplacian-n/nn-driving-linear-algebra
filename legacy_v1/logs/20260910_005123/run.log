@@ -1,0 +1,5 @@
+00:51:23  starting fresh run
+00:51:24  run_dir=logs/20260910_005123 pca_explained_variance=[0.249, 0.211, 0.092, 0.092, 0.068, 0.047]
+00:51:25  track switched to seed=7 at generation=0 (length=1852)
+00:51:38  gen=0    steps=431   elapsed= 12.9s alive_at_end= 0/50 laps= 0 best_dist=   372 best_fit=   372 mean_fit=    63 median_fit=    46 best_ever=   372 best_lap_speed=    0
+00:51:55  finished after generation 1, best_ever=372, logs at logs/20260910_005123, checkpoint at checkpoints

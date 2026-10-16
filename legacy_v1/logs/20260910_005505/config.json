@@ -1,0 +1,31 @@
+{
+  "num_cars": 50,
+  "num_sensors_raw": 18,
+  "pca_components": 6,
+  "hidden_layers": [
+    24,
+    20,
+    16,
+    10
+  ],
+  "layer_sizes": [
+    8,
+    24,
+    20,
+    16,
+    10,
+    4
+  ],
+  "max_steps": 1400,
+  "seed": 42,
+  "base_track_seed": 7,
+  "track_rotation_interval": 100,
+  "pca_explained_variance": [
+    0.24895883334402852,
+    0.21147077994911131,
+    0.09232435982744133,
+    0.09207066101976284,
+    0.06790691931352232,
+    0.04654965682365994
+  ]
+}

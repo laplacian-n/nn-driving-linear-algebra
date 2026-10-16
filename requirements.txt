@@ -1,0 +1,4 @@
+numpy
+matplotlib
+pygame; python_version < "3.14"
+pygame-ce; python_version >= "3.14"

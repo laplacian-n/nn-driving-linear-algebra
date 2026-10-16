@@ -1,0 +1,5 @@
+11:08:25  resumed from checkpoint at generation=22 (track_index=0, laps_since_track_start=16)
+11:08:26  run_dir=logs_fast/20260910_110825 pca_explained_variance=[0.228, 0.193, 0.091, 0.084, 0.048, 0.042]
+11:08:26  track index=0 seed=7 (length=1825), laps_since_track_start=16
+11:09:12  gen=22   steps=3912  elapsed= 45.5s alive_at_end= 1/50 laps= 1 (track_total= 17/50) best_dist=  1825 best_fit=  2401 mean_fit=   249 median_fit=     5 best_ever=  2401 best_lap_speed=   33 stagnant= 16
+11:09:41  finished after generation 23, best_ever=2401, logs at logs_fast/20260910_110825, checkpoint at checkpoints_fast

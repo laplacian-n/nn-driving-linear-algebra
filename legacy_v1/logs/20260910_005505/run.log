@@ -1,0 +1,7 @@
+00:55:05  checkpoint doesn't match current architecture/num-cars - starting fresh instead
+00:55:05  starting fresh run
+00:55:06  run_dir=logs/20260910_005505 pca_explained_variance=[0.249, 0.211, 0.092, 0.092, 0.068, 0.047]
+00:55:07  track switched to seed=7 at generation=0 (length=1852)
+00:55:22  gen=0    steps=483   elapsed= 15.1s alive_at_end= 0/50 laps= 0 best_dist=   348 best_fit=   348 mean_fit=    56 median_fit=    39 best_ever=   348 best_lap_speed=    0
+00:55:27  window closed, stopping
+00:55:27  finished after generation 1, best_ever=348, logs at logs/20260910_005505, checkpoint at checkpoints

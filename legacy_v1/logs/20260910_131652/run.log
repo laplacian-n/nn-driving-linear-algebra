@@ -1,0 +1,4 @@
+13:16:52  resumed from checkpoint at generation=30 (track_index=1, laps_since_track_start=39)
+13:16:53  run_dir=logs/20260910_131652 pca_explained_variance=[0.238, 0.216, 0.077, 0.07, 0.056, 0.05, 0.028, 0.023]
+13:16:53  track index=1 seed=8 (length=1881), laps_since_track_start=39
+13:19:54  finished after generation 30, best_ever=3474, logs at logs/20260910_131652, checkpoint at checkpoints

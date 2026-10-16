@@ -1,0 +1,2 @@
+generation,elapsed_sec,alive,best_distance,best_fitness,mean_fitness,median_fitness,best_fitness_ever,laps_finished,best_lap_speed,track_length,gens_since_improvement
+22,45.48,1,1825.3,2401.4,249.1,5.5,2401.4,1,32.6,1825.3,16
