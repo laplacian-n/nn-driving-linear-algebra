@@ -23,19 +23,22 @@ from dataclasses import dataclass
 import numpy as np
 
 G = 9.81
+MIN_GAIN = 15.0  # m of track progress required per stall window
 
 try:
     from numba import njit
 
     @njit(cache=True, fastmath=True)
-    def _raycast_kernel(pos, psi, offsets, left, right, base, w0, w1, max_range):
+    def _raycast_kernel(pos, psi, offsets, left, right, base, w0, w1, max_range, active):
         """For every (car, ray): smallest t > 0 with  p + t d = a + u e,
         0 <= u <= 1, over the nearby wall segments of both walls.
         det = -dx*ey + dy*ex ;  t = (-wx*ey + wy*ex)/det ;  u = (dx*wy - dy*wx)/det"""
         n, s = pos.shape[0], offsets.shape[0]
         m = left.shape[0]
-        out = np.empty((n, s))
+        out = np.full((n, s), max_range)
         for i in range(n):
+            if not active[i]:
+                continue
             px, py = pos[i, 0], pos[i, 1]
             for k in range(s):
                 ang = psi[i] + offsets[k]
@@ -62,8 +65,86 @@ try:
                             best = t
                 out[i, k] = best
         return out
+    @njit(cache=True, fastmath=True)
+    def _physics_kernel(pos, psi, vx_a, vy_a, r_a, delta_a, ax_a, active, steer_target, throttle, brake,
+                        handbrake, h, substeps, pv):
+        """Same equations as CarSwarm._substep, one car at a time, skipping
+        cars that are no longer driving. pv = _param_vector(params)."""
+        (m, iz, a, b, hcg, mu, rear_grip, mu_slide, pb, pc, pe, rho, cda, cla, af, power, bf, roll,
+         steer_rate, blo, bhi) = (pv[0], pv[1], pv[2], pv[3], pv[4], pv[5], pv[6], pv[7], pv[8], pv[9],
+                                  pv[10], pv[11], pv[12], pv[13], pv[14], pv[15], pv[16], pv[17], pv[18],
+                                  pv[19], pv[20])
+        L = a + b
+        for i in range(pos.shape[0]):
+            if not active[i]:
+                continue
+            vx, vy, r, delta, ax_prev, ps = vx_a[i], vy_a[i], r_a[i], delta_a[i], ax_a[i], psi[i]
+            px, py = pos[i, 0], pos[i, 1]
+            thr, brk, hb, st = throttle[i], brake[i], handbrake[i], steer_target[i]
+            for _ in range(substeps):
+                dmax = steer_rate * h
+                dd = st - delta
+                if dd > dmax:
+                    dd = dmax
+                elif dd < -dmax:
+                    dd = -dmax
+                delta += dd
+                v = vx if vx > 0.0 else 0.0
+                q = 0.5 * rho * v * v
+                down, drag = q * cla, q * cda
+                transfer = m * ax_prev * hcg / L
+                fz_f = max(m * G * b / L + down * af - transfer, 0.0)
+                fz_r = max(m * G * a / L + down * (1 - af) + transfer, 0.0)
+                grip_f, grip_r = mu * fz_f, mu * rear_grip * fz_r
+                drive = thr * power / max(v, 1.0)
+                bforce = brk * (grip_f + grip_r)
+                fx_f = min(max(-bf * bforce, -grip_f), grip_f)
+                fx_r = min(max(drive - (1 - bf) * bforce, -grip_r), grip_r)
+                moving = min(max(v / 0.5, 0.0), 1.0)
+                fx_f *= moving
+                if fx_r < 0:
+                    fx_r *= moving
+                vxe = max(v, 0.5)
+                alpha_f = np.arctan2(vy + a * r, vxe) - delta
+                alpha_r = np.arctan2(vy - b * r, vxe)
+                cap_f = np.sqrt(max(grip_f * grip_f - fx_f * fx_f, 0.0))
+                cap_r = np.sqrt(max(grip_r * grip_r - fx_r * fx_r, 0.0))
+                baf, bar = pb * alpha_f, pb * alpha_r
+                fy_f = -cap_f * np.sin(pc * np.arctan(baf - pe * (baf - np.arctan(baf))))
+                fy_r = -cap_r * np.sin(pc * np.arctan(bar - pe * (bar - np.arctan(bar))))
+                vrx, vry = v, vy - b * r
+                vr = np.sqrt(vrx * vrx + vry * vry) + 1e-6
+                slide = mu_slide * fz_r * min(max(vr / 0.5, 0.0), 1.0)
+                fx_r = (1 - hb) * fx_r - hb * slide * vrx / vr
+                fy_r = (1 - hb) * fy_r - hb * slide * vry / vr
+                rolling = roll * (fz_f + fz_r) * moving
+                cd, sd = np.cos(delta), np.sin(delta)
+                ax = (fx_r + fx_f * cd - fy_f * sd - drag - rolling) / m
+                ay = (fy_r + fy_f * cd + fx_f * sd) / m
+                r_dot = (a * (fy_f * cd + fx_f * sd) - b * fy_r) / iz
+                nvx = max(vx + (ax + vy * r) * h, 0.0)
+                nvy = vy + (ay - v * r) * h
+                nr = r + r_dot * h
+                w = min(max((nvx - blo) / (bhi - blo), 0.0), 1.0)
+                r_kin = nvx * np.tan(delta) / L
+                nr = w * nr + (1 - w) * r_kin
+                nvy = w * nvy + (1 - w) * r_kin * b
+                vx, vy, r, ax_prev = nvx, nvy, nr, ax
+                ps += r * h
+                c, s = np.cos(ps), np.sin(ps)
+                px += (vx * c - vy * s) * h
+                py += (vx * s + vy * c) * h
+            vx_a[i], vy_a[i], r_a[i], delta_a[i], ax_a[i], psi[i] = vx, vy, r, delta, ax_prev, ps
+            pos[i, 0], pos[i, 1] = px, py
 except ImportError:  # pragma: no cover - NumPy fallback is used instead
     _raycast_kernel = None
+    _physics_kernel = None
+
+
+def _param_vector(p):
+    return np.array([p.mass, p.yaw_inertia, p.a, p.b, p.cg_height, p.mu, p.rear_grip, p.mu_slide, p.pac_b,
+                     p.pac_c, p.pac_e, p.rho, p.cda, p.cla, p.aero_front, p.power, p.brake_front, p.rolling,
+                     p.steer_rate, p.blend_lo, p.blend_hi])
 
 
 @dataclass(frozen=True)
@@ -124,6 +205,7 @@ class CarSwarm:
         self.sensor_noise = sensor_noise
         self.dropout = dropout
         self.rng = np.random.default_rng() if rng is None else rng
+        self.use_kernel = True
         self.reset(track)
 
     # ------------------------------------------------------------------ state
@@ -144,6 +226,7 @@ class CarSwarm:
         self.progress = np.zeros(n)         # metres along the centerline, best so far
         self.lateral = np.zeros(n)          # signed offset from the centerline, m
         self.stall = np.zeros(n)
+        self.stall_ref = np.zeros(n)       # progress at the last time the stall timer was reset
         self.time = 0.0
         self.lap_time = np.full(n, np.nan)
         self.last_reading = np.full((n, self.num_sensors), self.sensor_range)
@@ -178,8 +261,13 @@ class CarSwarm:
         self.handbrake = np.clip(handbrake, 0, 1)
         h = self.dt / self.substeps
         m, L = p.mass, p.wheelbase
-        for _ in range(self.substeps):
-            self._substep(steer_target, h, act, m, L)
+        if _physics_kernel is not None and self.use_kernel:
+            _physics_kernel(self.pos, self.psi, self.vx, self.vy, self.r, self.delta, self.ax, act,
+                            steer_target.astype(float), self.throttle.astype(float), self.brake.astype(float),
+                            self.handbrake.astype(float), h, self.substeps, _param_vector(p))
+        else:
+            for _ in range(self.substeps):
+                self._substep(steer_target, h, act, m, L)
         self.time += self.dt
         self._update_track_state(act)
 
@@ -273,7 +361,10 @@ class CarSwarm:
         self.idx = np.where(act, new_idx, self.idx)
         self.lateral = np.where(act, lateral, self.lateral)
         s_now = self.idx * ds
-        improved = s_now > self.progress + 0.05
+        # a car must gain at least MIN_GAIN metres of track every
+        # stall_timeout seconds (5 m/s average) or it is retired - stops
+        # crawling/circling cars from soaking up simulation time
+        improved = s_now >= self.stall_ref + MIN_GAIN
         self.progress = np.where(act, np.maximum(self.progress, s_now), self.progress)
 
         # body rectangle projected on the road normal must stay inside the road
@@ -284,6 +375,7 @@ class CarSwarm:
         off_road = np.abs(lateral) + extent > hw[jw]
 
         self.stall = np.where(improved, 0.0, self.stall + self.dt)
+        self.stall_ref = np.where(improved, s_now, self.stall_ref)
         dead = act & (off_road | (self.stall > self.stall_timeout) | (self.time >= self.time_limit))
         self.crashed |= act & off_road
         self.alive &= ~dead
@@ -303,7 +395,7 @@ class CarSwarm:
             t = self.track
             return _raycast_kernel(self.pos, self.psi, self.sensor_offsets, t["left"], t["right"],
                                    np.floor(self.idx).astype(np.int64), window[0], window[1],
-                                   float(self.sensor_range))
+                                   float(self.sensor_range), self.active)
         return self._sensor_distances_numpy(window)
 
     def _sensor_distances_numpy(self, window=(-6, 80)):
