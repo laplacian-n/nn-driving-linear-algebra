@@ -25,10 +25,13 @@ OUT_LABELS = ["Steer", "Throttle", "Brake", "Handbr."]
 
 
 class Session:
-    def __init__(self, driver, seed, difficulty, zoom=6.0):
+    def __init__(self, driver, seed, difficulty, zoom=6.0, track=None, label=None, loop=True):
         self.driver = driver
         self.seed, self.difficulty = seed, difficulty
-        self.track = get_track(seed, difficulty)
+        self.track = track if track is not None else get_track(seed, difficulty)
+        self.label = label or f"Track {seed}"
+        self.loop = loop
+        self.done = False
         self.zooms = {}
         self.set_zoom(zoom)
         self.minimap = R.Minimap(self.track, pygame.Rect(R.VIEW.right + R.PAD + 1, R.PAD + 34,
@@ -51,6 +54,8 @@ class Session:
         self.acts = None
 
     def step(self):
+        if self.done:
+            return
         c = self.cars
         self.ranges = c.sensor_readings()
         x = self.driver.spec.build(self.ranges, c)
@@ -66,7 +71,10 @@ class Session:
             self.best_lap = lap if self.best_lap is None else min(self.best_lap, lap)
         if not c.active.any():
             self.laps += 1
-            self.reset()
+            if self.loop:
+                self.reset()
+            else:
+                self.done = True
 
     def draw(self, screen, fonts, header):
         c, i = self.cars, self.focus
@@ -92,7 +100,7 @@ class Session:
 
         side = pygame.Rect(R.VIEW.right + R.PAD, R.PAD, R.SIDEBAR_W - 2 * R.PAD, 0)
         mm = pygame.Rect(side.x, side.y, side.width, 276)
-        R.panel(screen, mm, fonts, f"Track {self.seed} · {self.track['length'] / 1000:.2f} km")
+        R.panel(screen, mm, fonts, f"{self.label} · {self.track['length'] / 1000:.2f} km")
         trail = (np.array(self.trail_pts), self.trail_v) if len(self.trail_pts) > 1 else None
         self.minimap.draw(screen, c.pos, c.alive & ~c.finished, focus=i, trail=trail)
         tel = pygame.Rect(side.x, mm.bottom + 12, side.width, 268)

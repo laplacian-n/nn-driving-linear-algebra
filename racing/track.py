@@ -308,6 +308,48 @@ def _clearance_ok(centerline, width, length):
     return bool(np.all(d[far_along] > width + 6.0))
 
 
+def track_from_points(points, difficulty=1.0, target_length=1650.0, n_anchors=28):
+    """Build a track from a hand-drawn closed loop (e.g. mouse points).
+    The stroke is resampled to n_anchors evenly spaced anchors, joined with
+    centripetal Catmull-Rom curves converted to cubic Beziers, scaled to the
+    target lap length and validated like a generated track. Returns
+    (track, None) or (None, reason)."""
+    pts = np.asarray(points, dtype=float)
+    if len(pts) < 8:
+        return None, "draw a longer loop"
+    pts = pts * np.array([1.0, -1.0])            # screen y points down
+    anchors, _ = _resample(pts, 1.0)
+    idx = np.linspace(0, len(anchors), n_anchors, endpoint=False).astype(int)
+    anchors = anchors[idx]
+    # orient counter-clockwise like generated tracks
+    area = 0.5 * np.sum(anchors[:, 0] * np.roll(anchors[:, 1], -1) - np.roll(anchors[:, 0], -1) * anchors[:, 1])
+    if area < 0:
+        anchors = anchors[::-1]
+    pieces = []
+    n = len(anchors)
+    for i in range(n):
+        p0, p1, p2, p3 = anchors[i - 1], anchors[i], anchors[(i + 1) % n], anchors[(i + 2) % n]
+        t1 = np.linalg.norm(p1 - p0) ** 0.5 + 1e-9
+        t2 = t1 + np.linalg.norm(p2 - p1) ** 0.5 + 1e-9
+        t3 = t2 + np.linalg.norm(p3 - p2) ** 0.5 + 1e-9
+        m1 = (t2 - t1) * ((p1 - p0) / t1 - (p2 - p0) / t2 + (p2 - p1) / (t2 - t1))
+        m2 = (t2 - t1) * ((p2 - p1) / (t2 - t1) - (p3 - p1) / (t3 - t1) + (p3 - p2) / (t3 - t2))
+        pieces.append(bezier_segment(p1, p1 + m1 / 3, p2 - m2 / 3, p2, 20))
+    dense = np.concatenate(pieces)
+    perim = np.sum(np.linalg.norm(np.roll(dense, -1, axis=0) - dense, axis=1))
+    dense = dense * (target_length / perim)
+    centerline, length = _resample(dense, SAMPLE_SPACING)
+    width = track_width(difficulty)
+    track = _finish(centerline, length, width, difficulty)
+    if np.min(track["curvature_radius"]) < width / 2 * 1.2:
+        return None, "a corner is too tight for the road width - draw smoother bends"
+    if _polyline_self_intersects(track["left"]) or _polyline_self_intersects(track["right"]):
+        return None, "the road crosses itself - draw a loop that doesn't overlap"
+    if not _clearance_ok(centerline, width, length):
+        return None, "two parts of the track are too close together"
+    return track, None
+
+
 def track_width(difficulty):
     # 30 m forgiving road at difficulty 0 down to a real F1 width (15 m) at 1
     return 30.0 - 15.0 * float(np.clip(difficulty, 0, 1))
