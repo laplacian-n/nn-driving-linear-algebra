@@ -1,0 +1,32 @@
+{
+ "name": "stage0/3x32",
+ "rays": 17,
+ "reduction": null,
+ "k": null,
+ "depth": 3,
+ "width": 32,
+ "seed": 0,
+ "gens": 600,
+ "saturate": false,
+ "max_gens": 3000,
+ "layer_sizes": [
+  21,
+  32,
+  32,
+  32,
+  4
+ ],
+ "params": 2948,
+ "preprocessing_params": 34,
+ "source_hashes": {
+  "__init__.py": "da39a3ee5e6b",
+  "ga.py": "c1bb4049b2ad",
+  "inputs.py": "206fd5a16bb2",
+  "network.py": "97478a3dcdd0",
+  "physics.py": "8c86aef52589",
+  "reference.py": "efd3c627ad7a",
+  "sim.py": "02421395da5a",
+  "track.py": "3c3b0198939b",
+  "train.py": "8e64c2359290"
+ }
+}

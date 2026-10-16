@@ -14,19 +14,16 @@ import numpy as np
 from .ga import evolve
 from .inputs import Calibration, InputSpec
 from .network import Population, layer_sizes
+from .sets import load as load_sets
 from .sim import evaluate, fitness_of, get_track, rollout
+from .track import MAX_DIFFICULTY
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CALIBRATION = os.path.join(ROOT, "data", "calibration.json")
 
-V1 = list(range(100000, 100010))
-V2 = list(range(200000, 200020))
-TEST = list(range(400000, 400100))
-TEST_EASY = {0.5: list(range(500000, 500030)), 0.75: list(range(500030, 500060))}
-
 POP = 100
 TRACKS_PER_GEN = 3
-DIFF_STEP = 0.05
+DIFF_STEP = 0.025
 ADVANCE_STREAK = 3
 SNAPSHOT_EVERY = 25
 SNAPSHOT_KEEP = 8          # elites stored per snapshot
@@ -50,6 +47,7 @@ def make_spec(cfg, calib):
 def run(cfg, out_dir):
     os.makedirs(os.path.join(out_dir, "snapshots"), exist_ok=True)
     calib = Calibration.load(CALIBRATION)
+    V1 = load_sets()["V1"]
     spec = make_spec(cfg, calib)
     sizes = layer_sizes(spec.input_dim, cfg["depth"], cfg["width"])
     ss = np.random.SeedSequence(cfg["seed"])
@@ -61,7 +59,7 @@ def run(cfg, out_dir):
         json.dump(cfg, f, indent=1)
 
     pop = Population(POP, sizes, rng=rng_ga)
-    difficulty, streak = 0.0, 0
+    difficulty, streak, last_advance = 0.0, 0, 0
     reached_full_at = None
     best_v1, since_best = -np.inf, 0
     sim_seconds = 0.0
@@ -92,9 +90,10 @@ def run(cfg, out_dir):
                        f"{finished.mean():.3f}", int(all3), f"{sim_seconds:.0f}", f"{time.time() - t_start:.0f}"])
         hist_f.flush()
 
-        if streak >= ADVANCE_STREAK and difficulty < 1.0:
-            difficulty = round(min(1.0, difficulty + DIFF_STEP), 4)
+        if streak >= ADVANCE_STREAK and difficulty < MAX_DIFFICULTY:
+            difficulty = round(min(MAX_DIFFICULTY, difficulty + DIFF_STEP), 4)
             streak = 0
+            last_advance = gen
             if difficulty >= 1.0 and reached_full_at is None:
                 reached_full_at = gen + 1
 
@@ -108,9 +107,11 @@ def run(cfg, out_dir):
             elites.save(os.path.join(out_dir, "snapshots", f"gen_{gen:05d}.npz"),
                         meta={"gen": gen, "difficulty": difficulty, "champion": champ,
                               "v1_scores": score.tolist()})
+            # saturation: only counted once the F1 level (1.0) is reached, and
+            # a curriculum advance also counts as improvement
             if difficulty >= 1.0:
-                if score[champ] > best_v1 + SAT_EPS:
-                    best_v1, since_best = score[champ], 0
+                if score[champ] > best_v1 + SAT_EPS or gen - last_advance < SNAPSHOT_EVERY:
+                    best_v1, since_best = max(best_v1, score[champ]), 0
                 else:
                     since_best += 1
             ev.writerow([gen, difficulty, champ, f"{score[champ]:.2f}",

@@ -110,7 +110,8 @@ def _insert_features(poly, rng, difficulty, width, k=1.0):
     the feature sizes with the lap length (1.0 = a ~3 km lap)."""
     out = []
     n = len(poly)
-    p_feature = 0.45 + 0.4 * difficulty
+    dl, ex = min(difficulty, 1.0), max(difficulty - 1.0, 0.0)   # F1 range / beyond-F1 range
+    p_feature = min(1.0, 0.45 + 0.4 * dl + 0.15 * ex)
     for i in range(n):
         a, b = poly[i], poly[(i + 1) % n]
         out.append(a)
@@ -121,7 +122,7 @@ def _insert_features(poly, rng, difficulty, width, k=1.0):
         u = edge / length
         left = np.array([-u[1], u[0]])          # points into the infield (CCW)
         side = 1.0 if rng.random() < 0.7 else -1.0
-        p_hair = 0.10 + 0.30 * difficulty
+        p_hair = 0.10 + 0.30 * dl + 0.20 * ex
         kind = rng.choice(["hairpin", "chicane", "esses"], p=[p_hair, (1 - p_hair) / 2, (1 - p_hair) / 2])
         c = a + u * length * rng.uniform(0.35, 0.65)
         if kind == "hairpin":
@@ -148,11 +149,13 @@ def _fit_corners(poly, rng, difficulty, width):
     theta = np.abs(turns)
     half_w = width / 2
     # easy tracks only get open corners; hard ones go down to F1 hairpins
-    r_min = max(half_w * 1.4, 12.0) + (1 - difficulty) * 25
+    dl, ex = min(difficulty, 1.0), max(difficulty - 1.0, 0.0)
+    r_min = max(half_w * 1.4, 12.0) + (1 - dl) * 25
     edge_len = np.linalg.norm(np.roll(poly, -1, axis=0) - poly, axis=1)
     # sharp turns tend to get tight radii (hairpins), shallow ones fast sweepers
-    r_lo = r_min + (1 - difficulty) * 15
-    radius = rng.uniform(r_lo, r_lo + 30 + 180 * (1 - theta / np.pi) ** 2)
+    r_lo = r_min + (1 - dl) * 15
+    # beyond F1 (difficulty > 1) the sweepers tighten up as well
+    radius = rng.uniform(r_lo, r_lo + (30 + 180 * (1 - theta / np.pi) ** 2) * (1 - 0.4 * ex))
     tangent = radius * np.tan(theta / 2)
     n = len(poly)
     for _ in range(60):
@@ -174,19 +177,20 @@ def _fit_corners(poly, rng, difficulty, width):
 
 def _build(rng, difficulty, target_length, width):
     # 1. hull of random points -> long straights
-    n_pts = int(rng.integers(9, 15))
+    dl, ex = min(difficulty, 1.0), max(difficulty - 1.0, 0.0)
+    n_pts = int(rng.integers(9, 15)) + int(round(4 * ex))
     pts = rng.uniform([0, 0], [1.7, 1.0], size=(n_pts, 2))
     poly = _convex_hull(pts)
 
     # 2. midpoint displacement, biased inward -> concave sections
-    amp = 0.20 + 0.25 * difficulty
+    amp = 0.20 + 0.25 * dl + 0.10 * ex
     out = []
     for i in range(len(poly)):
         a, b = poly[i], poly[(i + 1) % len(poly)]
         out.append(a)
         edge = b - a
         length = np.linalg.norm(edge)
-        if length > 0.25 and rng.random() < 0.55 + 0.3 * difficulty:
+        if length > 0.25 and rng.random() < 0.55 + 0.3 * dl + 0.1 * ex:
             normal = np.array([-edge[1], edge[0]]) / length
             out.append((a + b) / 2 + normal * rng.uniform(-0.4 * amp, amp) * length)
     poly = np.array(out)
@@ -350,15 +354,20 @@ def track_from_points(points, difficulty=1.0, target_length=1650.0, n_anchors=28
     return track, None
 
 
+MAX_DIFFICULTY = 2.0
+
+
 def track_width(difficulty):
-    # 30 m forgiving road at difficulty 0 down to a real F1 width (15 m) at 1
-    return 30.0 - 15.0 * float(np.clip(difficulty, 0, 1))
+    # 30 m forgiving road at difficulty 0, a real F1 width (15 m) at 1, and a
+    # narrow street circuit (10 m) at 2 - "beyond F1" for the hardest tests
+    d = float(np.clip(difficulty, 0, MAX_DIFFICULTY))
+    return 30.0 - 15.0 * min(d, 1.0) - 5.0 * max(d - 1.0, 0.0)
 
 
 def generate_track(seed=None, difficulty=1.0, length_range=(1500.0, 1800.0), max_attempts=600, **_):
-    """Closed F1-style circuit. difficulty in [0, 1] narrows the road from
+    """Closed F1-style circuit. difficulty in [0, 2]: 0-1 narrows the road from
     30 m to 15 m and adds more / sharper corners."""
-    difficulty = float(np.clip(difficulty, 0.0, 1.0))
+    difficulty = float(np.clip(difficulty, 0.0, MAX_DIFFICULTY))
     width = track_width(difficulty)
     rng = np.random.default_rng(seed)
     for _ in range(max_attempts):

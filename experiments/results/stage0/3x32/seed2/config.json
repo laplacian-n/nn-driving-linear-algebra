@@ -6,7 +6,7 @@
  "depth": 3,
  "width": 32,
  "seed": 2,
- "gens": 600,
+ "gens": 800,
  "saturate": false,
  "max_gens": 3000,
  "layer_sizes": [
@@ -20,13 +20,15 @@
  "preprocessing_params": 34,
  "source_hashes": {
   "__init__.py": "da39a3ee5e6b",
+  "compress.py": "03ea09752f8b",
   "ga.py": "c1bb4049b2ad",
   "inputs.py": "206fd5a16bb2",
   "network.py": "97478a3dcdd0",
   "physics.py": "8c86aef52589",
   "reference.py": "efd3c627ad7a",
-  "sim.py": "02421395da5a",
-  "track.py": "3c3b0198939b",
-  "train.py": "8e64c2359290"
+  "sets.py": "95f9c20e33ce",
+  "sim.py": "5cf5ca175654",
+  "track.py": "2f5edb440929",
+  "train.py": "569ea16eea4e"
  }
 }

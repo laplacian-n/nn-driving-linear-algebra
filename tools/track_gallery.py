@@ -42,6 +42,8 @@ def gallery(diff,seeds,fn,head):
     fig.suptitle(head,fontsize=14,color="#111")
     fig.tight_layout();fig.savefig(fn,dpi=110,facecolor=fig.get_facecolor());plt.close(fig)
 gallery(1.0,range(8),"figures/tracks_d10.png","Difficulty 1.0  (width 15 m, F1)")
+gallery(2.0,range(8),"figures/tracks_d20.png","Difficulty 2.0  (width 10 m, beyond F1)")
+gallery(1.5,range(8),"figures/tracks_d15.png","Difficulty 1.5  (width 12.5 m)")
 gallery(0.5,range(8),"figures/tracks_d05.png","Difficulty 0.5  (width 22.5 m)")
 gallery(0.0,range(8),"figures/tracks_d00.png","Difficulty 0.0  (width 30 m, curriculum start)")
 # hero: one hard circuit, large

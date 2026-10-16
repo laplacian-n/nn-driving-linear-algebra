@@ -75,17 +75,16 @@ def race_score(result, v_ref):
     return 100 * result["frac"] + np.where(result["finished"], 100 * v / v_ref, 0.0)
 
 
-def evaluate(pop, spec, seeds, difficulty=1.0, rng_seed=0, noise=0.02, dropout=0.01):
-    """Every individual of pop on every track in seeds. Returns per-track
-    arrays of shape (n_tracks, pop.n)."""
-    rows = {"score": [], "frac": [], "finished": [], "lap_time": [], "v_ref": []}
-    for i, s in enumerate(seeds):
-        track = get_track(s, difficulty)
-        res = rollout(pop, spec, track, np.random.default_rng([rng_seed, int(s)]), noise=noise, dropout=dropout)
-        vref = reference_speed(s, difficulty)
-        rows["score"].append(race_score(res, vref))
+def evaluate(pop, spec, items, rng_seed=0, noise=0.02, dropout=0.01):
+    """Every individual of pop on every track in items (dicts with seed,
+    difficulty, v_ref - see racing/sets.py). Returns arrays (n_tracks, pop.n)."""
+    rows = {"score": [], "frac": [], "finished": [], "lap_time": []}
+    for it in items:
+        track = get_track(it["seed"], it["difficulty"])
+        res = rollout(pop, spec, track, np.random.default_rng([rng_seed, int(it["seed"])]),
+                      noise=noise, dropout=dropout)
+        rows["score"].append(race_score(res, it["v_ref"]))
         rows["frac"].append(res["frac"])
         rows["finished"].append(res["finished"])
         rows["lap_time"].append(res["lap_time"])
-        rows["v_ref"].append(np.full(pop.n, vref))
     return {k: np.array(v) for k, v in rows.items()}
