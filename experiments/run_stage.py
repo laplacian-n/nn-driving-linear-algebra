@@ -70,9 +70,17 @@ def main():
     ap.add_argument("--rays", type=int, default=17)
     ap.add_argument("--reduction", default=None)
     ap.add_argument("--k", type=int, default=None)
+    ap.add_argument("--largest-first", action="store_true",
+                    help="queue the biggest networks first so the long runs don't trail at the end")
     a = ap.parse_args()
 
     runs = [r for st in a.stages for r in stage_runs(st, a)]
+    if a.largest_first:
+        def size(r):
+            d, w = r["depth"], r["width"]
+            n_in = (r.get("k") or r["rays"]) + 4
+            return (n_in + 1) * (w or 4) + max(d - 1, 0) * (w + 1) * w + (w + 1) * 4 if d else (n_in + 1) * 4
+        runs.sort(key=size, reverse=True)
     todo = [r for r in runs if not os.path.exists(os.path.join(RESULTS, r["name"], f"seed{r['seed']}", "status.json"))]
     print(f"{len(runs)} runs, {len(runs) - len(todo)} already done, {len(todo)} to run, {a.jobs} in parallel",
           flush=True)

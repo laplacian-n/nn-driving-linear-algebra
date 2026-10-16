@@ -1,0 +1,5 @@
+gen,difficulty,champion_rank,v1_score,v1_finish_rate,best_v1_so_far
+25,0.15,0,9.95,0.000,-inf
+50,0.35,2,9.75,0.000,-inf
+75,0.575,2,7.71,0.000,-inf
+100,0.7,2,9.47,0.000,-inf

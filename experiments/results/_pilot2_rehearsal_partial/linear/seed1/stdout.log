@@ -1,0 +1,4 @@
+[stage0/linear s1] gen 25 diff 0.15 V1 9.9 finish 0% (349s)
+[stage0/linear s1] gen 50 diff 0.35 V1 9.7 finish 0% (636s)
+[stage0/linear s1] gen 75 diff 0.57 V1 7.7 finish 0% (985s)
+[stage0/linear s1] gen 100 diff 0.70 V1 9.5 finish 0% (1323s)

@@ -1,0 +1,5 @@
+[stage0/2x16 s2] gen 25 diff 0.17 V1 10.7 finish 0% (286s)
+[stage0/2x16 s2] gen 50 diff 0.38 V1 10.2 finish 0% (560s)
+[stage0/2x16 s2] gen 75 diff 0.53 V1 6.3 finish 0% (845s)
+[stage0/2x16 s2] gen 100 diff 0.60 V1 6.4 finish 0% (1117s)
+[stage0/2x16 s2] gen 125 diff 0.62 V1 8.2 finish 0% (1362s)
