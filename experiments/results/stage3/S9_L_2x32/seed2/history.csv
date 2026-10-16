@@ -1,5 +1,0 @@
-gen,difficulty,best_fitness,mean_fitness,median_fitness,finish_rate,best_finished_all,sim_seconds,wall_seconds
-0,0.0,144.5,32.7,24.5,0.000,0,32,2
-1,0.0,2005.3,111.6,50.6,0.005,0,272,9
-2,0.0,1746.3,336.3,202.0,0.010,0,601,18
-3,0.0,1512.2,683.4,647.0,0.040,0,1081,33

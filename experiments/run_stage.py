@@ -35,6 +35,7 @@ def stage_runs(stage, a):
         cfgs = [("pca", 2, 21), ("pca", 4, 20), ("pca", 8, 19), ("pca", 17, 16), ("random", 4, 20), ("random", 8, 19)]
         return [dict(name=f"stage2/{red}{k}_2x{w}", rays=17, reduction=red, k=k, depth=2, width=w, seed=s, gens=G)
                 for red, k, w in cfgs for s in SEEDS5]
+    seeds = a.seeds or SEEDS5
     if stage == "stage3":
         # five sizes, each ~3x the previous (all 2 hidden layers except Linear,
         # so halving the width of one model gives exactly the next smaller one)
@@ -43,7 +44,7 @@ def stage_runs(stage, a):
         archs = [("XS_linear", 0, 0), ("S_2x8", 2, 8), ("M_2x16", 2, 16), ("L_2x32", 2, 32), ("XL_2x64", 2, 64)]
         return [dict(name=f"stage3/{tag}_{n}", depth=d, width=w, seed=s, gens=G, saturate=True,
                      max_gens=a.max_gens, stations=STATIONS, **inp)
-                for n, d, w in archs for s in SEEDS5]
+                for n, d, w in archs for s in seeds]
     if stage == "stage3b":
         return [dict(name=f"stage3b/S17_2x{w}", rays=17, depth=2, width=w, seed=s, gens=G, saturate=True,
                      max_gens=a.max_gens, stations=STATIONS) for w in (8, 32) for s in SEEDS5]
@@ -72,6 +73,8 @@ def main():
     ap.add_argument("--rays", type=int, default=17)
     ap.add_argument("--reduction", default=None)
     ap.add_argument("--k", type=int, default=None)
+    ap.add_argument("--seeds", type=lambda x: [int(v) for v in x.split(",")], default=None,
+                    help="comma-separated seeds (default 0-4)")
     ap.add_argument("--largest-first", action="store_true",
                     help="queue the biggest networks first so the long runs don't trail at the end")
     a = ap.parse_args()

@@ -1,11 +1,11 @@
 {
- "name": "stage3/S9_M_2x16",
+ "name": "stage3/S9_XL_2x64",
  "rays": 9,
  "reduction": null,
  "k": null,
  "depth": 2,
- "width": 16,
- "seed": 0,
+ "width": 64,
+ "seed": 7,
  "gens": 400,
  "saturate": true,
  "max_gens": 3000,
@@ -16,11 +16,11 @@
  ],
  "layer_sizes": [
   13,
-  16,
-  16,
+  64,
+  64,
   4
  ],
- "params": 564,
+ "params": 5316,
  "preprocessing_params": 18,
  "source_hashes": {
   "__init__.py": "da39a3ee5e6b",
