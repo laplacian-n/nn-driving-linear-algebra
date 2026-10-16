@@ -36,12 +36,14 @@ def stage_runs(stage, a):
         return [dict(name=f"stage2/{red}{k}_2x{w}", rays=17, reduction=red, k=k, depth=2, width=w, seed=s, gens=G)
                 for red, k, w in cfgs for s in SEEDS5]
     if stage == "stage3":
+        # five sizes, each ~3x the previous (all 2 hidden layers except Linear,
+        # so halving the width of one model gives exactly the next smaller one)
         inp = dict(rays=a.rays, reduction=a.reduction, k=a.k)
         tag = f"{a.reduction}{a.k}" if a.reduction else f"S{a.rays}"
-        archs = [(0, 0)] + [(d, w) for d in (1, 2, 3) for w in (4, 8, 16, 32)]
-        return [dict(name=f"stage3/{tag}_{d}x{w}" if d else f"stage3/{tag}_linear", depth=d, width=w, seed=s,
-                     gens=G, saturate=True, max_gens=a.max_gens, stations=STATIONS, **inp)
-                for d, w in archs for s in SEEDS5]
+        archs = [("XS_linear", 0, 0), ("S_2x8", 2, 8), ("M_2x16", 2, 16), ("L_2x32", 2, 32), ("XL_2x64", 2, 64)]
+        return [dict(name=f"stage3/{tag}_{n}", depth=d, width=w, seed=s, gens=G, saturate=True,
+                     max_gens=a.max_gens, stations=STATIONS, **inp)
+                for n, d, w in archs for s in SEEDS5]
     if stage == "stage3b":
         return [dict(name=f"stage3b/S17_2x{w}", rays=17, depth=2, width=w, seed=s, gens=G, saturate=True,
                      max_gens=a.max_gens, stations=STATIONS) for w in (8, 32) for s in SEEDS5]
