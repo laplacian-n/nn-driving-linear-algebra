@@ -24,6 +24,47 @@ import numpy as np
 
 G = 9.81
 
+try:
+    from numba import njit
+
+    @njit(cache=True, fastmath=True)
+    def _raycast_kernel(pos, psi, offsets, left, right, base, w0, w1, max_range):
+        """For every (car, ray): smallest t > 0 with  p + t d = a + u e,
+        0 <= u <= 1, over the nearby wall segments of both walls.
+        det = -dx*ey + dy*ex ;  t = (-wx*ey + wy*ex)/det ;  u = (dx*wy - dy*wx)/det"""
+        n, s = pos.shape[0], offsets.shape[0]
+        m = left.shape[0]
+        out = np.empty((n, s))
+        for i in range(n):
+            px, py = pos[i, 0], pos[i, 1]
+            for k in range(s):
+                ang = psi[i] + offsets[k]
+                dx, dy = np.cos(ang), np.sin(ang)
+                best = max_range
+                for off in range(w0, w1):
+                    j0 = (base[i] + off) % m
+                    j1 = (j0 + 1) % m
+                    for wall in range(2):
+                        if wall == 0:
+                            ax, ay, bx, by = left[j0, 0], left[j0, 1], left[j1, 0], left[j1, 1]
+                        else:
+                            ax, ay, bx, by = right[j0, 0], right[j0, 1], right[j1, 0], right[j1, 1]
+                        ex, ey = bx - ax, by - ay
+                        det = -dx * ey + dy * ex
+                        if abs(det) < 1e-9:
+                            continue
+                        wx, wy = ax - px, ay - py
+                        t = (-wx * ey + wy * ex) / det
+                        if t <= 0.0 or t >= best:
+                            continue
+                        u = (dx * wy - dy * wx) / det
+                        if 0.0 <= u <= 1.0:
+                            best = t
+                out[i, k] = best
+        return out
+except ImportError:  # pragma: no cover - NumPy fallback is used instead
+    _raycast_kernel = None
+
 
 @dataclass(frozen=True)
 class CarParams:
@@ -254,9 +295,18 @@ class CarSwarm:
     # ---------------------------------------------------------------- sensors
     def sensor_distances(self, window=(-6, 80)):
         """Raw range readings (m) of every ray of every car. Ray vs wall
-        segment = a 2x2 linear system per pair (Cramer's rule), batched over
-        (car, ray, nearby wall segment). Only walls within a window of
-        centerline samples around each car are tested."""
+        segment = a 2x2 linear system per pair, solved by Cramer's rule.
+        Only walls within a window of centerline samples around each car are
+        tested. Uses the compiled kernel when numba is available, otherwise
+        the equivalent batched NumPy version."""
+        if _raycast_kernel is not None:
+            t = self.track
+            return _raycast_kernel(self.pos, self.psi, self.sensor_offsets, t["left"], t["right"],
+                                   np.floor(self.idx).astype(np.int64), window[0], window[1],
+                                   float(self.sensor_range))
+        return self._sensor_distances_numpy(window)
+
+    def _sensor_distances_numpy(self, window=(-6, 80)):
         t = self.track
         left, right = t["left"], t["right"]
         n_pts = len(left)
