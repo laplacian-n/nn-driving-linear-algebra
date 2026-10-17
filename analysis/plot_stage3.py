@@ -20,6 +20,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 
 ROOT = style.ROOT
 RES = os.path.join(ROOT, "experiments", "results", "stage3")
+PREFIX, METHOD, XLABEL = "s3", "GA", "Generation"   # switched by --bc
 LEVELS = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0]
 SIZES = [("S9_XS_linear", "XS  Linear", 56), ("S9_S_2x8", "S  2×8", 220),
          ("S9_L_2x32", "L  2×32", 1636), ("S9_XL_2x64", "XL  2×64", 5316)]
@@ -66,7 +67,7 @@ def size_label(key):
 
 
 # ------------------------------------------------------------------ figures
-def fig_station_lines(runs, metric="finished", scale=100, ylabel="Laps finished (%)", name="s3_station_finish.png"):
+def fig_station_lines(runs, metric="finished", scale=100, ylabel="Laps finished (%)", name="station_finish.png"):
     """Skill per station: test taken right after each station (during
     training) vs the final model re-taking every level (after training)."""
     fig, axes = plt.subplots(1, 4, figsize=(13, 3.9), sharey=True)
@@ -87,10 +88,10 @@ def fig_station_lines(runs, metric="finished", scale=100, ylabel="Laps finished 
     if metric == "finished":
         axes[0].set_ylim(0, 105)
     axes[0].legend(loc="lower left", fontsize=8.5)
-    fig.suptitle("Skill at every station: during vs after training (median of seeds, thin lines = single seeds)",
+    fig.suptitle(f"[{METHOD}] Skill at every station: during vs after training (median of seeds, thin lines = single seeds)",
                  x=0.01, ha="left", fontsize=12, fontweight="bold", y=1.04)
     fig.tight_layout()
-    return style.save(fig, name)
+    return style.save(fig, f"{PREFIX}_{name}")
 
 
 def fig_forgetting(runs):
@@ -105,10 +106,10 @@ def fig_forgetting(runs):
     ax.set_xticks(LEVELS, [f"{x:g}" for x in LEVELS])
     ax.set_xlabel("Difficulty level")
     ax.set_ylabel("Change in laps finished (points)")
-    ax.set_title("Forgetting: final model minus station test (below 0 = forgot)")
+    ax.set_title(f"[{METHOD}] Forgetting: final model minus station test (below 0 = forgot)")
     ax.legend(ncol=4, loc="upper left", bbox_to_anchor=(0, -0.16))
     fig.tight_layout()
-    return style.save(fig, "s3_forgetting.png")
+    return style.save(fig, f"{PREFIX}_forgetting.png")
 
 
 def fig_overall(runs):
@@ -127,10 +128,10 @@ def fig_overall(runs):
     ax.set_xticks(range(len(SIZES)), [lab for _, lab, _ in SIZES])
     ax.set_ylim(0, 105)
     ax.set_ylabel("Laps finished, mean of 7 levels (%)")
-    ax.set_title("Overall: bigger is not better, and the big models forget more")
+    ax.set_title(f"[{METHOD}] Overall skill, during vs after training")
     ax.legend(loc="upper left", bbox_to_anchor=(0, -0.1), ncol=2)
     fig.tight_layout()
-    return style.save(fig, "s3_overall.png")
+    return style.save(fig, f"{PREFIX}_overall.png")
 
 
 def fig_learning(runs):
@@ -144,13 +145,13 @@ def fig_learning(runs):
             axes[0].plot(g[3:], sm, color=COLOR[key], lw=1.1, alpha=0.75, label=lab if k == 0 else None)
             axes[1].plot(g, d, color=COLOR[key], lw=1.1, alpha=0.75)
     axes[0].set_ylabel("V1 score (smoothed)")
-    axes[0].set_title("Skill per training round (every 25 generations, one line per seed)")
+    axes[0].set_title(f"[{METHOD}] Skill per training round (V1 score, one line per seed)")
     axes[0].legend(ncol=4, loc="lower right")
     axes[1].set_ylabel("Difficulty")
-    axes[1].set_xlabel("Generation")
+    axes[1].set_xlabel(XLABEL)
     axes[1].set_yticks(LEVELS[::2] + [0])
     fig.tight_layout()
-    return style.save(fig, "s3_learning_curve.png")
+    return style.save(fig, f"{PREFIX}_learning_curve.png")
 
 
 def fig_speed(runs):
@@ -162,10 +163,10 @@ def fig_speed(runs):
     ax.set_xticks(LEVELS, [f"{x:g}" for x in LEVELS])
     ax.set_xlabel("Difficulty level")
     ax.set_ylabel("Lap speed of finished laps (m/s)")
-    ax.set_title("Speed (distance / time) of the final models")
+    ax.set_title(f"[{METHOD}] Speed (distance / time) of the final models")
     ax.legend(ncol=4, loc="upper left", bbox_to_anchor=(0, -0.16))
     fig.tight_layout()
-    return style.save(fig, "s3_speed.png")
+    return style.save(fig, f"{PREFIX}_speed.png")
 
 
 def summary(runs):
@@ -183,17 +184,21 @@ def summary(runs):
                 M = np.array([r[which][m] for r in rs]) * sc
                 out[key][f"{which}_{m}_median_by_level"] = np.round(np.nanmedian(M, 0), 2).tolist()
                 out[key][f"{which}_{m}_mean_per_seed"] = np.round(np.nanmean(M, 1), 2).tolist()
-    with open(os.path.join(ROOT, "data", "stage3_summary.json"), "w") as f:
+    with open(os.path.join(ROOT, "data", f"{PREFIX}_summary.json" if PREFIX != "s3" else "stage3_summary.json"), "w") as f:
         json.dump({"levels": LEVELS, "sizes": out}, f, indent=1)
     return out
 
 
 def main():
+    global RES, PREFIX, METHOD, XLABEL
+    if "--bc" in sys.argv:
+        RES = os.path.join(ROOT, "experiments", "results", "bc")
+        PREFIX, METHOD, XLABEL = "bc", "Behavior cloning + DAgger", "DAgger iteration"
     style.apply()
     runs = load()
     print({k: len(v) for k, v in runs.items()})
     for p in (fig_station_lines(runs),
-              fig_station_lines(runs, "score", 1, "Race score", "s3_station_score.png"),
+              fig_station_lines(runs, "score", 1, "Race score", "station_score.png"),
               fig_forgetting(runs), fig_overall(runs), fig_learning(runs), fig_speed(runs)):
         print(p)
     s = summary(runs)
