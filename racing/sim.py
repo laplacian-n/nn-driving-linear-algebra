@@ -40,6 +40,7 @@ def rollout(pop, spec, track, rng, noise=0.02, dropout=0.01, time_limit=TIME_LIM
     cars = CarSwarm(pop.n, track, num_sensors=spec.num_rays, sensor_noise=noise, dropout=dropout,
                     time_limit=time_limit, rng=rng)
     acts = []
+    drive_time = np.full(pop.n, np.nan)   # when each car stopped (crash, stall, finish or time limit)
     while cars.active.any():
         x = spec.build(cars.sensor_readings(), cars)
         if record_activations:
@@ -48,9 +49,14 @@ def rollout(pop, spec, track, rng, noise=0.02, dropout=0.01, time_limit=TIME_LIM
             acts.append([layer[live] for layer in a])
         else:
             y = pop.forward(x)
+        was = cars.active
         cars.step(*Population.controls(y))
+        drive_time[was & ~cars.active] = cars.time
+    progress = np.minimum(cars.progress, track["length"])
     out = {
-        "progress": np.minimum(cars.progress, track["length"]),
+        "progress": progress,
+        "drive_time": drive_time,
+        "speed": progress / np.maximum(drive_time, 1e-9),   # distance / time actually driven, m/s
         "frac": np.minimum(cars.progress / track["length"], 1.0),
         "finished": cars.finished.copy(),
         "crashed": cars.crashed.copy(),
@@ -78,13 +84,12 @@ def race_score(result, v_ref):
 def evaluate(pop, spec, items, rng_seed=0, noise=0.02, dropout=0.01):
     """Every individual of pop on every track in items (dicts with seed,
     difficulty, v_ref - see racing/sets.py). Returns arrays (n_tracks, pop.n)."""
-    rows = {"score": [], "frac": [], "finished": [], "lap_time": []}
+    rows = {"score": [], "frac": [], "finished": [], "lap_time": [], "speed": []}
     for it in items:
         track = get_track(it["seed"], it["difficulty"])
         res = rollout(pop, spec, track, np.random.default_rng([rng_seed, int(it["seed"])]),
                       noise=noise, dropout=dropout)
         rows["score"].append(race_score(res, it["v_ref"]))
-        rows["frac"].append(res["frac"])
-        rows["finished"].append(res["finished"])
-        rows["lap_time"].append(res["lap_time"])
+        for k in ("frac", "finished", "lap_time", "speed"):
+            rows[k].append(res[k])
     return {k: np.array(v) for k, v in rows.items()}

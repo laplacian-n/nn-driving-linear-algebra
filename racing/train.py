@@ -34,6 +34,22 @@ STATION_PATIENCE = 4       # station: saturated after 4 evaluations (100 gens) w
 STATION_CAP = 600          # station: give up (censored) after this many generations
 
 
+def test_model(path, spec, items, seed):
+    """Champion stored in a station file drives the given (unseen) test tracks."""
+    pop, meta = Population.load(path)
+    r = evaluate(pop.subset([meta["champion"]]), spec, items, rng_seed=777 + seed)
+    return {"model_gen": meta["gen"], "seed": [it["seed"] for it in items],
+            "difficulty": [it["difficulty"] for it in items],
+            "score": r["score"][:, 0].round(2).tolist(), "frac": r["frac"][:, 0].round(4).tolist(),
+            "finished": r["finished"][:, 0].astype(int).tolist(),
+            "speed": r["speed"][:, 0].round(3).tolist(),
+            "lap_time": np.nan_to_num(r["lap_time"][:, 0], nan=-1).round(2).tolist()}
+
+
+def summary(t):
+    return f"finish {np.mean(t['finished']):.0%}  speed {np.mean(t['speed']):.1f} m/s  score {np.mean(t['score']):.1f}"
+
+
 def source_hashes():
     h = {}
     for f in sorted(os.listdir(os.path.join(ROOT, "racing"))):
@@ -53,7 +69,8 @@ def run(cfg, out_dir):
     sets = load_sets()
     V1 = sets["V1"]
     stations = list(cfg.get("stations") or [])
-    station_log = []
+    vs_set = sets["VS7"] if any(abs(x - 0.5) < 1e-6 for x in stations) else sets["VS"]
+    station_log, station_tests = [], []
     st = None                      # state of the station currently being trained, if any
     spec = make_spec(cfg, calib)
     sizes = layer_sizes(spec.input_dim, cfg["depth"], cfg["width"])
@@ -73,7 +90,7 @@ def run(cfg, out_dir):
     hist_f = open(os.path.join(out_dir, "history.csv"), "w", newline="")
     hist = csv.writer(hist_f)
     hist.writerow(["gen", "difficulty", "best_fitness", "mean_fitness", "median_fitness",
-                   "finish_rate", "best_finished_all", "sim_seconds", "wall_seconds"])
+                   "finish_rate", "best_finished_all", "best_speed", "best_frac", "sim_seconds", "wall_seconds"])
     eval_f = open(os.path.join(out_dir, "eval_v1.csv"), "w", newline="")
     ev = csv.writer(eval_f)
     ev.writerow(["gen", "difficulty", "champion_rank", "v1_score", "v1_finish_rate", "best_v1_so_far"])
@@ -86,19 +103,24 @@ def run(cfg, out_dir):
         # not forget them once the curriculum has moved on (pilot v1 finding)
         levels = [difficulty] * (TRACKS_PER_GEN - REHEARSAL) + \
             [float(np.round(rng_tracks.uniform(0, difficulty) / DIFF_STEP) * DIFF_STEP) for _ in range(REHEARSAL)]
-        fits, finished = [], []
+        fits, finished, speeds, fracs = [], [], [], []
         for s, lvl in zip(seeds, levels):
             res = rollout(pop, spec, get_track(int(s), lvl), rng_sensor)
             fits.append(fitness_of(res))
             finished.append(res["finished"])
+            speeds.append(res["speed"])
+            fracs.append(res["frac"])
             sim_seconds += res["sim_time"]
         fit = np.mean(fits, axis=0)
         finished = np.array(finished)
         best = int(np.argmax(fit))
+        best_speed = float(np.mean(np.array(speeds)[:, best]))
+        best_frac = float(np.mean(np.array(fracs)[:, best]))
         all3 = bool(finished[:, best].all())
         streak = streak + 1 if all3 else 0
         hist.writerow([gen, round(difficulty, 3), f"{fit.max():.1f}", f"{fit.mean():.1f}", f"{np.median(fit):.1f}",
-                       f"{finished.mean():.3f}", int(all3), f"{sim_seconds:.0f}", f"{time.time() - t_start:.0f}"])
+                       f"{finished.mean():.3f}", int(all3), f"{best_speed:.2f}", f"{best_frac:.3f}",
+                       f"{sim_seconds:.0f}", f"{time.time() - t_start:.0f}"])
         hist_f.flush()
 
         ceiling = stations[0] if stations else MAX_DIFFICULTY
@@ -137,7 +159,7 @@ def run(cfg, out_dir):
             if st is not None:
                 # station: train at this level until the champion stops improving
                 # on the station's own validation tracks, then keep that model
-                vs = [it for it in sets["VS"] if abs(it["difficulty"] - st["level"]) < 1e-6]
+                vs = [it for it in vs_set if abs(it["difficulty"] - st["level"]) < 1e-6]
                 rs = evaluate(elites, spec, vs, rng_seed=cfg["seed"])
                 sscore = rs["score"].mean(axis=0)
                 sc = int(np.argmax(sscore))
@@ -155,9 +177,27 @@ def run(cfg, out_dir):
                     station_log.append({"level": st["level"], "entered_gen": st["start"], "best_gen": st["best_gen"],
                                         "left_gen": gen, "best_vs": st["best"],
                                         "outcome": "saturated" if st["since"] >= STATION_PATIENCE else "censored"})
+                    # station test: the best model of this station on unseen tracks of this level
+                    path = os.path.join(out_dir, f"station_{st['level']:.2f}.npz")
+                    t = test_model(path, spec, [it for it in sets["T"] if abs(it["difficulty"] - st["level"]) < 1e-6],
+                                   cfg["seed"])
+                    station_tests.append(dict(level=st["level"], left_gen=gen, **t))
+                    with open(os.path.join(out_dir, "station_tests.json"), "w") as f:
+                        json.dump(station_tests, f)
+                    print(f"[{cfg['name']} s{cfg['seed']}] TEST station {st['level']:.2f}: {summary(t)}", flush=True)
                     stations.pop(0)
                     st = None
                     if not stations:
+                        # final re-test: the last model sits every level again (forgetting)
+                        t = test_model(path, spec, sets["T"], cfg["seed"])
+                        with open(os.path.join(out_dir, "final_test.json"), "w") as f:
+                            json.dump(t, f)
+                        d = np.array(t["difficulty"])
+                        for lvl in sorted(set(t["difficulty"])):
+                            m = d == lvl
+                            print(f"[{cfg['name']} s{cfg['seed']}] RETEST {lvl:.2f}: finish "
+                                  f"{np.mean(np.array(t['finished'])[m]):.0%}  speed "
+                                  f"{np.mean(np.array(t['speed'])[m]):.1f} m/s", flush=True)
                         stop_reason = "stations_done"
                         break
             elif cfg.get("saturate") and since_best >= SAT_PATIENCE:

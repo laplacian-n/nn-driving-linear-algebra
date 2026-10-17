@@ -21,6 +21,10 @@ SPEC = {
     # station validation: decides saturation at each curriculum station
     "VS": [(1.0, 130000, 8), (1.5, 140000, 8), (2.0, 150000, 8)],
     "T": [(lvl, 400000 + 1000 * i, 30) for i, lvl in enumerate(TEST_LEVELS)],
+    # station validation for the 7-station curriculum (one station per test
+    # level); 1.0 / 1.5 / 2.0 use the same first seeds as VS
+    "VS7": [(0.5, 160000, 8), (0.75, 170000, 8), (1.0, 130000, 8), (1.25, 180000, 8),
+            (1.5, 140000, 8), (1.75, 190000, 8), (2.0, 150000, 8)],
 }
 
 

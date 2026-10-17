@@ -17,6 +17,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESULTS = os.path.join(ROOT, "experiments", "results")
 SEEDS5 = [0, 1, 2, 3, 4]
 STATIONS = [1.0, 1.5, 2.0]
+STATIONS7 = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0]   # one station per test level (v2.5)
 
 
 def stage_runs(stage, a):
@@ -43,8 +44,8 @@ def stage_runs(stage, a):
         tag = f"{a.reduction}{a.k}" if a.reduction else f"S{a.rays}"
         archs = [("XS_linear", 0, 0), ("S_2x8", 2, 8), ("M_2x16", 2, 16), ("L_2x32", 2, 32), ("XL_2x64", 2, 64)]
         return [dict(name=f"stage3/{tag}_{n}", depth=d, width=w, seed=s, gens=G, saturate=True,
-                     max_gens=a.max_gens, stations=STATIONS, **inp)
-                for n, d, w in archs for s in seeds]
+                     max_gens=a.max_gens, stations=STATIONS7, **inp)
+                for s in seeds for n, d, w in archs]   # seed-major: all five sizes run side by side
     if stage == "stage3b":
         return [dict(name=f"stage3b/S17_2x{w}", rays=17, depth=2, width=w, seed=s, gens=G, saturate=True,
                      max_gens=a.max_gens, stations=STATIONS) for w in (8, 32) for s in SEEDS5]
