@@ -88,5 +88,59 @@ def main():
                   f"  hours {np.median(d['hours']) if d['hours'] else float('nan'):5.2f}")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and "--variants" not in sys.argv:
     main()
+
+
+# ---------------------------------------------------------------- variants
+VARIANTS = [("stage3", "GA"), ("bc_all", "BC, teacher 85% grip"), ("bc_long", "BC, 85% grip, 2x training"),
+            ("bc_t75_long", "BC, 75% grip, 2x training"),
+            ("bc_t65", "BC, teacher 65% grip"), ("bc_t45", "BC, teacher 45% grip")]
+SIZE_COLOR = {key: style.SERIES[i] for i, (key, _, _) in enumerate(SIZES)}
+
+
+def by_level(method, key):
+    """Final re-test finish rate per level, one row per seed."""
+    rows = []
+    for d in sorted(glob.glob(os.path.join(RES, method, key, "seed*"))):
+        p = os.path.join(d, "final_test.json")
+        if os.path.exists(p):
+            ft = json.load(open(p))
+            dif, f = np.array(ft["difficulty"]), np.array(ft["finished"])
+            rows.append([f[dif == l].mean() * 100 for l in sorted(set(ft["difficulty"]))])
+    return np.array(rows)
+
+
+def fig_variants():
+    """One panel per training variant: finish rate per level, one line per size."""
+    present = [(m, lab) for m, lab in VARIANTS if glob.glob(os.path.join(RES, m, "*", "seed*", "final_test.json"))]
+    fig, axes = plt.subplots(1, len(present), figsize=(3.3 * len(present), 3.8), sharey=True)
+    levels = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0]
+    for ax, (m, lab) in zip(np.atleast_1d(axes), present):
+        for key, slab, _ in SIZES:
+            R = by_level(m, key)
+            if len(R):
+                ax.plot(levels, np.median(R, 0), "-o", ms=4, color=SIZE_COLOR[key], label=slab)
+        ax.set_title(lab, fontsize=10)
+        ax.set_xticks(levels[::2], [f"{x:g}" for x in levels[::2]])
+        ax.set_xlabel("Difficulty level")
+    np.atleast_1d(axes)[0].set_ylabel("Laps finished, final model (%)")
+    np.atleast_1d(axes)[0].set_ylim(0, 105)
+    h, l = np.atleast_1d(axes)[0].get_legend_handles_labels()
+    fig.suptitle("Which size wins on the hard tracks? (median of 4 seeds, final re-test)", x=0.01, ha="left",
+                 fontsize=12, fontweight="bold", y=1.03)
+    fig.tight_layout()
+    fig.legend(h, l, loc="upper left", bbox_to_anchor=(0.01, 0.0), ncol=4)
+    return style.save(fig, "cmp_variants_by_level.png")
+
+
+if __name__ == "__main__" and "--variants" in sys.argv:
+    style.apply()
+    print(fig_variants())
+    for m, lab in VARIANTS:
+        for key, slab, _ in SIZES:
+            R = by_level(m, key)
+            if len(R):
+                med = np.median(R, 0)
+                print(f"{m:8s} {slab:10s} n{len(R)} all {np.median(R.mean(1)):5.1f}  hard(1.5-2.0) {med[4:].mean():5.1f}  "
+                      f"by level {np.round(med).astype(int).tolist()}")

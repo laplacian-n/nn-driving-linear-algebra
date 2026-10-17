@@ -123,10 +123,10 @@ class MLP:
         self.b = [b.copy() for b in st[1]]
 
 
-def collect(net, spec, track, rng, expert_drives):
+def collect(net, spec, track, rng, expert_drives, grip_margin=0.85, brake_margin=0.7):
     """One car on one track. Returns inputs and the teacher's labels."""
     cars = CarSwarm(1, track, num_sensors=spec.num_rays, sensor_noise=0.02, dropout=0.01, rng=rng)
-    teacher = ReferenceDriver(track, CarParams())
+    teacher = ReferenceDriver(track, CarParams(), grip_margin=grip_margin, brake_margin=brake_margin)
     X, Y = [], []
     while cars.active.any():
         x = spec.build(cars.sensor_readings(), cars)
@@ -179,12 +179,13 @@ def run(cfg, out_dir):
             levels = [level] * (TRACKS_PER_ITER - REHEARSAL) + \
                 [float(np.round(rng_tracks.uniform(0, level) / 0.025) * 0.025) for _ in range(REHEARSAL)]
             for lvl in levels:
-                X, Y = collect(net, spec, get_track(track_seed, lvl), rng_sensor, expert)
+                X, Y = collect(net, spec, get_track(track_seed, lvl), rng_sensor, expert,
+                               cfg.get("teacher_grip", 0.85), cfg.get("teacher_brake", 0.7))
                 track_seed += 1
                 X_st.append(X)
                 Y_st.append(Y)
             Xa, Ya = np.concatenate(X_all + X_st), np.concatenate(Y_all + Y_st)
-            loss = net.fit(Xa, Ya, STEPS_PER_ITER, rng_batch)
+            loss = net.fit(Xa, Ya, cfg.get("steps", STEPS_PER_ITER), rng_batch)
             pop = net.population()
             r = evaluate(pop, spec, vs, rng_seed=cfg["seed"])
             score = float(r["score"].mean())
@@ -204,7 +205,7 @@ def run(cfg, out_dir):
             ev_f.flush()
             print(f"[bc {cfg['name']} s{cfg['seed']}] station {level:.2f} it {k} samples {len(Xa)} loss {loss:.4f} "
                   f"VS {score:.1f} best {best:.1f} since {since} ({time.time() - t0:.0f}s)", flush=True)
-            if since >= PATIENCE or k >= CAP:
+            if since >= cfg.get("patience", PATIENCE) or k >= CAP:
                 break
         # continue from the best model of this station (as the GA keeps its champion)
         net.load_state(best_state)
@@ -212,7 +213,8 @@ def run(cfg, out_dir):
             X_all += X_st
             Y_all += Y_st
         station_log.append({"level": level, "entered_gen": entered, "best_gen": best_it, "left_gen": it,
-                            "best_vs": best, "outcome": "saturated" if since >= PATIENCE else "censored"})
+                            "best_vs": best, "outcome": "saturated" if since >= cfg.get("patience", PATIENCE)
+                            else "censored"})
         path = os.path.join(out_dir, f"station_{level:.2f}.npz")
         t = test_model(path, spec, [x for x in sets["T"] if abs(x["difficulty"] - level) < 1e-6], cfg["seed"])
         station_tests.append(dict(level=level, left_gen=it, **t))
@@ -238,11 +240,16 @@ def main():
     ap.add_argument("--width", type=int, default=16)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--stations", default="0.5,0.75,1.0,1.25,1.5,1.75,2.0")
+    ap.add_argument("--teacher-grip", type=float, default=0.85, help="share of tyre grip the teacher uses")
+    ap.add_argument("--teacher-brake", type=float, default=0.7)
+    ap.add_argument("--steps", type=int, default=STEPS_PER_ITER)
+    ap.add_argument("--patience", type=int, default=PATIENCE)
     ap.add_argument("--aggregate", default="station", choices=["station", "all"],
                     help="train on this station's data only (like the GA) or on all data so far (standard DAgger)")
     a = ap.parse_args()
     cfg = {"name": a.name, "rays": a.rays, "depth": a.depth, "width": a.width, "seed": a.seed,
-           "stations": [float(x) for x in a.stations.split(",")], "aggregate": a.aggregate}
+           "stations": [float(x) for x in a.stations.split(",")], "aggregate": a.aggregate,
+           "teacher_grip": a.teacher_grip, "teacher_brake": a.teacher_brake, "steps": a.steps, "patience": a.patience}
     run(cfg, os.path.join(ROOT, "experiments", "results", a.name, f"seed{a.seed}"))
 
 
