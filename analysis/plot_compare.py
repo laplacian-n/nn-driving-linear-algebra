@@ -21,7 +21,8 @@ RES = os.path.join(ROOT, "experiments", "results")
 SIZES = [("S9_XS_linear", "XS Linear", 56), ("S9_S_2x8", "S 2×8", 220),
          ("S9_L_2x32", "L 2×32", 1636), ("S9_XL_2x64", "XL 2×64", 5316)]
 METHODS = [("stage3", "GA (trial and error)", style.SERIES[0]),
-           ("bc", "Behavior cloning + DAgger (gradient)", style.SERIES[1])]
+           ("bc", "BC + DAgger, data per station", style.SERIES[1]),
+           ("bc_all", "BC + DAgger, all data kept", style.SERIES[2])]
 
 
 def collect(method, key):
@@ -41,15 +42,15 @@ def collect(method, key):
 
 
 def fig_metric(data, metric, ylabel, title, name, ylim=None):
-    fig, ax = plt.subplots(figsize=(8.2, 4.2))
-    w = 0.36
+    fig, ax = plt.subplots(figsize=(9.0, 4.4))
+    w = 0.27
     for j, (m, lab, color) in enumerate(METHODS):
         xs, meds = [], []
         for i, (key, _, _) in enumerate(SIZES):
             v = np.array(data[m][key][metric], float)
             if not len(v):
                 continue
-            x = i + (j - 0.5) * w
+            x = i + (j - (len(METHODS) - 1) / 2) * w
             med = np.nanmedian(v)
             ax.bar(x, med, w * 0.9, color=color, label=lab if i == 0 else None)
             ax.scatter(np.full(len(v), x), v, s=16, color=style.TEXT, zorder=5, lw=0)
@@ -60,7 +61,7 @@ def fig_metric(data, metric, ylabel, title, name, ylim=None):
     if ylim:
         ax.set_ylim(*ylim)
     ax.set_title(title)
-    ax.legend(loc="upper left", bbox_to_anchor=(0, -0.17), ncol=2)
+    ax.legend(loc="upper left", bbox_to_anchor=(0, -0.17), ncol=3, fontsize=8.5)
     fig.tight_layout()
     return style.save(fig, name)
 

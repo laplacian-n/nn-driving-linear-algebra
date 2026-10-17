@@ -87,10 +87,12 @@ def fig_station_lines(runs, metric="finished", scale=100, ylabel="Laps finished 
     axes[0].set_ylabel(ylabel)
     if metric == "finished":
         axes[0].set_ylim(0, 105)
-    axes[0].legend(loc="lower left", fontsize=8.5)
+
     fig.suptitle(f"[{METHOD}] Skill at every station: during vs after training (median of seeds, thin lines = single seeds)",
                  x=0.01, ha="left", fontsize=12, fontweight="bold", y=1.04)
     fig.tight_layout()
+    h, l = axes[0].get_legend_handles_labels()
+    fig.legend(h, l, loc="upper left", bbox_to_anchor=(0.01, 0.0), ncol=2, fontsize=9)
     return style.save(fig, f"{PREFIX}_{name}")
 
 
@@ -193,7 +195,10 @@ def main():
     global RES, PREFIX, METHOD, XLABEL
     if "--bc" in sys.argv:
         RES = os.path.join(ROOT, "experiments", "results", "bc")
-        PREFIX, METHOD, XLABEL = "bc", "Behavior cloning + DAgger", "DAgger iteration"
+        PREFIX, METHOD, XLABEL = "bc", "Behavior cloning + DAgger, data per station", "DAgger iteration"
+    if "--bc-all" in sys.argv:
+        RES = os.path.join(ROOT, "experiments", "results", "bc_all")
+        PREFIX, METHOD, XLABEL = "bcall", "Behavior cloning + DAgger, all data kept", "DAgger iteration"
     style.apply()
     runs = load()
     print({k: len(v) for k, v in runs.items()})

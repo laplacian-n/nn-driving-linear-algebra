@@ -168,6 +168,7 @@ def run(cfg, out_dir):
     it = 0
     station_log, station_tests = [], []
     track_seed = TRACK_SEED0 + 10000 * cfg["seed"]
+    X_all, Y_all = [], []           # every station's data, kept when aggregate == "all"
     for level in cfg["stations"]:
         vs = [x for x in sets["VS7"] if abs(x["difficulty"] - level) < 1e-6]
         X_st, Y_st = [], []
@@ -182,7 +183,7 @@ def run(cfg, out_dir):
                 track_seed += 1
                 X_st.append(X)
                 Y_st.append(Y)
-            Xa, Ya = np.concatenate(X_st), np.concatenate(Y_st)
+            Xa, Ya = np.concatenate(X_all + X_st), np.concatenate(Y_all + Y_st)
             loss = net.fit(Xa, Ya, STEPS_PER_ITER, rng_batch)
             pop = net.population()
             r = evaluate(pop, spec, vs, rng_seed=cfg["seed"])
@@ -207,6 +208,9 @@ def run(cfg, out_dir):
                 break
         # continue from the best model of this station (as the GA keeps its champion)
         net.load_state(best_state)
+        if cfg.get("aggregate") == "all":   # standard DAgger: the dataset keeps growing over all stations
+            X_all += X_st
+            Y_all += Y_st
         station_log.append({"level": level, "entered_gen": entered, "best_gen": best_it, "left_gen": it,
                             "best_vs": best, "outcome": "saturated" if since >= PATIENCE else "censored"})
         path = os.path.join(out_dir, f"station_{level:.2f}.npz")
@@ -234,9 +238,11 @@ def main():
     ap.add_argument("--width", type=int, default=16)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--stations", default="0.5,0.75,1.0,1.25,1.5,1.75,2.0")
+    ap.add_argument("--aggregate", default="station", choices=["station", "all"],
+                    help="train on this station's data only (like the GA) or on all data so far (standard DAgger)")
     a = ap.parse_args()
     cfg = {"name": a.name, "rays": a.rays, "depth": a.depth, "width": a.width, "seed": a.seed,
-           "stations": [float(x) for x in a.stations.split(",")]}
+           "stations": [float(x) for x in a.stations.split(",")], "aggregate": a.aggregate}
     run(cfg, os.path.join(ROOT, "experiments", "results", a.name, f"seed{a.seed}"))
 
 
