@@ -42,9 +42,9 @@ def stage_runs(stage, a):
         # so halving the width of one model gives exactly the next smaller one)
         inp = dict(rays=a.rays, reduction=a.reduction, k=a.k)
         tag = f"{a.reduction}{a.k}" if a.reduction else f"S{a.rays}"
-        archs = [("XS_linear", 0, 0), ("S_2x8", 2, 8), ("M_2x16", 2, 16), ("L_2x32", 2, 32), ("XL_2x64", 2, 64)]
+        archs = [("XS_linear", 0, 0), ("S_2x8", 2, 8), ("L_2x32", 2, 32), ("XL_2x64", 2, 64)]   # v2.6: M dropped
         return [dict(name=f"stage3/{tag}_{n}", depth=d, width=w, seed=s, gens=G, saturate=True,
-                     max_gens=a.max_gens, stations=STATIONS7, **inp)
+                     max_gens=a.max_gens, stations=STATIONS7, deadline=a.deadline, **inp)
                 for s in seeds for n, d, w in archs]   # seed-major: all five sizes run side by side
     if stage == "stage3b":
         return [dict(name=f"stage3b/S17_2x{w}", rays=17, depth=2, width=w, seed=s, gens=G, saturate=True,
@@ -60,6 +60,8 @@ def command(run):
         cmd += ["--reduction", run["reduction"], "--k", str(run["k"])]
     if run.get("saturate"):
         cmd += ["--saturate", "--max-gens", str(run["max_gens"])]
+    if run.get("deadline"):
+        cmd += ["--deadline", str(run["deadline"])]
     if run.get("stations"):
         cmd += ["--stations", ",".join(str(x) for x in run["stations"])]
     return cmd
@@ -76,6 +78,7 @@ def main():
     ap.add_argument("--k", type=int, default=None)
     ap.add_argument("--seeds", type=lambda x: [int(v) for v in x.split(",")], default=None,
                     help="comma-separated seeds (default 0-4)")
+    ap.add_argument("--deadline", type=float, default=None, help="unix time passed on to every run")
     ap.add_argument("--largest-first", action="store_true",
                     help="queue the biggest networks first so the long runs don't trail at the end")
     a = ap.parse_args()

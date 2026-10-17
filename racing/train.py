@@ -170,13 +170,15 @@ def run(cfg, out_dir):
                                       "vs_scores": sscore.tolist()})
                 else:
                     st["since"] += 1
-                done = st["since"] >= STATION_PATIENCE or gen - st["start"] >= STATION_CAP
+                late = cfg.get("deadline") and time.time() > cfg["deadline"]
+                done = st["since"] >= STATION_PATIENCE or gen - st["start"] >= STATION_CAP or late
                 print(f"[{cfg['name']} s{cfg['seed']}] station {st['level']:.2f} gen {gen} VS {sscore[sc]:.1f} "
                       f"best {st['best']:.1f} since {st['since']}", flush=True)
                 if done:
                     station_log.append({"level": st["level"], "entered_gen": st["start"], "best_gen": st["best_gen"],
                                         "left_gen": gen, "best_vs": st["best"],
-                                        "outcome": "saturated" if st["since"] >= STATION_PATIENCE else "censored"})
+                                        "outcome": "saturated" if st["since"] >= STATION_PATIENCE
+                                        else "deadline" if late else "censored"})
                     # station test: the best model of this station on unseen tracks of this level
                     path = os.path.join(out_dir, f"station_{st['level']:.2f}.npz")
                     t = test_model(path, spec, [it for it in sets["T"] if abs(it["difficulty"] - st["level"]) < 1e-6],
@@ -187,6 +189,8 @@ def run(cfg, out_dir):
                     print(f"[{cfg['name']} s{cfg['seed']}] TEST station {st['level']:.2f}: {summary(t)}", flush=True)
                     stations.pop(0)
                     st = None
+                    if late:   # out of time: skip the remaining stations, go straight to the re-test
+                        stations = []
                     if not stations:
                         # final re-test: the last model sits every level again (forgetting)
                         t = test_model(path, spec, sets["T"], cfg["seed"])
@@ -198,8 +202,17 @@ def run(cfg, out_dir):
                             print(f"[{cfg['name']} s{cfg['seed']}] RETEST {lvl:.2f}: finish "
                                   f"{np.mean(np.array(t['finished'])[m]):.0%}  speed "
                                   f"{np.mean(np.array(t['speed'])[m]):.1f} m/s", flush=True)
-                        stop_reason = "stations_done"
+                        stop_reason = "deadline" if late else "stations_done"
                         break
+            elif cfg.get("deadline") and time.time() > cfg["deadline"] and station_tests:
+                station_log.append({"level": stations[0], "outcome": "deadline_not_reached", "left_gen": gen})
+                path = os.path.join(out_dir, f"station_{station_tests[-1]['level']:.2f}.npz")
+                with open(os.path.join(out_dir, "final_test.json"), "w") as f:
+                    json.dump(test_model(path, spec, sets["T"], cfg["seed"]), f)
+                print(f"[{cfg['name']} s{cfg['seed']}] deadline before station {stations[0]:.2f}; re-tested "
+                      f"station {station_tests[-1]['level']:.2f} model", flush=True)
+                stop_reason = "deadline"
+                break
             elif cfg.get("saturate") and since_best >= SAT_PATIENCE:
                 stop_reason = "saturated"
                 break
@@ -234,11 +247,12 @@ def main():
     ap.add_argument("--saturate", action="store_true")
     ap.add_argument("--max-gens", type=int, default=3000)
     ap.add_argument("--stations", default=None, help="comma-separated station levels, e.g. 1.0,1.5,2.0")
+    ap.add_argument("--deadline", type=float, default=None, help="unix time: finish the current station and re-test")
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
     cfg = {"name": a.name, "rays": a.rays, "reduction": a.reduction, "k": a.k, "depth": a.depth,
            "width": a.width, "seed": a.seed, "gens": a.gens, "saturate": a.saturate, "max_gens": a.max_gens,
-           "stations": [float(x) for x in a.stations.split(",")] if a.stations else None}
+           "stations": [float(x) for x in a.stations.split(",")] if a.stations else None, "deadline": a.deadline}
     out = a.out or os.path.join(ROOT, "experiments", "results", a.name, f"seed{a.seed}")
     run(cfg, out)
 
