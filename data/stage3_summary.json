@@ -1,0 +1,581 @@
+{
+ "levels": [
+  0.5,
+  0.75,
+  1.0,
+  1.25,
+  1.5,
+  1.75,
+  2.0
+ ],
+ "sizes": {
+  "S9_XS_linear": {
+   "label": "XS  Linear",
+   "params": 56,
+   "seeds": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "generations": [
+    1800,
+    1900,
+    1750,
+    1650
+   ],
+   "hours": [
+    9.36,
+    8.69,
+    8.55,
+    7.71
+   ],
+   "outcomes": [
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated"
+   ],
+   "during_finished_median_by_level": [
+    90.0,
+    76.67,
+    88.33,
+    70.0,
+    86.67,
+    80.0,
+    61.67
+   ],
+   "during_finished_mean_per_seed": [
+    76.67,
+    78.57,
+    80.48,
+    74.29
+   ],
+   "during_score_median_by_level": [
+    170.64,
+    145.49,
+    152.87,
+    132.35,
+    154.8,
+    142.02,
+    120.89
+   ],
+   "during_score_mean_per_seed": [
+    136.06,
+    149.93,
+    147.13,
+    141.56
+   ],
+   "during_speed_median_by_level": [
+    35.85,
+    28.75,
+    23.01,
+    23.82,
+    23.33,
+    21.64,
+    22.08
+   ],
+   "during_speed_mean_per_seed": [
+    23.24,
+    27.3,
+    25.2,
+    25.97
+   ],
+   "after_finished_median_by_level": [
+    76.67,
+    73.33,
+    70.0,
+    71.67,
+    71.67,
+    65.0,
+    61.67
+   ],
+   "after_finished_mean_per_seed": [
+    69.05,
+    74.76,
+    70.48,
+    64.76
+   ],
+   "after_score_median_by_level": [
+    147.09,
+    146.38,
+    131.78,
+    137.56,
+    136.6,
+    126.14,
+    120.89
+   ],
+   "after_score_mean_per_seed": [
+    131.1,
+    141.68,
+    138.0,
+    128.95
+   ],
+   "after_speed_median_by_level": [
+    32.37,
+    28.92,
+    25.54,
+    24.87,
+    24.45,
+    23.09,
+    22.08
+   ],
+   "after_speed_mean_per_seed": [
+    24.49,
+    26.11,
+    26.4,
+    25.61
+   ]
+  },
+  "S9_S_2x8": {
+   "label": "S  2\u00d78",
+   "params": 220,
+   "seeds": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "generations": [
+    2350,
+    2175,
+    1725,
+    1775
+   ],
+   "hours": [
+    10.8,
+    10.9,
+    9.5,
+    9.25
+   ],
+   "outcomes": [
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated"
+   ],
+   "during_finished_median_by_level": [
+    91.67,
+    85.0,
+    76.67,
+    65.0,
+    61.67,
+    68.33,
+    88.33
+   ],
+   "during_finished_mean_per_seed": [
+    68.57,
+    72.86,
+    85.71,
+    77.62
+   ],
+   "during_score_median_by_level": [
+    174.47,
+    159.25,
+    134.93,
+    118.91,
+    115.88,
+    122.08,
+    145.32
+   ],
+   "during_score_mean_per_seed": [
+    127.84,
+    136.12,
+    150.97,
+    138.38
+   ],
+   "during_speed_median_by_level": [
+    36.91,
+    28.07,
+    22.1,
+    20.9,
+    21.02,
+    18.07,
+    20.23
+   ],
+   "during_speed_mean_per_seed": [
+    23.24,
+    24.24,
+    23.64,
+    23.52
+   ],
+   "after_finished_median_by_level": [
+    93.33,
+    95.0,
+    63.33,
+    78.33,
+    76.67,
+    86.67,
+    88.33
+   ],
+   "after_finished_mean_per_seed": [
+    88.1,
+    69.05,
+    94.76,
+    74.76
+   ],
+   "after_score_median_by_level": [
+    156.78,
+    152.62,
+    114.79,
+    131.79,
+    129.44,
+    141.05,
+    145.32
+   ],
+   "after_score_mean_per_seed": [
+    138.97,
+    128.23,
+    160.92,
+    131.66
+   ],
+   "after_speed_median_by_level": [
+    30.47,
+    24.1,
+    21.12,
+    21.2,
+    21.01,
+    20.23,
+    20.23
+   ],
+   "after_speed_mean_per_seed": [
+    17.9,
+    22.78,
+    23.7,
+    23.0
+   ]
+  },
+  "S9_L_2x32": {
+   "label": "L  2\u00d732",
+   "params": 1636,
+   "seeds": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "generations": [
+    1725,
+    1525,
+    1925,
+    1800
+   ],
+   "hours": [
+    10.77,
+    9.65,
+    10.58,
+    10.67
+   ],
+   "outcomes": [
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated"
+   ],
+   "during_finished_median_by_level": [
+    91.67,
+    80.0,
+    71.67,
+    78.33,
+    80.0,
+    70.0,
+    75.0
+   ],
+   "during_finished_mean_per_seed": [
+    79.05,
+    80.95,
+    75.71,
+    74.76
+   ],
+   "during_score_median_by_level": [
+    171.25,
+    152.04,
+    125.21,
+    131.71,
+    137.26,
+    125.56,
+    132.46
+   ],
+   "during_score_mean_per_seed": [
+    138.78,
+    143.2,
+    140.94,
+    135.45
+   ],
+   "during_speed_median_by_level": [
+    34.72,
+    29.42,
+    20.95,
+    19.9,
+    19.83,
+    18.45,
+    18.46
+   ],
+   "during_speed_mean_per_seed": [
+    22.21,
+    22.61,
+    24.26,
+    23.53
+   ],
+   "after_finished_median_by_level": [
+    85.0,
+    53.33,
+    55.0,
+    56.67,
+    63.33,
+    80.0,
+    75.0
+   ],
+   "after_finished_mean_per_seed": [
+    80.48,
+    69.05,
+    56.19,
+    61.43
+   ],
+   "after_score_median_by_level": [
+    150.75,
+    100.25,
+    102.73,
+    106.06,
+    117.19,
+    136.04,
+    132.46
+   ],
+   "after_score_mean_per_seed": [
+    135.6,
+    120.25,
+    110.9,
+    112.21
+   ],
+   "after_speed_median_by_level": [
+    28.53,
+    23.76,
+    18.23,
+    18.02,
+    18.96,
+    17.84,
+    18.46
+   ],
+   "after_speed_mean_per_seed": [
+    20.32,
+    19.23,
+    22.53,
+    19.88
+   ]
+  },
+  "S9_XL_2x64": {
+   "label": "XL  2\u00d764",
+   "params": 5316,
+   "seeds": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "generations": [
+    2125,
+    2000,
+    1550,
+    1825
+   ],
+   "hours": [
+    12.48,
+    11.97,
+    11.06,
+    12.99
+   ],
+   "outcomes": [
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated",
+    "saturated"
+   ],
+   "during_finished_median_by_level": [
+    90.0,
+    85.0,
+    68.33,
+    66.67,
+    78.33,
+    51.67,
+    88.33
+   ],
+   "during_finished_mean_per_seed": [
+    65.71,
+    71.9,
+    76.67,
+    86.19
+   ],
+   "during_score_median_by_level": [
+    166.44,
+    158.15,
+    122.99,
+    125.28,
+    134.37,
+    106.71,
+    142.42
+   ],
+   "during_score_mean_per_seed": [
+    121.32,
+    134.74,
+    138.23,
+    145.52
+   ],
+   "during_speed_median_by_level": [
+    34.34,
+    27.05,
+    21.17,
+    21.0,
+    19.25,
+    18.65,
+    17.76
+   ],
+   "during_speed_mean_per_seed": [
+    22.52,
+    24.2,
+    23.05,
+    20.91
+   ],
+   "after_finished_median_by_level": [
+    58.33,
+    55.0,
+    31.67,
+    55.0,
+    65.0,
+    73.33,
+    88.33
+   ],
+   "after_finished_mean_per_seed": [
+    60.48,
+    55.71,
+    76.19,
+    59.05
+   ],
+   "after_score_median_by_level": [
+    115.25,
+    114.05,
+    77.56,
+    106.64,
+    112.73,
+    124.33,
+    142.42
+   ],
+   "after_score_mean_per_seed": [
+    112.1,
+    107.75,
+    127.43,
+    111.13
+   ],
+   "after_speed_median_by_level": [
+    28.24,
+    24.26,
+    17.37,
+    18.31,
+    18.14,
+    15.94,
+    17.76
+   ],
+   "after_speed_mean_per_seed": [
+    20.34,
+    20.45,
+    19.11,
+    19.03
+   ]
+  }
+ }
+}
