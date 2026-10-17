@@ -145,7 +145,7 @@ def run(cfg, out_dir):
     os.makedirs(out_dir, exist_ok=True)
     calib = Calibration.load(CALIBRATION)
     sets = load_sets()
-    spec = InputSpec(cfg["rays"], calib, seed=cfg["seed"])
+    spec = InputSpec(cfg["rays"], calib, reduction=cfg.get("reduction"), k=cfg.get("k"), seed=cfg["seed"])
     sizes = layer_sizes(spec.input_dim, cfg["depth"], cfg["width"])
     ss = np.random.SeedSequence(cfg["seed"])
     rng_init, rng_tracks, rng_sensor, rng_batch = [np.random.default_rng(s) for s in ss.spawn(4)]
@@ -236,6 +236,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", required=True)
     ap.add_argument("--rays", type=int, default=9)
+    ap.add_argument("--reduction", default=None, choices=[None, "pca", "random"])
+    ap.add_argument("--k", type=int, default=None)
     ap.add_argument("--depth", type=int, default=2)
     ap.add_argument("--width", type=int, default=16)
     ap.add_argument("--seed", type=int, default=0)
@@ -247,7 +249,7 @@ def main():
     ap.add_argument("--aggregate", default="station", choices=["station", "all"],
                     help="train on this station's data only (like the GA) or on all data so far (standard DAgger)")
     a = ap.parse_args()
-    cfg = {"name": a.name, "rays": a.rays, "depth": a.depth, "width": a.width, "seed": a.seed,
+    cfg = {"name": a.name, "rays": a.rays, "reduction": a.reduction, "k": a.k, "depth": a.depth, "width": a.width, "seed": a.seed,
            "stations": [float(x) for x in a.stations.split(",")], "aggregate": a.aggregate,
            "teacher_grip": a.teacher_grip, "teacher_brake": a.teacher_brake, "steps": a.steps, "patience": a.patience}
     run(cfg, os.path.join(ROOT, "experiments", "results", a.name, f"seed{a.seed}"))
