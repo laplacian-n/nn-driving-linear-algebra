@@ -87,8 +87,8 @@ def summarize(r, items):
                           for it, fi, s, sc in zip(items, f, sp, r["score"][:, 0])]}
 
 
-def run(seed, deadline, bc_iters=25):
-    out = os.path.join(OUT, f"seed{seed}")
+def run(seed, deadline, bc_iters=25, base_path=BASE, out_root=OUT):
+    out = os.path.join(out_root, f"seed{seed}")
     os.makedirs(out, exist_ok=True)
     log = open(os.path.join(out, "log.txt"), "a")
 
@@ -101,17 +101,19 @@ def run(seed, deadline, bc_iters=25):
     special = build_special()
     sets = load_sets()
     calib = Calibration.load(CALIBRATION)
-    spec = InputSpec(9, calib, seed=seed)
+    bcfg = json.load(open(os.path.join(os.path.dirname(base_path), "config.json")))   # sensors of the base model
+    spec = InputSpec(bcfg["rays"], calib, reduction=bcfg.get("reduction"), k=bcfg.get("k"), seed=seed)
     val = special["val"] + [x for x in sets["VS7"] if x["difficulty"] == 2.0]   # extreme 2.5 / 3.0 + normal 2.0
     rng = np.random.default_rng(seed)
     with open(os.path.join(out, "config.json"), "w") as f:
-        json.dump({"seed": seed, "base": os.path.relpath(BASE, ROOT), "pop": POP, "sigmas": SIGMAS,
+        json.dump({"seed": seed, "base": os.path.relpath(base_path, ROOT),
+                   "rays": bcfg["rays"], "reduction": bcfg.get("reduction"), "k": bcfg.get("k"), "pop": POP, "sigmas": SIGMAS,
                    "bc_iters": bc_iters, "eval_every": EVAL_EVERY, "deadline": deadline,
                    "special_tracks": special["stats"],
                    "source_hashes": source_hashes()}, f, indent=1)
 
     # ---------------------------------------------------------- phase 1: BC
-    base, meta = Population.load(BASE)
+    base, meta = Population.load(base_path)
     w, b = base.get(meta["champion"])
     net = MLP(base.sizes, rng)
     net.load_state((w, b))
@@ -227,12 +229,14 @@ def main():
     ap.add_argument("--deadline", type=float, required=True)
     ap.add_argument("--bc-iters", type=int, default=25)
     ap.add_argument("--build-only", action="store_true")
+    ap.add_argument("--base", default=BASE, help="BC model to start from (its config.json sets the sensors)")
+    ap.add_argument("--out", default=OUT, help="results folder")
     a = ap.parse_args()
     if a.build_only:
         s = build_special()
         print(json.dumps(s["stats"], indent=1))
         return
-    run(a.seed, a.deadline, a.bc_iters)
+    run(a.seed, a.deadline, a.bc_iters, a.base, a.out)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,91 @@
+[ga_sensors/raw17 s2] gen 25 diff 0.17 V1 9.9 finish 0% (296s)
+[ga_sensors/raw17 s2] gen 50 diff 0.38 V1 10.2 finish 0% (637s)
+[ga_sensors/raw17 s2] gen 75 diff 0.50 V1 11.3 finish 0% (960s)
+[ga_sensors/raw17 s2] station 0.50 gen 75 VS 173.1 best 173.1 since 0
+[ga_sensors/raw17 s2] gen 100 diff 0.50 V1 11.6 finish 0% (1316s)
+[ga_sensors/raw17 s2] station 0.50 gen 100 VS 174.0 best 173.1 since 1
+[ga_sensors/raw17 s2] gen 125 diff 0.50 V1 11.5 finish 0% (1676s)
+[ga_sensors/raw17 s2] station 0.50 gen 125 VS 172.0 best 173.1 since 2
+[ga_sensors/raw17 s2] gen 150 diff 0.50 V1 12.2 finish 0% (2049s)
+[ga_sensors/raw17 s2] station 0.50 gen 150 VS 144.3 best 173.1 since 3
+[ga_sensors/raw17 s2] gen 175 diff 0.50 V1 4.4 finish 0% (2414s)
+[ga_sensors/raw17 s2] station 0.50 gen 175 VS 164.9 best 173.1 since 4
+[ga_sensors/raw17 s2] TEST station 0.50: finish 90%  speed 32.0 m/s  score 164.0
+[ga_sensors/raw17 s2] gen 200 diff 0.68 V1 8.8 finish 0% (2781s)
+[ga_sensors/raw17 s2] gen 225 diff 0.75 V1 9.3 finish 0% (3151s)
+[ga_sensors/raw17 s2] station 0.75 gen 225 VS 161.4 best 161.4 since 0
+[ga_sensors/raw17 s2] gen 250 diff 0.75 V1 8.8 finish 0% (3500s)
+[ga_sensors/raw17 s2] station 0.75 gen 250 VS 144.3 best 161.4 since 1
+[ga_sensors/raw17 s2] gen 275 diff 0.75 V1 9.3 finish 0% (3832s)
+[ga_sensors/raw17 s2] station 0.75 gen 275 VS 154.4 best 161.4 since 2
+[ga_sensors/raw17 s2] gen 300 diff 0.75 V1 20.1 finish 8% (4205s)
+[ga_sensors/raw17 s2] station 0.75 gen 300 VS 171.2 best 171.2 since 0
+[ga_sensors/raw17 s2] gen 325 diff 0.75 V1 20.0 finish 8% (4619s)
+[ga_sensors/raw17 s2] station 0.75 gen 325 VS 157.3 best 171.2 since 1
+[ga_sensors/raw17 s2] gen 350 diff 0.75 V1 7.0 finish 0% (5065s)
+[ga_sensors/raw17 s2] station 0.75 gen 350 VS 152.9 best 171.2 since 2
+[ga_sensors/raw17 s2] gen 375 diff 0.75 V1 8.3 finish 0% (5497s)
+[ga_sensors/raw17 s2] station 0.75 gen 375 VS 143.7 best 171.2 since 3
+[ga_sensors/raw17 s2] gen 400 diff 0.75 V1 24.5 finish 8% (5935s)
+[ga_sensors/raw17 s2] station 0.75 gen 400 VS 167.0 best 171.2 since 4
+[ga_sensors/raw17 s2] TEST station 0.75: finish 57%  speed 26.5 m/s  score 114.7
+[ga_sensors/raw17 s2] gen 425 diff 0.88 V1 20.4 finish 8% (6389s)
+[ga_sensors/raw17 s2] gen 450 diff 0.95 V1 24.7 finish 8% (6799s)
+[ga_sensors/raw17 s2] gen 475 diff 1.00 V1 44.9 finish 25% (7223s)
+[ga_sensors/raw17 s2] station 1.00 gen 475 VS 125.8 best 125.8 since 0
+[ga_sensors/raw17 s2] gen 500 diff 1.00 V1 46.3 finish 25% (7682s)
+[ga_sensors/raw17 s2] station 1.00 gen 500 VS 143.3 best 143.3 since 0
+[ga_sensors/raw17 s2] gen 525 diff 1.00 V1 48.0 finish 25% (8147s)
+[ga_sensors/raw17 s2] station 1.00 gen 525 VS 136.2 best 143.3 since 1
+[ga_sensors/raw17 s2] gen 550 diff 1.00 V1 55.7 finish 33% (8645s)
+[ga_sensors/raw17 s2] station 1.00 gen 550 VS 131.1 best 143.3 since 2
+[ga_sensors/raw17 s2] gen 575 diff 1.00 V1 58.2 finish 33% (9177s)
+[ga_sensors/raw17 s2] station 1.00 gen 575 VS 143.5 best 143.3 since 3
+[ga_sensors/raw17 s2] gen 600 diff 1.00 V1 55.3 finish 33% (9684s)
+[ga_sensors/raw17 s2] station 1.00 gen 600 VS 124.7 best 143.3 since 4
+[ga_sensors/raw17 s2] TEST station 1.00: finish 40%  speed 23.9 m/s  score 89.0
+[ga_sensors/raw17 s2] gen 625 diff 1.15 V1 56.0 finish 33% (10185s)
+[ga_sensors/raw17 s2] gen 650 diff 1.25 V1 64.6 finish 33% (10692s)
+[ga_sensors/raw17 s2] station 1.25 gen 650 VS 145.8 best 145.8 since 0
+[ga_sensors/raw17 s2] gen 675 diff 1.25 V1 51.1 finish 25% (11182s)
+[ga_sensors/raw17 s2] station 1.25 gen 675 VS 82.2 best 145.8 since 1
+[ga_sensors/raw17 s2] gen 700 diff 1.25 V1 55.1 finish 33% (11684s)
+[ga_sensors/raw17 s2] station 1.25 gen 700 VS 142.1 best 145.8 since 2
+[ga_sensors/raw17 s2] gen 725 diff 1.25 V1 49.9 finish 25% (12189s)
+[ga_sensors/raw17 s2] station 1.25 gen 725 VS 142.7 best 145.8 since 3
+[ga_sensors/raw17 s2] gen 750 diff 1.25 V1 51.7 finish 25% (12683s)
+[ga_sensors/raw17 s2] station 1.25 gen 750 VS 142.1 best 145.8 since 4
+[ga_sensors/raw17 s2] TEST station 1.25: finish 73%  speed 22.2 m/s  score 122.1
+[ga_sensors/raw17 s2] gen 775 diff 1.43 V1 56.2 finish 25% (13167s)
+[ga_sensors/raw17 s2] gen 800 diff 1.45 V1 86.4 finish 50% (13615s)
+[ga_sensors/raw17 s2] gen 825 diff 1.48 V1 81.8 finish 50% (14228s)
+[ga_sensors/raw17 s2] gen 850 diff 1.50 V1 64.2 finish 33% (14899s)
+[ga_sensors/raw17 s2] station 1.50 gen 850 VS 111.8 best 111.8 since 0
+[ga_sensors/raw17 s2] gen 875 diff 1.50 V1 93.1 finish 50% (15550s)
+[ga_sensors/raw17 s2] station 1.50 gen 875 VS 147.7 best 147.7 since 0
+[ga_sensors/raw17 s2] gen 900 diff 1.50 V1 97.4 finish 58% (16225s)
+[ga_sensors/raw17 s2] station 1.50 gen 900 VS 145.3 best 147.7 since 1
+[ga_sensors/raw17 s2] gen 925 diff 1.50 V1 96.0 finish 58% (16950s)
+[ga_sensors/raw17 s2] station 1.50 gen 925 VS 144.6 best 147.7 since 2
+[ga_sensors/raw17 s2] gen 950 diff 1.50 V1 93.2 finish 50% (17667s)
+[ga_sensors/raw17 s2] station 1.50 gen 950 VS 159.0 best 159.0 since 0
+[ga_sensors/raw17 s2] gen 975 diff 1.50 V1 94.4 finish 50% (18395s)
+[ga_sensors/raw17 s2] station 1.50 gen 975 VS 124.5 best 159.0 since 1
+[ga_sensors/raw17 s2] gen 1000 diff 1.50 V1 115.8 finish 67% (19163s)
+[ga_sensors/raw17 s2] station 1.50 gen 1000 VS 159.0 best 159.0 since 2
+[ga_sensors/raw17 s2] gen 1025 diff 1.50 V1 102.0 finish 50% (19691s)
+[ga_sensors/raw17 s2] station 1.50 gen 1025 VS 145.2 best 159.0 since 3
+[ga_sensors/raw17 s2] gen 1050 diff 1.50 V1 118.2 finish 67% (20166s)
+[ga_sensors/raw17 s2] station 1.50 gen 1050 VS 151.7 best 159.0 since 4
+[ga_sensors/raw17 s2] TEST station 1.50: finish 93%  speed 19.4 m/s  score 152.7
+[ga_sensors/raw17 s2] gen 1075 diff 1.70 V1 91.2 finish 42% (20632s)
+[ga_sensors/raw17 s2] gen 1100 diff 1.75 V1 107.3 finish 58% (21017s)
+[ga_sensors/raw17 s2] station 1.75 gen 1100 VS 135.2 best 135.2 since 0
+[ga_sensors/raw17 s2] TEST station 1.75: finish 83%  speed 19.1 m/s  score 141.0
+[ga_sensors/raw17 s2] RETEST 0.50: finish 100%  speed 27.8 m/s
+[ga_sensors/raw17 s2] RETEST 0.75: finish 97%  speed 22.8 m/s
+[ga_sensors/raw17 s2] RETEST 1.00: finish 67%  speed 21.8 m/s
+[ga_sensors/raw17 s2] RETEST 1.25: finish 47%  speed 23.3 m/s
+[ga_sensors/raw17 s2] RETEST 1.50: finish 67%  speed 21.9 m/s
+[ga_sensors/raw17 s2] RETEST 1.75: finish 83%  speed 19.1 m/s
+[ga_sensors/raw17 s2] RETEST 2.00: finish 20%  speed 14.8 m/s

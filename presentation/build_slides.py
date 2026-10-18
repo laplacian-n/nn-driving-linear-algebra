@@ -87,8 +87,9 @@ def showcase_numbers():
     b, g = best["bc_base"], best["bc_ga"]
     ls = lambda x: f"{x:.1f}" if x else "–"
     return [f"- สนามโหดระดับ 3.0 ที่ไม่เคยเห็น: จบรอบ {100 * b['show']['finish']:.0f}% → {100 * g['show']['finish']:.0f}%",
-            f"- ความเร็วรอบที่จบ {ls(b['show']['lap_speed'])} → {ls(g['show']['lap_speed'])} ม./วิ.",
-            f"- ชุดสอบ T ทุกระดับ: จบรอบ {100 * g['T']['finish']:.0f}%"]
+            f"- ความเร็วรอบที่จบ {ls(b['show']['lap_speed'])} → {ls(g['show']['lap_speed'])} ม./วิ. "
+            f"(ครู {sum(best['teacher_show_v_ref']) / len(best['teacher_show_v_ref']):.1f}) เร็วกว่าครูแล้ว",
+            f"- แต่ลืมสนามปกติบางส่วน: ชุด T {100 * b['T']['finish']:.0f}% → {100 * g['T']['finish']:.0f}%"]
 
 
 def main():

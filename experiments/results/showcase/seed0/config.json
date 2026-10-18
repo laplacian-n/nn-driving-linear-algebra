@@ -1,0 +1,48 @@
+{
+ "seed": 0,
+ "base": "experiments/results/bc_t75_long/S9_XL_2x64/seed0/station_2.00.npz",
+ "pop": 100,
+ "sigmas": [
+  0.003,
+  0.01,
+  0.03
+ ],
+ "bc_iters": 25,
+ "eval_every": 20,
+ "deadline": 1792319400.0,
+ "special_tracks": {
+  "2.5": {
+   "candidates": 200,
+   "drivable": 200,
+   "v_ref_median_all": 28.862818137882453,
+   "v_ref_median_kept": 26.378236090470693
+  },
+  "3.0": {
+   "candidates": 200,
+   "drivable": 166,
+   "v_ref_median_all": 26.986221350392565,
+   "v_ref_median_kept": 24.72283207494218
+  },
+  "show": {
+   "level": 3.0,
+   "candidates": 200,
+   "drivable": 174,
+   "v_ref_median_all": 27.032389349682383
+  }
+ },
+ "source_hashes": {
+  "__init__.py": "da39a3ee5e6b",
+  "bc.py": "6d69c1839ecf",
+  "compress.py": "03ea09752f8b",
+  "ga.py": "c1bb4049b2ad",
+  "inputs.py": "206fd5a16bb2",
+  "network.py": "97478a3dcdd0",
+  "physics.py": "8c86aef52589",
+  "reference.py": "efd3c627ad7a",
+  "sets.py": "31d561d5d75c",
+  "showcase.py": "447a898f0773",
+  "sim.py": "a63120142085",
+  "track.py": "4ee8b2476375",
+  "train.py": "e5d50f718d8f"
+ }
+}

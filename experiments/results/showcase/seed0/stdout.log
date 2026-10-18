@@ -1,0 +1,77 @@
+[12:57:26] phase 1 start: BC base on validation  score 165.6  finish 83%
+[12:57:46] phase 1 BC it 1: loss 0.0596  val score 49.0  finish 17%  best 165.6
+[12:57:54] phase 1 BC it 2: loss 0.0607  val score 54.4  finish 17%  best 165.6
+[12:58:07] phase 1 BC it 3: loss 0.0628  val score 102.0  finish 42%  best 165.6
+[12:58:25] phase 1 BC it 4: loss 0.0640  val score 148.1  finish 71%  best 165.6
+[12:58:40] phase 1 BC it 5: loss 0.0643  val score 126.1  finish 58%  best 165.6
+[12:58:55] phase 1 BC it 6: loss 0.0674  val score 141.9  finish 67%  best 165.6
+[12:59:13] phase 1 BC it 7: loss 0.0682  val score 140.8  finish 67%  best 165.6
+[12:59:30] phase 1 BC it 8: loss 0.0690  val score 166.9  finish 83%  best 166.9
+[12:59:45] phase 1 BC it 9: loss 0.0695  val score 133.0  finish 62%  best 166.9
+[13:00:03] phase 1 BC it 10: loss 0.0698  val score 150.5  finish 71%  best 166.9
+[13:00:21] phase 1 BC it 11: loss 0.0694  val score 150.5  finish 71%  best 166.9
+[13:00:37] phase 1 BC it 12: loss 0.0701  val score 156.8  finish 75%  best 166.9
+[13:00:54] phase 1 BC it 13: loss 0.0690  val score 186.2  finish 96%  best 186.2
+[13:01:09] phase 1 BC it 14: loss 0.0714  val score 112.2  finish 50%  best 186.2
+[13:01:24] phase 1 BC it 15: loss 0.0725  val score 149.0  finish 71%  best 186.2
+[13:01:41] phase 1 BC it 16: loss 0.0725  val score 150.2  finish 71%  best 186.2
+[13:01:58] phase 1 BC it 17: loss 0.0728  val score 144.7  finish 67%  best 186.2
+[13:02:12] phase 1 BC it 18: loss 0.0717  val score 118.2  finish 50%  best 186.2
+[13:02:29] phase 1 BC it 19: loss 0.0712  val score 144.5  finish 67%  best 186.2
+[13:02:49] phase 1 BC it 20: loss 0.0727  val score 147.3  finish 67%  best 186.2
+[13:03:07] phase 1 BC it 21: loss 0.0716  val score 152.5  finish 71%  best 186.2
+[13:03:24] phase 1 BC it 22: loss 0.0712  val score 145.5  finish 67%  best 186.2
+[13:03:42] phase 1 BC it 23: loss 0.0703  val score 147.7  finish 67%  best 186.2
+[13:04:00] phase 1 BC it 24: loss 0.0703  val score 159.3  finish 75%  best 186.2
+[13:04:17] phase 1 BC it 25: loss 0.0727  val score 166.2  finish 79%  best 186.2
+[13:04:17] phase 2 start: GA fine-tuning, population 100, sigmas (0.003, 0.01, 0.03)
+[13:10:08] phase 2 gen 20: best fitness 3264  finish 81%  val 196.0 (finish 100%)  champion 196.0
+[13:15:49] phase 2 gen 40: best fitness 3261  finish 75%  val 190.7 (finish 96%)  champion 196.0
+[13:21:30] phase 2 gen 60: best fitness 3351  finish 79%  val 191.4 (finish 96%)  champion 196.0
+[13:27:03] phase 2 gen 80: best fitness 3297  finish 93%  val 192.3 (finish 96%)  champion 196.0
+[13:32:21] phase 2 gen 100: best fitness 3526  finish 86%  val 194.6 (finish 96%)  champion 196.0
+[13:37:42] phase 2 gen 120: best fitness 2724  finish 71%  val 183.7 (finish 88%)  champion 196.0
+[13:43:00] phase 2 gen 140: best fitness 3358  finish 66%  val 195.0 (finish 96%)  champion 196.0
+[13:48:27] phase 2 gen 160: best fitness 3422  finish 60%  val 189.0 (finish 92%)  champion 196.0
+[13:53:41] phase 2 gen 180: best fitness 3324  finish 79%  val 195.7 (finish 96%)  champion 196.0
+[13:59:02] phase 2 gen 200: best fitness 3299  finish 46%  val 180.1 (finish 88%)  champion 196.0
+[14:04:26] phase 2 gen 220: best fitness 3344  finish 75%  val 190.7 (finish 92%)  champion 196.0
+[14:09:29] phase 2 gen 240: best fitness 3462  finish 82%  val 195.6 (finish 96%)  champion 196.0
+[14:14:53] phase 2 gen 260: best fitness 3391  finish 60%  val 190.3 (finish 92%)  champion 196.0
+[14:20:16] phase 2 gen 280: best fitness 3560  finish 91%  val 189.0 (finish 92%)  champion 196.0
+[14:25:27] phase 2 gen 300: best fitness 2774  finish 54%  val 195.7 (finish 96%)  champion 196.0
+[14:30:41] phase 2 gen 320: best fitness 3617  finish 85%  val 190.1 (finish 92%)  champion 196.0
+[14:35:55] phase 2 gen 340: best fitness 3477  finish 88%  val 201.2 (finish 100%)  champion 201.2
+[14:41:06] phase 2 gen 360: best fitness 3393  finish 86%  val 196.5 (finish 96%)  champion 201.2
+[14:46:02] phase 2 gen 380: best fitness 3471  finish 88%  val 166.0 (finish 75%)  champion 201.2
+[14:51:08] phase 2 gen 400: best fitness 3272  finish 70%  val 189.5 (finish 92%)  champion 201.2
+[14:56:21] phase 2 gen 420: best fitness 3610  finish 82%  val 181.7 (finish 88%)  champion 201.2
+[15:01:36] phase 2 gen 440: best fitness 3475  finish 77%  val 196.3 (finish 96%)  champion 201.2
+[15:07:03] phase 2 gen 460: best fitness 3380  finish 84%  val 184.7 (finish 88%)  champion 201.2
+[15:12:20] phase 2 gen 480: best fitness 3469  finish 78%  val 176.4 (finish 83%)  champion 201.2
+[15:17:33] phase 2 gen 500: best fitness 3538  finish 90%  val 177.5 (finish 83%)  champion 201.2
+[15:22:38] phase 2 gen 520: best fitness 3542  finish 60%  val 182.2 (finish 88%)  champion 201.2
+[15:27:37] phase 2 gen 540: best fitness 3637  finish 36%  val 175.9 (finish 83%)  champion 201.2
+[15:32:38] phase 2 gen 560: best fitness 3593  finish 90%  val 190.5 (finish 92%)  champion 201.2
+[15:37:53] phase 2 gen 580: best fitness 3479  finish 62%  val 185.4 (finish 88%)  champion 201.2
+[15:42:59] phase 2 gen 600: best fitness 3291  finish 83%  val 164.9 (finish 75%)  champion 201.2
+[15:48:10] phase 2 gen 620: best fitness 3408  finish 82%  val 182.4 (finish 88%)  champion 201.2
+[15:53:10] phase 2 gen 640: best fitness 3561  finish 55%  val 169.4 (finish 79%)  champion 201.2
+[15:58:22] phase 2 gen 660: best fitness 3530  finish 66%  val 193.4 (finish 92%)  champion 201.2
+[16:03:37] phase 2 gen 680: best fitness 3576  finish 87%  val 176.2 (finish 83%)  champion 201.2
+[16:10:57] phase 2 gen 700: best fitness 3524  finish 76%  val 166.2 (finish 75%)  champion 201.2
+[16:18:46] phase 2 gen 720: best fitness 3577  finish 86%  val 166.1 (finish 75%)  champion 201.2
+[16:26:32] phase 2 gen 740: best fitness 3451  finish 90%  val 166.1 (finish 75%)  champion 201.2
+[16:33:54] phase 2 gen 760: best fitness 3317  finish 90%  val 177.4 (finish 83%)  champion 201.2
+[16:41:16] phase 2 gen 780: best fitness 3605  finish 79%  val 195.2 (finish 96%)  champion 201.2
+[16:48:21] phase 2 gen 800: best fitness 3483  finish 83%  val 149.0 (finish 67%)  champion 201.2
+[16:55:33] phase 2 gen 820: best fitness 3550  finish 74%  val 177.7 (finish 83%)  champion 201.2
+[17:02:45] phase 2 gen 840: best fitness 3423  finish 46%  val 195.2 (finish 96%)  champion 201.2
+[17:09:59] phase 2 gen 860: best fitness 3586  finish 80%  val 172.3 (finish 79%)  champion 201.2
+[17:16:57] phase 2 gen 880: best fitness 3501  finish 92%  val 176.8 (finish 83%)  champion 201.2
+[17:24:44] phase 2 gen 900: best fitness 3549  finish 90%  val 185.8 (finish 88%)  champion 201.2
+[17:30:16] final tests
+[17:32:52] bc_base     T finish 97%  show finish 35%  show lap speed 20.7 m/s
+[17:34:31] bc_special  T finish 64%  show finish 75%  show lap speed 22.1 m/s
+[17:36:11] bc_ga       T finish 85%  show finish 85%  show lap speed 23.7 m/s
+[17:36:11] done

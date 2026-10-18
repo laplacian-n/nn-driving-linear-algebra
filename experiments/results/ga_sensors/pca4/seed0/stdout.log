@@ -1,0 +1,86 @@
+[ga_sensors/pca4 s0] gen 25 diff 0.17 V1 9.3 finish 0% (372s)
+[ga_sensors/pca4 s0] gen 50 diff 0.40 V1 2.7 finish 0% (728s)
+[ga_sensors/pca4 s0] gen 75 diff 0.50 V1 3.2 finish 0% (1143s)
+[ga_sensors/pca4 s0] station 0.50 gen 75 VS 142.3 best 142.3 since 0
+[ga_sensors/pca4 s0] gen 100 diff 0.50 V1 2.8 finish 0% (1607s)
+[ga_sensors/pca4 s0] station 0.50 gen 100 VS 153.3 best 153.3 since 0
+[ga_sensors/pca4 s0] gen 125 diff 0.50 V1 3.7 finish 0% (2149s)
+[ga_sensors/pca4 s0] station 0.50 gen 125 VS 166.8 best 166.8 since 0
+[ga_sensors/pca4 s0] gen 150 diff 0.50 V1 2.8 finish 0% (2701s)
+[ga_sensors/pca4 s0] station 0.50 gen 150 VS 139.1 best 166.8 since 1
+[ga_sensors/pca4 s0] gen 175 diff 0.50 V1 2.7 finish 0% (3234s)
+[ga_sensors/pca4 s0] station 0.50 gen 175 VS 148.1 best 166.8 since 2
+[ga_sensors/pca4 s0] gen 200 diff 0.50 V1 3.3 finish 0% (3737s)
+[ga_sensors/pca4 s0] station 0.50 gen 200 VS 170.7 best 170.7 since 0
+[ga_sensors/pca4 s0] gen 225 diff 0.50 V1 3.1 finish 0% (4209s)
+[ga_sensors/pca4 s0] station 0.50 gen 225 VS 170.8 best 170.7 since 1
+[ga_sensors/pca4 s0] gen 250 diff 0.50 V1 3.0 finish 0% (4689s)
+[ga_sensors/pca4 s0] station 0.50 gen 250 VS 173.2 best 173.2 since 0
+[ga_sensors/pca4 s0] gen 275 diff 0.50 V1 3.1 finish 0% (5171s)
+[ga_sensors/pca4 s0] station 0.50 gen 275 VS 159.7 best 173.2 since 1
+[ga_sensors/pca4 s0] gen 300 diff 0.50 V1 2.7 finish 0% (5644s)
+[ga_sensors/pca4 s0] station 0.50 gen 300 VS 130.2 best 173.2 since 2
+[ga_sensors/pca4 s0] gen 325 diff 0.50 V1 3.1 finish 0% (6094s)
+[ga_sensors/pca4 s0] station 0.50 gen 325 VS 144.1 best 173.2 since 3
+[ga_sensors/pca4 s0] gen 350 diff 0.50 V1 2.4 finish 0% (6547s)
+[ga_sensors/pca4 s0] station 0.50 gen 350 VS 176.5 best 176.5 since 0
+[ga_sensors/pca4 s0] gen 375 diff 0.50 V1 3.2 finish 0% (7004s)
+[ga_sensors/pca4 s0] station 0.50 gen 375 VS 176.0 best 176.5 since 1
+[ga_sensors/pca4 s0] gen 400 diff 0.50 V1 2.3 finish 0% (7461s)
+[ga_sensors/pca4 s0] station 0.50 gen 400 VS 157.6 best 176.5 since 2
+[ga_sensors/pca4 s0] gen 425 diff 0.50 V1 2.7 finish 0% (7897s)
+[ga_sensors/pca4 s0] station 0.50 gen 425 VS 162.0 best 176.5 since 3
+[ga_sensors/pca4 s0] gen 450 diff 0.50 V1 3.5 finish 0% (8270s)
+[ga_sensors/pca4 s0] station 0.50 gen 450 VS 174.8 best 176.5 since 4
+[ga_sensors/pca4 s0] TEST station 0.50: finish 93%  speed 33.5 m/s  score 169.6
+[ga_sensors/pca4 s0] gen 475 diff 0.70 V1 4.6 finish 0% (8657s)
+[ga_sensors/pca4 s0] gen 500 diff 0.75 V1 5.1 finish 0% (9138s)
+[ga_sensors/pca4 s0] station 0.75 gen 500 VS 172.5 best 172.5 since 0
+[ga_sensors/pca4 s0] gen 525 diff 0.75 V1 6.5 finish 0% (9634s)
+[ga_sensors/pca4 s0] station 0.75 gen 525 VS 170.3 best 172.5 since 1
+[ga_sensors/pca4 s0] gen 550 diff 0.75 V1 5.1 finish 0% (10166s)
+[ga_sensors/pca4 s0] station 0.75 gen 550 VS 171.1 best 172.5 since 2
+[ga_sensors/pca4 s0] gen 575 diff 0.75 V1 3.6 finish 0% (10682s)
+[ga_sensors/pca4 s0] station 0.75 gen 575 VS 168.2 best 172.5 since 3
+[ga_sensors/pca4 s0] gen 600 diff 0.75 V1 4.0 finish 0% (11189s)
+[ga_sensors/pca4 s0] station 0.75 gen 600 VS 166.9 best 172.5 since 4
+[ga_sensors/pca4 s0] TEST station 0.75: finish 83%  speed 26.8 m/s  score 157.4
+[ga_sensors/pca4 s0] gen 625 diff 0.88 V1 3.8 finish 0% (11690s)
+[ga_sensors/pca4 s0] gen 650 diff 0.95 V1 3.7 finish 0% (12110s)
+[ga_sensors/pca4 s0] gen 675 diff 0.97 V1 11.6 finish 0% (12547s)
+[ga_sensors/pca4 s0] gen 700 diff 1.00 V1 51.8 finish 33% (12995s)
+[ga_sensors/pca4 s0] station 1.00 gen 700 VS 122.5 best 122.5 since 0
+[ga_sensors/pca4 s0] gen 725 diff 1.00 V1 42.6 finish 25% (13474s)
+[ga_sensors/pca4 s0] station 1.00 gen 725 VS 140.3 best 140.3 since 0
+[ga_sensors/pca4 s0] gen 750 diff 1.00 V1 42.0 finish 25% (14074s)
+[ga_sensors/pca4 s0] station 1.00 gen 750 VS 125.0 best 140.3 since 1
+[ga_sensors/pca4 s0] gen 775 diff 1.00 V1 42.2 finish 25% (14743s)
+[ga_sensors/pca4 s0] station 1.00 gen 775 VS 125.1 best 140.3 since 2
+[ga_sensors/pca4 s0] gen 800 diff 1.00 V1 51.8 finish 33% (15387s)
+[ga_sensors/pca4 s0] station 1.00 gen 800 VS 134.3 best 140.3 since 3
+[ga_sensors/pca4 s0] gen 825 diff 1.00 V1 42.8 finish 25% (16027s)
+[ga_sensors/pca4 s0] station 1.00 gen 825 VS 126.2 best 140.3 since 4
+[ga_sensors/pca4 s0] TEST station 1.00: finish 73%  speed 21.7 m/s  score 124.8
+[ga_sensors/pca4 s0] gen 850 diff 1.12 V1 41.7 finish 25% (16691s)
+[ga_sensors/pca4 s0] gen 875 diff 1.25 V1 42.8 finish 25% (17364s)
+[ga_sensors/pca4 s0] station 1.25 gen 875 VS 125.7 best 125.7 since 0
+[ga_sensors/pca4 s0] gen 900 diff 1.25 V1 41.4 finish 25% (18021s)
+[ga_sensors/pca4 s0] station 1.25 gen 900 VS 121.5 best 125.7 since 1
+[ga_sensors/pca4 s0] gen 925 diff 1.25 V1 71.5 finish 42% (18817s)
+[ga_sensors/pca4 s0] station 1.25 gen 925 VS 121.5 best 125.7 since 2
+[ga_sensors/pca4 s0] gen 950 diff 1.25 V1 43.3 finish 25% (19477s)
+[ga_sensors/pca4 s0] station 1.25 gen 950 VS 107.5 best 125.7 since 3
+[ga_sensors/pca4 s0] gen 975 diff 1.25 V1 54.3 finish 33% (19944s)
+[ga_sensors/pca4 s0] station 1.25 gen 975 VS 150.0 best 150.0 since 0
+[ga_sensors/pca4 s0] gen 1000 diff 1.25 V1 54.3 finish 33% (20446s)
+[ga_sensors/pca4 s0] station 1.25 gen 1000 VS 166.2 best 166.2 since 0
+[ga_sensors/pca4 s0] gen 1025 diff 1.25 V1 53.3 finish 25% (20895s)
+[ga_sensors/pca4 s0] station 1.25 gen 1025 VS 154.4 best 166.2 since 1
+[ga_sensors/pca4 s0] TEST station 1.25: finish 97%  speed 21.7 m/s  score 159.4
+[ga_sensors/pca4 s0] RETEST 0.50: finish 93%  speed 33.0 m/s
+[ga_sensors/pca4 s0] RETEST 0.75: finish 83%  speed 25.3 m/s
+[ga_sensors/pca4 s0] RETEST 1.00: finish 97%  speed 22.0 m/s
+[ga_sensors/pca4 s0] RETEST 1.25: finish 97%  speed 21.7 m/s
+[ga_sensors/pca4 s0] RETEST 1.50: finish 0%  speed 24.5 m/s
+[ga_sensors/pca4 s0] RETEST 1.75: finish 0%  speed 25.1 m/s
+[ga_sensors/pca4 s0] RETEST 2.00: finish 0%  speed 26.7 m/s

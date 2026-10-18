@@ -1,0 +1,44 @@
+{
+ "name": "ga_sensors/pca4",
+ "rays": 17,
+ "reduction": "pca",
+ "k": 4,
+ "depth": 2,
+ "width": 8,
+ "seed": 1,
+ "gens": 300,
+ "saturate": true,
+ "max_gens": 6000,
+ "stations": [
+  0.5,
+  0.75,
+  1.0,
+  1.25,
+  1.5,
+  1.75,
+  2.0
+ ],
+ "deadline": 1792321200.0,
+ "layer_sizes": [
+  8,
+  8,
+  8,
+  4
+ ],
+ "params": 180,
+ "preprocessing_params": 102,
+ "source_hashes": {
+  "__init__.py": "da39a3ee5e6b",
+  "bc.py": "59646ab7216b",
+  "compress.py": "03ea09752f8b",
+  "ga.py": "c1bb4049b2ad",
+  "inputs.py": "206fd5a16bb2",
+  "network.py": "97478a3dcdd0",
+  "physics.py": "8c86aef52589",
+  "reference.py": "efd3c627ad7a",
+  "sets.py": "31d561d5d75c",
+  "sim.py": "a63120142085",
+  "track.py": "2f5edb440929",
+  "train.py": "e5d50f718d8f"
+ }
+}
