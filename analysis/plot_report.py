@@ -254,7 +254,84 @@ def forgetting():
     print(style.save(fig, "rep_forgetting.png"))
 
 
+def read_csv(path):
+    import csv
+    return list(csv.DictReader(open(path)))
+
+
+def learning():
+    thai()
+    fig, axes = plt.subplots(2, 2, figsize=(12, 6.2), sharex="col", gridspec_kw={"height_ratios": [3, 1.1]})
+    names = {"S9_XS_linear": "XS", "S9_S_2x8": "S 2×8", "S9_L_2x32": "L 2×32", "S9_XL_2x64": "XL 2×64"}
+    for col, (stage, title, xlabel, win) in enumerate([
+            ("stage3", "Genetic Algorithm", "รุ่น (generation)", 9),
+            ("bc_t75_long", "เรียนจากครู (ครูใช้ยาง 75%)", "รอบการฝึก DAgger", 5)]):
+        for k, (size, name) in enumerate(names.items()):
+            color = style.SERIES[k]
+            curves = []
+            for f in sorted(glob.glob(os.path.join(RES, stage, size, "seed*", "eval_v1.csv"))):
+                rows = read_csv(f)
+                x = np.array([float(r["gen"]) for r in rows])
+                y = 100 * np.array([float(r["v1_finish_rate"]) for r in rows])
+                dif = np.array([float(r["difficulty"]) for r in rows])
+                if len(y) >= win:
+                    y = np.convolve(y, np.ones(win) / win, mode="valid")
+                    x2 = x[win // 2: win // 2 + len(y)]
+                else:
+                    x2 = x
+                axes[0, col].plot(x2, y, color=color, lw=0.7, alpha=0.25)
+                curves.append((x2, y, x, dif))
+            top = min(c[0][-1] for c in curves)
+            grid = np.linspace(min(c[0][0] for c in curves), top, 200)
+            med = np.median([np.interp(grid, c[0], c[1]) for c in curves], axis=0)
+            axes[0, col].plot(grid, med, color=color, lw=2.4, label=name)
+            gd = np.linspace(0, min(c[2][-1] for c in curves), 200)
+            axes[1, col].plot(gd, np.median([np.interp(gd, c[2], c[3]) for c in curves], axis=0), color=color, lw=1.8)
+        axes[0, col].set_title(title)
+        axes[0, col].set_ylim(-3, 103)
+        axes[1, col].set_xlabel(xlabel)
+        axes[1, col].set_ylim(0, 2.1)
+    axes[0, 0].set_ylabel("จบรอบสนาม validation (%)")
+    axes[1, 0].set_ylabel("ระดับความยาก")
+    axes[0, 1].legend(loc="lower right", title="เส้นหนา = ค่ามัธยฐาน 4 seed")
+    fig.suptitle("กราฟการเรียนรู้ระหว่างฝึก: ความเก่งบนสนาม validation และระดับความยากของหลักสูตร", x=0.01, ha="left",
+                 fontsize=13, fontweight="bold")
+    fig.tight_layout()
+    print(style.save(fig, "rep_learning.png"))
+
+
+def showcase_training():
+    thai()
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4.2), sharey=True, gridspec_kw={"width_ratios": [1, 2.2]})
+    runs = sorted(glob.glob(os.path.join(RES, "showcase_pca8", "seed*")))
+    for k, d in enumerate(runs):
+        color = style.SERIES[k]
+        r1 = read_csv(os.path.join(d, "phase1_bc.csv"))
+        axes[0].plot([int(r["iter"]) for r in r1], [float(r["val_score"]) for r in r1], color=color, lw=0.8, alpha=0.4)
+        axes[0].plot([int(r["iter"]) for r in r1], [float(r["best"]) for r in r1], color=color, lw=2.4,
+                     label=os.path.basename(d))
+        r2 = [r for r in read_csv(os.path.join(d, "phase2_ga.csv")) if r["val_score"]]
+        axes[1].plot([int(r["gen"]) for r in r2], [float(r["val_score"]) for r in r2], color=color, lw=0.8, alpha=0.4)
+        axes[1].plot([int(r["gen"]) for r in r2], [float(r["champion_score"]) for r in r2], color=color, lw=2.4)
+    axes[0].set_title("ระยะที่ 1: เรียนจากครูบนสนามพิเศษ")
+    axes[0].set_xlabel("รอบการฝึก DAgger")
+    axes[0].set_ylabel("คะแนน validation (สนามระดับ 2.0–3.0)")
+    axes[1].set_title("ระยะที่ 2: Genetic Algorithm ฝึกต่อเอง")
+    axes[1].set_xlabel("รุ่น (generation)")
+    axes[1].legend(loc="lower right", ncol=3, title="เส้นหนา = ตัวที่ดีที่สุดที่เก็บไว้, เส้นบาง = ตัวปัจจุบัน")
+    fig.tight_layout()
+    print(style.save(fig, "rep_showcase_training.png"))
+
+
 if __name__ == "__main__":
+    learning()
+    showcase_training()
+    method_size()
+    showcase()
+    geometry()
+    sensors()
+    compression()
+    forgetting()
     method_size()
     showcase()
     geometry()
