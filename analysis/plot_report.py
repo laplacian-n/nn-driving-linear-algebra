@@ -312,7 +312,8 @@ def showcase_training():
                      label=os.path.basename(d))
         r2 = [r for r in read_csv(os.path.join(d, "phase2_ga.csv")) if r["val_score"]]
         axes[1].plot([int(r["gen"]) for r in r2], [float(r["val_score"]) for r in r2], color=color, lw=0.8, alpha=0.4)
-        axes[1].plot([int(r["gen"]) for r in r2], [float(r["champion_score"]) for r in r2], color=color, lw=2.4)
+        axes[1].plot([int(r["gen"]) for r in r2], [float(r["champion_score"]) for r in r2], color=color, lw=2.4,
+                     label=os.path.basename(d) + (" (SHOW)" if d.endswith("seed2") else ""))
     axes[0].set_title("ระยะที่ 1: เรียนจากครูบนสนามพิเศษ")
     axes[0].set_xlabel("รอบการฝึก DAgger")
     axes[0].set_ylabel("คะแนน validation (สนามระดับ 2.0–3.0)")
