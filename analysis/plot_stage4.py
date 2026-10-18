@@ -66,16 +66,19 @@ def fig_pareto(src, comp, trained):
         ax.plot(x, y, "-o", color=color, label=lab, ms=6, zorder=3)
         if m == "quantise":
             for n, xi, yi in zip(names, x, y):
-                ax.annotate(f"{comp[n][0]['bits']} bit", (xi, yi), xytext=(5, -11), textcoords="offset points",
-                            fontsize=8, color=style.TEXT_2)
+                if yi >= 5:   # points on the zero line stay unlabeled (they would pile up)
+                    ax.annotate(f"{comp[n][0]['bits']} bit", (xi, yi), xytext=(-7, 0), textcoords="offset points",
+                                fontsize=8, color=style.TEXT_2, ha="right", va="center")
         elif m == "low_rank":
             for n, xi, yi in zip(names, x, y):
-                ax.annotate(f"rank {n[7:]}", (xi, yi), xytext=(5, 5), textcoords="offset points",
-                            fontsize=8, color=style.TEXT_2)
+                if yi >= 5:
+                    ax.annotate(f"rank {n[7:]}", (xi, yi), xytext=(5, 5), textcoords="offset points",
+                                fontsize=8, color=style.TEXT_2)
         elif m == "prune_ls":
             for n, xi, yi in zip(names, x, y):
-                ax.annotate(f"width {comp[n][0]['width']}", (xi, yi), xytext=(5, 5), textcoords="offset points",
-                            fontsize=8, color=style.TEXT_2)
+                if yi >= 5:
+                    ax.annotate(f"width {comp[n][0]['width']}", (xi, yi), xytext=(5, 5), textcoords="offset points",
+                                fontsize=8, color=style.TEXT_2)
     o = comp["original"]
     ax.scatter([o[0]["size_bits"] / 1000], [np.median(finish(o))], marker="D", s=70, color=style.TEXT, zorder=5,
                label=f"Original {SRC_LABEL[src]} (32-bit)")
@@ -85,8 +88,8 @@ def fig_pareto(src, comp, trained):
                label="Trained from scratch (32-bit)")
     for t in trained.values():
         if t["finish"]:
-            ax.annotate(t["label"], (t["kbit"], np.median(t["finish"])), xytext=(0, 10), textcoords="offset points",
-                        ha="center", fontsize=8.5, color=style.TEXT)
+            ax.annotate(t["label"], (t["kbit"], np.median(t["finish"])), xytext=(0, -13), textcoords="offset points",
+                        ha="center", va="top", fontsize=8.5, color=style.TEXT)
     ax.set_xscale("log")
     ax.set_xlabel("Model size (kilobits, log scale)")
     ax.set_ylabel("Laps finished on test T (%)")
