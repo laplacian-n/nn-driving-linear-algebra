@@ -74,13 +74,14 @@ def slide(prs, title, bullets=(), image=None, n=None, split=0.42, note=None, sta
 
 
 def showcase_numbers():
-    d = os.path.join(ROOT, "experiments", "results", "showcase")
+    d = os.path.join(ROOT, "experiments", "results", "showcase_pca8")
     best = None
     for seed in sorted(os.listdir(d)) if os.path.exists(d) else []:
         p = os.path.join(d, seed, "final.json")
         if os.path.exists(p):
             r = json.load(open(p))
-            if best is None or r["bc_ga"]["show"]["score"] > best["bc_ga"]["show"]["score"]:
+            key = lambda x: (x["bc_ga"]["show"]["finish"], x["bc_ga"]["T"]["finish"])
+            if best is None or key(r) > key(best):
                 best = r
     if not best:
         return ["- ผลกำลังรอการฝึกเสร็จ"]
@@ -162,7 +163,7 @@ def main():
     ], "s4bc_pareto_XL.png", n=nxt())
 
     slide(prs, "โมเดลตัวโชว์: สนามโหดระดับ 3.0", [
-        "- XL + เรียนจากครู → เรียนต่อบนสนามถนนกว้าง 7 เมตร → GA ฝึกต่อเอง",
+        "- XL, 17 รังสี + PCA 8: เรียนจากครู → เรียนต่อบนสนามถนนกว้าง 7 เมตร → GA ฝึกต่อเอง",
         *showcase_numbers(),
     ], "tracks_d30.png", n=nxt())
 

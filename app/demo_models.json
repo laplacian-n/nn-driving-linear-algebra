@@ -1,5 +1,7 @@
 [
- {"name": "SHOW  XL 2x64  teacher + GA, extreme tracks", "run": "experiments/results/showcase/seed0", "snapshot": "experiments/results/showcase/seed0/bc_ga.npz"},
+ {"name": "SHOW  XL 2x64  17 rays + PCA 8, teacher + GA (fastest)", "run": "experiments/results/showcase_pca8/seed2", "snapshot": "experiments/results/showcase_pca8/seed2/bc_ga.npz"},
+ {"name": "SHOW  XL 2x64  17 rays + PCA 8, teacher only (safest)", "run": "experiments/results/showcase_pca8/seed2", "snapshot": "experiments/results/showcase_pca8/seed2/bc_special.npz"},
+ {"name": "SHOW  XL 2x64  9 rays, teacher + GA", "run": "experiments/results/showcase/seed0", "snapshot": "experiments/results/showcase/seed0/bc_ga.npz"},
  {"name": "XL 2x64  learned from teacher (75% grip)", "run": "experiments/results/bc_t75_long/S9_XL_2x64/seed1", "snapshot": "experiments/results/bc_t75_long/S9_XL_2x64/seed1/station_2.00.npz"},
  {"name": "XL 2x64  learned from careful teacher (45%)", "run": "experiments/results/bc_t45/S9_XL_2x64/seed1", "snapshot": "experiments/results/bc_t45/S9_XL_2x64/seed1/station_2.00.npz"},
  {"name": "S 2x8  learned from teacher (75% grip)", "run": "experiments/results/bc_t75_long/S9_S_2x8/seed2", "snapshot": "experiments/results/bc_t75_long/S9_S_2x8/seed2/station_2.00.npz"},
