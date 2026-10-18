@@ -123,17 +123,29 @@ def run(seed, deadline, bc_iters=25):
         wr.writerow(["iter", "samples", "train_loss", "val_score", "val_finish", "best"])
         X_all, Y_all = [], []
         best, best_state = s0[0], net.state()
+
+        def special_track():
+            item = special["train"][rng.integers(len(special["train"]))]
+            return get_track(item["seed"], item["difficulty"])
+
+        def rehearsal_track():
+            return get_track(int(rng.integers(900000, 990000)), float(np.round(rng.uniform(0, 3) / 0.025) * 0.025))
+
+        # fine-tuning a trained network on a little new data overwrites it (first
+        # attempt: validation 166 -> 8 after one iteration), so start from a broad
+        # teacher-driven dataset over all levels and use a 10x smaller learning rate
+        for k in range(16):
+            X, Y = collect(net, spec, special_track() if k < 8 else rehearsal_track(), rng, expert_drives=True,
+                           grip_margin=0.75, brake_margin=0.62)
+            X_all.append(X)
+            Y_all.append(Y)
         for it in range(1, bc_iters + 1):
-            for k in range(4):   # 3 special training tracks + 1 rehearsal track anywhere in [0, 2]
-                if k < 3:
-                    item = special["train"][rng.integers(len(special["train"]))]
-                    track = get_track(item["seed"], item["difficulty"])
-                else:
-                    track = get_track(int(rng.integers(900000, 990000)), float(np.round(rng.uniform(0, 3) / 0.025) * 0.025))
-                X, Y = collect(net, spec, track, rng, expert_drives=(it == 1), grip_margin=0.75, brake_margin=0.62)
+            for k in range(6):   # 4 special training tracks + 2 rehearsal tracks anywhere in [0, 3], network drives
+                X, Y = collect(net, spec, special_track() if k < 4 else rehearsal_track(), rng, expert_drives=False,
+                               grip_margin=0.75, brake_margin=0.62)
                 X_all.append(X)
                 Y_all.append(Y)
-            loss = net.fit(np.concatenate(X_all), np.concatenate(Y_all), 3000, rng)
+            loss = net.fit(np.concatenate(X_all), np.concatenate(Y_all), 2000, rng, lr=3e-4)
             s, f, _ = score_on(net.population(), spec, val, seed)
             if s[0] > best:
                 best, best_state = s[0], net.state()

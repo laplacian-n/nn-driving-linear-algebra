@@ -1,0 +1,11 @@
+[
+ {"name": "SHOW  XL 2x64  teacher + GA, extreme tracks", "run": "experiments/results/showcase/seed0", "snapshot": "experiments/results/showcase/seed0/bc_ga.npz"},
+ {"name": "XL 2x64  learned from teacher (75% grip)", "run": "experiments/results/bc_t75_long/S9_XL_2x64/seed1", "snapshot": "experiments/results/bc_t75_long/S9_XL_2x64/seed1/station_2.00.npz"},
+ {"name": "XL 2x64  learned from careful teacher (45%)", "run": "experiments/results/bc_t45/S9_XL_2x64/seed1", "snapshot": "experiments/results/bc_t45/S9_XL_2x64/seed1/station_2.00.npz"},
+ {"name": "S 2x8  learned from teacher (75% grip)", "run": "experiments/results/bc_t75_long/S9_S_2x8/seed2", "snapshot": "experiments/results/bc_t75_long/S9_S_2x8/seed2/station_2.00.npz"},
+ {"name": "XS Linear  learned from teacher", "run": "experiments/results/bc_t75_long/S9_XS_linear/seed0", "snapshot": "experiments/results/bc_t75_long/S9_XS_linear/seed0/station_2.00.npz"},
+ {"name": "L 2x32  PCA 4 inputs from 17 rays", "run": "experiments/results/sensors/pca4/seed2", "snapshot": "experiments/results/sensors/pca4/seed2/station_2.00.npz"},
+ {"name": "S 2x8  genetic algorithm (self-taught)", "run": "experiments/results/stage3/S9_S_2x8/seed0", "snapshot": "experiments/results/stage3/S9_S_2x8/seed0/station_2.00.npz"},
+ {"name": "XL 2x64  genetic algorithm (self-taught)", "run": "experiments/results/stage3/S9_XL_2x64/seed0", "snapshot": "experiments/results/stage3/S9_XL_2x64/seed0/station_2.00.npz"},
+ {"name": "XS Linear  genetic algorithm (self-taught)", "run": "experiments/results/stage3/S9_XS_linear/seed2", "snapshot": "experiments/results/stage3/S9_XS_linear/seed2/station_2.00.npz"}
+]

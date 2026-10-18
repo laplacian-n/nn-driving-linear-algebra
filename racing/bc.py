@@ -101,12 +101,12 @@ class MLP:
             v += (1 - b2) * g * g
             p -= lr * (m / (1 - b1 ** self.t)) / (np.sqrt(v / (1 - b2 ** self.t)) + eps)
 
-    def fit(self, X, Y, steps, rng):
+    def fit(self, X, Y, steps, rng, lr=LR):
         losses = []
         for _ in range(steps):
             idx = rng.integers(0, len(X), min(BATCH, len(X)))
             loss, g = self.loss_grad(X[idx], Y[idx])
-            self.adam(g, LR)
+            self.adam(g, lr)
             losses.append(loss)
         return float(np.mean(losses[-100:]))
 

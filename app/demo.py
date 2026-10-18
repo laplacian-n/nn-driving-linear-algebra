@@ -16,7 +16,7 @@ import pygame
 from app import render as R
 from app.models import Driver, ROOT, list_runs
 from app.viewer import Session
-from racing.track import track_from_points
+from racing.track import track_from_points, track_width
 
 RESULTS = os.path.join(ROOT, "data", "demo_results.csv")
 PRESETS = os.path.join(ROOT, "app", "demo_models.json")
@@ -100,8 +100,9 @@ class TextInput:
 
 
 class Slider:
-    def __init__(self, rect, value=1.0):
+    def __init__(self, rect, value=1.0, vmax=1.0, step=0.05):
         self.rect, self.value, self.drag = pygame.Rect(rect), value, False
+        self.vmax, self.step = vmax, step
 
     def handle(self, e):
         if e.type == pygame.MOUSEBUTTONDOWN and self.rect.inflate(0, 20).collidepoint(e.pos):
@@ -109,12 +110,13 @@ class Slider:
         if e.type == pygame.MOUSEBUTTONUP:
             self.drag = False
         if (e.type == pygame.MOUSEMOTION and self.drag) or (e.type == pygame.MOUSEBUTTONDOWN and self.drag):
-            self.value = round(float(np.clip((e.pos[0] - self.rect.x) / self.rect.width, 0, 1)) * 20) / 20
+            frac = float(np.clip((e.pos[0] - self.rect.x) / self.rect.width, 0, 1))
+            self.value = round(frac * self.vmax / self.step) * self.step
 
     def draw(self, surf, fonts):
         pygame.draw.rect(surf, (40, 44, 53), self.rect, border_radius=4)
         fill = self.rect.copy()
-        fill.width = int(self.rect.width * self.value)
+        fill.width = int(self.rect.width * self.value / self.vmax)
         pygame.draw.rect(surf, R.ACCENT, fill, border_radius=4)
         pygame.draw.circle(surf, R.TEXT, (self.rect.x + fill.width, self.rect.centery), 10)
 
@@ -132,7 +134,7 @@ class DemoApp:
         self.model_scroll = 0
         self.name = TextInput((120, 150, 420, 44), placeholder="type your name")
         self.seed = TextInput((120, 520, 200, 44), numeric=True, placeholder="e.g. 1234")
-        self.difficulty = Slider((120, 640, 420, 10), 1.0)
+        self.difficulty = Slider((120, 640, 420, 10), 1.0, vmax=3.0, step=0.25)   # > 2: extreme show tracks
         self.track_mode = "random"
         self.mode_buttons = {m: Button((120 + i * 142, 450, 132, 44), lbl) for i, (m, lbl) in
                              enumerate([("random", "Random"), ("seed", "By seed"), ("draw", "Draw")])}
@@ -172,7 +174,7 @@ class DemoApp:
             R.text(s, "You will draw the loop on the next screen", f.small, R.MUTED, pygame.Rect(120, 520, 420, 44))
         else:
             R.text(s, "A new circuit is generated for you", f.small, R.MUTED, pygame.Rect(120, 520, 420, 44))
-        R.text(s, f"3  Difficulty  {self.difficulty.value:.2f}   (road {30 - 15 * self.difficulty.value:.1f} m wide)",
+        R.text(s, f"3  Difficulty  {self.difficulty.value:.2f}   (road {track_width(self.difficulty.value):.1f} m wide)",
                f.label, R.MUTED, pygame.Rect(120, 600, 420, 30))
         self.difficulty.draw(s, f)
         R.text(s, "4  Model", f.label, R.MUTED, pygame.Rect(700, 112, 840, 30))

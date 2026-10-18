@@ -45,8 +45,10 @@ class Driver:
             self.pop = elites
         calib = Calibration.load(CALIBRATION)
         c = self.config
-        self.spec = InputSpec(c["rays"], calib, reduction=c.get("reduction"), k=c.get("k"), seed=c["seed"])
-        self.name = f"{c['name']} (seed {c['seed']}, gen {meta.get('gen', '?')})"
+        # show-model runs store a shorter config: 9 raw rays, no name
+        self.spec = InputSpec(c.get("rays", 9), calib, reduction=c.get("reduction"), k=c.get("k"), seed=c["seed"])
+        name = c.get("name") or os.path.relpath(run_dir, os.path.join(ROOT, "experiments", "results"))
+        self.name = f"{name} (seed {c['seed']}, gen {meta.get('gen', '?')})"
 
     @property
     def input_labels(self):
