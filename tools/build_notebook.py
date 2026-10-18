@@ -327,6 +327,71 @@ for r in (2, 4, 8):
     print(f"rank {r}: ||W - W_r||_F = {np.linalg.norm(W - Wr):.4f} = sqrt(sum sigma_i^2, i>r) = {np.sqrt((S[r:]**2).sum()):.4f}")
 """)
 
+# 9 ------------------------------------------------------------------
+md("""
+## 9. การเรียนจากครู: gradient ด้วยผลคูณเมทริกซ์ (backpropagation)
+
+ค่าผิดพลาด $L = \\frac{1}{N}\\sum\\|\\hat{\\mathbf y}-\\mathbf y\\|^2$ ระหว่างคำสั่งของ network กับคำสั่งของครู
+gradient ของทุกชั้นคำนวณย้อนกลับด้วยผลคูณเมทริกซ์:
+$\\frac{\\partial L}{\\partial W^{(l)}} = \\Delta^{(l)T} A^{(l)}$ (ผลรวมของผลคูณภายนอก),
+$\\Delta^{(l-1)} = \\left(\\Delta^{(l)}W^{(l)}\\right)\\odot\\left(1-A^{(l)}\\odot A^{(l)}\\right)$
+
+ตรวจกับอนุพันธ์เชิงตัวเลข $\\frac{L(w+h)-L(w-h)}{2h}$ บนข้อมูลการขับจริงที่มีคำสั่งของครู
+""")
+code("""
+import gzip, csv as _csv
+from racing.bc import MLP
+from racing.inputs import ray_subset, encode
+rows = [r for r in _csv.DictReader(gzip.open(os.path.join(ROOT, "data", "driving_dataset_raw.csv.gz"), "rt"))
+        if r["status"] == "ok" and float(r["vx"]) >= 5 and float(r["t"]) >= 0.5
+        and all(float(r[f"ray{k:02d}"]) > 0 for k in range(17))]
+idx9 = ray_subset(9)
+R9 = np.array([[float(r[f"ray{k:02d}"]) for k in idx9] for r in rows])
+Z9 = (encode(R9) - calib_file.mean[idx9]) / calib_file.std[idx9]
+S = np.array([[float(r["vx"]) / 100, float(r["vy"]) / 20, float(r["yaw_rate"]) / 2, float(r["steer_angle"]) / 0.35] for r in rows])
+X = np.hstack([Z9, S])                                   # เมทริกซ์ข้อมูล N x 13
+Y = np.array([[float(r["cmd_steer"]), float(r["cmd_throttle"]), float(r["cmd_brake"]), 0.0] for r in rows])
+print("X:", X.shape, " Y (คำสั่งของครู):", Y.shape)
+net_bc = MLP([13, 32, 32, 4], np.random.default_rng(0))
+Xb, Yb = X[:256], Y[:256]
+loss, grads = net_bc.loss_grad(Xb, Yb)
+params = net_bc.W + net_bc.b
+worst = 0
+for p, g in zip(params, grads):
+    for _ in range(4):
+        i = tuple(np.random.default_rng(len(p.ravel())).integers(0, s) for s in p.shape)
+        old = p[i]; p[i] = old + 1e-6; lp = net_bc.loss_grad(Xb, Yb)[0]
+        p[i] = old - 1e-6; lm = net_bc.loss_grad(Xb, Yb)[0]; p[i] = old
+        worst = max(worst, abs((lp - lm) / 2e-6 - g[i]) / (abs(g[i]) + 1e-12))
+print(f"loss = {loss:.4f},  ค่าคลาดเคลื่อนสัมพัทธ์สูงสุดของ gradient = {worst:.1e}")
+print("ขนาด gradient ของแต่ละชั้น = ขนาดเมทริกซ์น้ำหนัก:", [g.shape for g in grads[:3]])
+""")
+
+# 10 -----------------------------------------------------------------
+md("""
+## 10. ทำไมโมเดลเชิงเส้นเลียนแบบครูไม่ได้: กำลังสองน้อยสุดบนข้อมูลจริง
+
+โมเดลเชิงเส้นที่ดีที่สุดในความหมายกำลังสองน้อยสุดหาได้ในขั้นเดียวจาก **สมการปกติ**
+$(\\tilde X^T\\tilde X)\\,\\Theta = \\tilde X^T Y$ โดย $\\tilde X = [X\\ \\mathbf 1]$
+เทียบกับ network 2 ชั้นซ่อนที่ฝึกด้วย gradient บนข้อมูลชุดเดียวกัน วัดด้วย $R^2$ ของแต่ละคำสั่ง (ข้อมูลทดสอบที่แยกไว้ 20%)
+""")
+code("""
+rng = np.random.default_rng(0)
+perm = rng.permutation(len(X)); cut = int(0.8 * len(X))
+tr, te = perm[:cut], perm[cut:]
+Xt = np.hstack([X, np.ones((len(X), 1))])
+Theta = np.linalg.solve(Xt[tr].T @ Xt[tr], Xt[tr].T @ Y[tr, :3])   # สมการปกติ 14 x 14
+r2 = lambda yhat, y: 1 - ((yhat - y) ** 2).sum(0) / ((y - y.mean(0)) ** 2).sum(0)
+lin = r2(Xt[te] @ Theta, Y[te, :3])
+mlp = MLP([13, 32, 32, 4], np.random.default_rng(1))
+mlp.fit(X[tr], Y[tr], 4000, np.random.default_rng(2))
+yh = mlp.forward(X[te])[-1]
+nn = r2(np.c_[yh[:, 0], (yh[:, 1] + 1) / 2, np.maximum(yh[:, 2], 0)], Y[te, :3])
+for k, name in enumerate(["พวงมาลัย", "คันเร่ง", "เบรก"]):
+    print(f"{name:10s}  R² เชิงเส้น (สมการปกติ) = {lin[k]:.3f}    R² network 2x32 = {nn[k]:.3f}")
+print("เมทริกซ์ X̃ᵀX̃ มี condition number =", f"{np.linalg.cond(Xt[tr].T @ Xt[tr]):.1f}")
+""")
+
 nb = nbformat.v4.new_notebook()
 nb.cells = cells
 nb.metadata["kernelspec"] = {"name": "python3", "display_name": "Python 3", "language": "python"}
