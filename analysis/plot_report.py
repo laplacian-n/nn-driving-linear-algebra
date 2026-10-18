@@ -197,30 +197,26 @@ def compression():
     by = {}
     for f in sorted(glob.glob(os.path.join(RES, "stage4_bc", "S9_XL_2x64", "seed*.json"))):
         for v in json.load(open(f))["variants"]:
-            by.setdefault(v["name"], []).append((v["method"], v["size_bits"] / 1000, 100 * np.mean(v["finished"])))
-    med = {k: (v[0][0], v[0][1], float(np.median([x[2] for x in v]))) for k, v in by.items()}
-    fig, ax = plt.subplots(figsize=(8.8, 4.6))
-    lines = [("quantise", "ลดจำนวนบิต (D·Q)", style.SERIES[1]), ("prune_ls", "ตัดโหนด + กำลังสองน้อยสุด", style.SERIES[0]),
-             ("low_rank", "low-rank (SVD)", style.SERIES[4])]
-    for m, label, color in lines:
-        pts = sorted((x[1], x[2]) for x in med.values() if x[0] == m)
-        ax.plot(*zip(*pts), "o-", color=color, label=label, lw=2.2, ms=6)
-    o = med["original"]
-    ax.scatter([o[1]], [o[2]], marker="D", s=70, color=style.TEXT, zorder=5)
-    ax.annotate("XL 32 bit", (o[1], o[2]), xytext=(-10, 8), textcoords="offset points", ha="right", fontsize=10)
-    for size, kb in [("S9_S_2x8", 7.0), ("S9_L_2x32", 52.4)]:
-        v = np.median(finish_rates("bc_t75_long", size))
-        ax.scatter([kb], [v], marker="*", s=200, color=style.SERIES[3], edgecolor=style.TEXT, linewidth=0.6, zorder=5)
-        ax.annotate(size.split("_")[1] + " ฝึกเอง", (kb, v), xytext=(8, -14), textcoords="offset points", fontsize=10)
-    q8 = med["quant8"]
-    ax.annotate("XL 8 bit: 48 kbit, 92%\nเล็กกว่าและเก่งกว่า L ที่ฝึกเอง", (q8[1], q8[2]), xytext=(9, 55), fontsize=10.5,
-                arrowprops=dict(arrowstyle="-", color=style.TEXT_2, lw=0.8))
-    ax.set_xscale("log")
-    ax.set_xlabel("ขนาดโมเดล (กิโลบิต, สเกลลอการิทึม)")
-    ax.set_ylabel("จบรอบบนชุดสอบ T (%)")
-    ax.set_ylim(-3, 103)
-    ax.set_title("บีบอัด XL 2×64: ลดบิตปลอดภัย ส่วนการลดแรงก์ทำให้ระบบวงปิดล้ม")
-    ax.legend(loc="center left")
+            by.setdefault(v["name"], []).append((v["size_bits"] / 1000, 100 * np.mean(v["finished"])))
+    med = lambda k: (by[k][0][0], float(np.median([x[1] for x in by[k]])))
+    L = float(np.median(finish_rates("bc_t75_long", "S9_L_2x32")))
+    rows = [("XL ต้นฉบับ 32 บิต", *med("original"), style.TEXT_2),
+            ("XL ลดเหลือ 8 บิต", *med("quant8"), style.SERIES[1]),
+            ("L ฝึกเองตั้งแต่ต้น", 52.4, L, style.SERIES[0]),
+            ("XL ลดเหลือ 6 บิต", *med("quant6"), style.SERIES[1]),
+            ("XL ลดเหลือ 4 บิต", *med("quant4"), style.SERIES[1]),
+            ("XL low-rank แรงก์ 16 (SVD)", *med("lowrank16"), style.SERIES[4])]
+    fig, ax = plt.subplots(figsize=(9, 4.2))
+    y = np.arange(len(rows))[::-1]
+    for yi, (name, kb, fin, color) in zip(y, rows):
+        ax.barh(yi, fin, 0.62, color=color, zorder=2)
+        ax.text(fin + 1.2, yi, f"{fin:.0f}%", va="center", fontsize=11, fontweight="bold")
+        ax.text(-1.5, yi, f"{name}  ({kb:.0f} kbit)", va="center", ha="right", fontsize=11)
+    ax.set_yticks([])
+    ax.set_xlim(0, 105)
+    ax.set_xlabel("จบรอบบนชุดสอบ T (%)")
+    ax.set_title("XL ที่ลดเหลือ 8 บิตเล็กกว่า L แต่ขับได้ดีกว่า ส่วน low-rank ล้มเหลว", loc="left", x=-0.42)
+    ax.grid(axis="y", visible=False)
     print(style.save(fig, "rep_compression.png"))
 
 
