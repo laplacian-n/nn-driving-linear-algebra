@@ -94,10 +94,16 @@ function H(level, text) {
   });
 }
 
-const Eq = (text, label) => new D.Paragraph({
+const toOmml = require("./math").makeConverter({ size: 26, thaiFont: FONT, thaiSize: BODY });
+const NS = 'xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" '
+  + 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"';
+const oMath = (tex) => D.ImportedXmlComponent.fromXmlString(`<m:oMath ${NS}>${toOmml(tex)}</m:oMath>`);
+
+// display equation written in LaTeX, centred, with its number at the right margin
+const Eq = (tex, label) => new D.Paragraph({
   tabStops: [{ type: D.TabStopType.CENTER, position: Math.round(TEXT_W / 2) },
              { type: D.TabStopType.RIGHT, position: TEXT_W }],
-  children: [new D.TextRun({ text: `\t${text}`, font: MATH, size: sz(text.length > 70 ? 20 : 22) }),
+  children: [new D.TextRun({ text: "\t", font: FONT, size: BODY }), oMath(tex),
              ...(label ? [new D.TextRun({ text: `\t(${label})`, font: FONT, size: BODY })] : [])],
   spacing: { before: 160, after: 160 },
 });
@@ -154,7 +160,7 @@ function Table(caption, header, rows, widths, opt = {}) {
   if (sum > TEXT_W) widths = widths.map((x) => Math.floor(x * TEXT_W / sum));
   const total = widths.reduce((a, b) => a + b, 0);
   const size = sz(opt.size || 28);
-  const cell = (t, i, head) => new D.TableCell({
+  const cell = (t, i, head, last) => new D.TableCell({
     borders,
     width: { size: widths[i], type: D.WidthType.DXA },
     shading: head ? { fill: "EDEDED", type: D.ShadingType.CLEAR } : undefined,
@@ -162,6 +168,7 @@ function Table(caption, header, rows, widths, opt = {}) {
     children: [new D.Paragraph({
       children: runs(String(t), { size, bold: head || undefined }),
       alignment: i === 0 && !opt.centerFirst && !head ? D.AlignmentType.LEFT : D.AlignmentType.CENTER,
+      keepNext: !last,       // keep the whole table on one page
     })],
   });
   return [
@@ -175,7 +182,7 @@ function Table(caption, header, rows, widths, opt = {}) {
       width: { size: total, type: D.WidthType.DXA },
       columnWidths: widths,
       rows: [new D.TableRow({ tableHeader: true, children: header.map((t, i) => cell(t, i, true)) }),
-             ...rows.map((r) => new D.TableRow({ cantSplit: true, children: r.map((t, i) => cell(t, i, false)) }))],
+             ...rows.map((r, k) => new D.TableRow({ cantSplit: true, children: r.map((t, i) => cell(t, i, false, k === rows.length - 1)) }))],
     }),
     new D.Paragraph({ children: [], spacing: { after: 160 } }),
   ];
@@ -196,5 +203,5 @@ const numberingConfig = {
   ],
 };
 
-module.exports = { sz, D, P, H, Eq, Bullets, Numbered, Fig, Table, Code, FONT, BODY, ROOT, PAGE, TEXT_W, INDENT,
+module.exports = { oMath, sz, D, P, H, Eq, Bullets, Numbered, Fig, Table, Code, FONT, BODY, ROOT, PAGE, TEXT_W, INDENT,
                    numberingConfig, resetNumbering, S };
