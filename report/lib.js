@@ -35,7 +35,7 @@ function runs(text, base = {}) {
 
 const P = (text, opt = {}) => new D.Paragraph({
   children: runs(text),
-  alignment: opt.align || D.AlignmentType.THAI_DISTRIBUTE,
+  alignment: opt.align || D.AlignmentType.LEFT,
   indent: opt.noIndent ? undefined : { firstLine: 720 },
   spacing: { after: 120, line: 276 },
   keepNext: opt.keepNext,
@@ -50,7 +50,7 @@ const H = (level, text) => new D.Paragraph({
 });
 
 const Eq = (text, label) => new D.Paragraph({
-  children: [new D.TextRun({ text, font: MATH, size: sz(26) }),
+  children: [new D.TextRun({ text, font: MATH, size: sz(text.length > 70 ? 20 : 26) }),
              ...(label ? [new D.TextRun({ text: `\t(${label})`, font: FONT, size: BODY })] : [])],
   alignment: D.AlignmentType.CENTER,
   spacing: { before: 60, after: 120 },
@@ -60,7 +60,7 @@ const Bullets = (items, ref = "bullets") => items.map((t) => new D.Paragraph({
   children: runs(t),
   numbering: { reference: ref, level: 0 },
   spacing: { after: 60, line: 276 },
-  alignment: D.AlignmentType.THAI_DISTRIBUTE,
+  alignment: D.AlignmentType.LEFT,
 }));
 
 const Numbered = (items, ref) => Bullets(items, ref);
@@ -70,11 +70,13 @@ function pngSize(file) {
   return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
 }
 
+const MAX_FIG_H_CM = 9.5;   // taller figures leave half-empty pages when they do not fit under the text
+
 function Fig(rel, caption, widthCm = 15.5) {
   figN += 1;
   const file = path.join(ROOT, rel);
   const { w, h } = pngSize(file);
-  const wpx = widthCm / 2.54 * 96;
+  const wpx = Math.min(widthCm, MAX_FIG_H_CM * w / h) / 2.54 * 96;
   return [
     new D.Paragraph({
       children: [new D.ImageRun({ type: "png", data: fs.readFileSync(file),
