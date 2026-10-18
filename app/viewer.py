@@ -114,6 +114,7 @@ class Session:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", default=None)
+    ap.add_argument("--snapshot", default=None, help="model file inside the run (e.g. station_2.00.npz)")
     ap.add_argument("--track", type=int, default=400003)
     ap.add_argument("--difficulty", type=float, default=1.0)
     ap.add_argument("--pack", action="store_true", help="drive all stored elites together")
@@ -123,7 +124,8 @@ def main():
     if a.frames:
         os.environ["SDL_VIDEODRIVER"] = "dummy"
     run = a.run or list_runs()[-1]
-    driver = Driver(run, which="pack" if a.pack else "champion")
+    snap = os.path.join(run, a.snapshot) if a.snapshot else None
+    driver = Driver(run, snapshot=snap, which="pack" if a.pack else "champion")
 
     pygame.init()
     screen = pygame.display.set_mode((R.W, R.H))

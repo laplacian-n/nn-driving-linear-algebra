@@ -354,20 +354,23 @@ def track_from_points(points, difficulty=1.0, target_length=1650.0, n_anchors=28
     return track, None
 
 
-MAX_DIFFICULTY = 2.0
+MAX_DIFFICULTY = 2.0        # range of every experiment (curriculum, test sets)
+EXTREME_DIFFICULTY = 3.0    # show-model tracks only; levels <= 2 are unchanged by this
 
 
 def track_width(difficulty):
     # 30 m forgiving road at difficulty 0, a real F1 width (15 m) at 1, and a
-    # narrow street circuit (10 m) at 2 - "beyond F1" for the hardest tests
-    d = float(np.clip(difficulty, 0, MAX_DIFFICULTY))
-    return 30.0 - 15.0 * min(d, 1.0) - 5.0 * max(d - 1.0, 0.0)
+    # narrow street circuit (10 m) at 2 - "beyond F1" for the hardest tests;
+    # extreme levels narrow more slowly, to 7 m (half an F1 road) at 3
+    d = float(np.clip(difficulty, 0, EXTREME_DIFFICULTY))
+    return 30.0 - 15.0 * min(d, 1.0) - 5.0 * min(max(d - 1.0, 0.0), 1.0) - 3.0 * max(d - 2.0, 0.0)
 
 
 def generate_track(seed=None, difficulty=1.0, length_range=(1500.0, 1800.0), max_attempts=600, **_):
-    """Closed F1-style circuit. difficulty in [0, 2]: 0-1 narrows the road from
-    30 m to 15 m and adds more / sharper corners."""
-    difficulty = float(np.clip(difficulty, 0.0, MAX_DIFFICULTY))
+    """Closed F1-style circuit. difficulty in [0, 2] for the experiments (0-1
+    narrows the road from 30 m to 15 m and adds more / sharper corners), up to
+    3 for the extreme show tracks."""
+    difficulty = float(np.clip(difficulty, 0.0, EXTREME_DIFFICULTY))
     width = track_width(difficulty)
     rng = np.random.default_rng(seed)
     for _ in range(max_attempts):
