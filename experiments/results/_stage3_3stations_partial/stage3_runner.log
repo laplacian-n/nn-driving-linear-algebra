@@ -1,0 +1,14 @@
+50 runs, 0 already done, 50 to run, 11 in parallel
+[  18176s] stage3/S9_XL_2x64 seed4 ok; 39 queued, 10 running
+[  19381s] stage3/S9_L_2x32 seed0 ok; 38 queued, 10 running
+[  21161s] stage3/S9_XL_2x64 seed8 ok; 37 queued, 10 running
+[  21436s] stage3/S9_XL_2x64 seed5 ok; 36 queued, 10 running
+[  22131s] stage3/S9_XL_2x64 seed2 ok; 35 queued, 10 running
+[  22526s] stage3/S9_XL_2x64 seed0 ok; 34 queued, 10 running
+[  24516s] stage3/S9_XL_2x64 seed6 ok; 33 queued, 10 running
+[  25531s] stage3/S9_XL_2x64 seed7 ok; 32 queued, 10 running
+[  26986s] stage3/S9_XL_2x64 seed1 ok; 31 queued, 10 running
+[  29606s] stage3/S9_XL_2x64 seed9 ok; 30 queued, 10 running
+[  32442s] stage3/S9_L_2x32 seed1 ok; 29 queued, 10 running
+[  35787s] stage3/S9_L_2x32 seed3 ok; 28 queued, 10 running
+[  36277s] stage3/S9_XL_2x64 seed3 ok; 27 queued, 10 running

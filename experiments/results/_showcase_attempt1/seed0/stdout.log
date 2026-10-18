@@ -1,0 +1,28 @@
+[12:40:43] phase 1 start: BC base on validation  score 165.6  finish 83%
+[12:40:50] phase 1 BC it 1: loss 0.0146  val score 7.7  finish 0%  best 165.6
+[12:40:57] phase 1 BC it 2: loss 0.0129  val score 23.5  finish 0%  best 165.6
+[12:41:04] phase 1 BC it 3: loss 0.0128  val score 21.0  finish 0%  best 165.6
+[12:41:15] phase 1 BC it 4: loss 0.0157  val score 80.6  finish 33%  best 165.6
+[12:41:22] phase 1 BC it 5: loss 0.0226  val score 23.6  finish 4%  best 165.6
+[12:41:34] phase 1 BC it 6: loss 0.0246  val score 61.3  finish 12%  best 165.6
+[12:41:43] phase 1 BC it 7: loss 0.0331  val score 31.1  finish 0%  best 165.6
+[12:41:53] phase 1 BC it 8: loss 0.0361  val score 51.0  finish 12%  best 165.6
+[12:42:04] phase 1 BC it 9: loss 0.0381  val score 56.3  finish 12%  best 165.6
+[12:42:14] phase 1 BC it 10: loss 0.0430  val score 46.5  finish 8%  best 165.6
+[12:42:23] phase 1 BC it 11: loss 0.0438  val score 43.7  finish 4%  best 165.6
+[12:42:38] phase 1 BC it 12: loss 0.0464  val score 122.2  finish 54%  best 165.6
+[12:42:54] phase 1 BC it 13: loss 0.0485  val score 106.9  finish 46%  best 165.6
+[12:43:08] phase 1 BC it 14: loss 0.0527  val score 86.9  finish 33%  best 165.6
+[12:43:20] phase 1 BC it 15: loss 0.0545  val score 83.6  finish 29%  best 165.6
+[12:43:31] phase 1 BC it 16: loss 0.0543  val score 53.8  finish 8%  best 165.6
+[12:43:45] phase 1 BC it 17: loss 0.0536  val score 127.4  finish 58%  best 165.6
+[12:43:58] phase 1 BC it 18: loss 0.0549  val score 89.9  finish 33%  best 165.6
+[12:44:11] phase 1 BC it 19: loss 0.0534  val score 106.6  finish 42%  best 165.6
+[12:44:25] phase 1 BC it 20: loss 0.0564  val score 110.3  finish 46%  best 165.6
+[12:44:39] phase 1 BC it 21: loss 0.0578  val score 117.8  finish 54%  best 165.6
+[12:44:53] phase 1 BC it 22: loss 0.0593  val score 119.7  finish 50%  best 165.6
+[12:45:07] phase 1 BC it 23: loss 0.0576  val score 82.2  finish 29%  best 165.6
+[12:45:23] phase 1 BC it 24: loss 0.0615  val score 81.6  finish 25%  best 165.6
+[12:45:40] phase 1 BC it 25: loss 0.0606  val score 95.4  finish 33%  best 165.6
+[12:45:40] phase 2 start: GA fine-tuning, population 100, sigmas (0.003, 0.01, 0.03)
+[12:51:40] phase 2 gen 20: best fitness 3292  finish 75%  val 192.6 (finish 100%)  champion 192.6

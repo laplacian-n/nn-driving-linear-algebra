@@ -1,1 +1,17 @@
-50 runs, 0 already done, 50 to run, 11 in parallel
+16 runs, 0 already done, 16 to run, 16 in parallel
+[  27772s] stage3/S9_XS_linear seed3 ok; 0 queued, 15 running
+[  30772s] stage3/S9_XS_linear seed2 ok; 0 queued, 14 running
+[  31282s] stage3/S9_XS_linear seed1 ok; 0 queued, 13 running
+[  33307s] stage3/S9_S_2x8 seed3 ok; 0 queued, 12 running
+[  33682s] stage3/S9_XS_linear seed0 ok; 0 queued, 11 running
+[  34212s] stage3/S9_S_2x8 seed2 ok; 0 queued, 10 running
+[  34737s] stage3/S9_L_2x32 seed1 ok; 0 queued, 9 running
+[  38107s] stage3/S9_L_2x32 seed2 ok; 0 queued, 8 running
+[  38432s] stage3/S9_L_2x32 seed3 ok; 0 queued, 7 running
+[  38777s] stage3/S9_L_2x32 seed0 ok; 0 queued, 6 running
+[  38882s] stage3/S9_S_2x8 seed0 ok; 0 queued, 5 running
+[  39262s] stage3/S9_S_2x8 seed1 ok; 0 queued, 4 running
+[  39827s] stage3/S9_XL_2x64 seed2 ok; 0 queued, 3 running
+[  43112s] stage3/S9_XL_2x64 seed1 ok; 0 queued, 2 running
+[  44937s] stage3/S9_XL_2x64 seed0 ok; 0 queued, 1 running
+[  46752s] stage3/S9_XL_2x64 seed3 ok; 0 queued, 0 running

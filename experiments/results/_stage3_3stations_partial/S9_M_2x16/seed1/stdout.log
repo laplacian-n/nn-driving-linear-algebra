@@ -1,0 +1,15 @@
+[stage3/S9_M_2x16 s1] gen 25 diff 0.17 V1 5.9 finish 0% (271s)
+[stage3/S9_M_2x16 s1] gen 50 diff 0.40 V1 6.0 finish 0% (566s)
+[stage3/S9_M_2x16 s1] gen 75 diff 0.60 V1 19.9 finish 8% (870s)
+[stage3/S9_M_2x16 s1] gen 100 diff 0.80 V1 32.0 finish 17% (1215s)
+[stage3/S9_M_2x16 s1] gen 125 diff 0.97 V1 40.9 finish 25% (1550s)
+[stage3/S9_M_2x16 s1] gen 150 diff 1.00 V1 45.5 finish 25% (1865s)
+[stage3/S9_M_2x16 s1] station 1.00 gen 150 VS 117.6 best 117.6 since 0
+[stage3/S9_M_2x16 s1] gen 175 diff 1.00 V1 44.3 finish 25% (2342s)
+[stage3/S9_M_2x16 s1] station 1.00 gen 175 VS 139.5 best 139.5 since 0
+[stage3/S9_M_2x16 s1] gen 200 diff 1.00 V1 55.2 finish 33% (2890s)
+[stage3/S9_M_2x16 s1] station 1.00 gen 200 VS 139.3 best 139.5 since 1
+[stage3/S9_M_2x16 s1] gen 225 diff 1.00 V1 54.3 finish 33% (3307s)
+[stage3/S9_M_2x16 s1] station 1.00 gen 225 VS 145.8 best 145.8 since 0
+[stage3/S9_M_2x16 s1] gen 250 diff 1.00 V1 58.1 finish 33% (3643s)
+[stage3/S9_M_2x16 s1] station 1.00 gen 250 VS 141.5 best 145.8 since 1

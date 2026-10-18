@@ -8,12 +8,17 @@
  "seed": 0,
  "gens": 400,
  "saturate": true,
- "max_gens": 3000,
+ "max_gens": 6000,
  "stations": [
+  0.5,
+  0.75,
   1.0,
+  1.25,
   1.5,
+  1.75,
   2.0
  ],
+ "deadline": 1792285200.0,
  "layer_sizes": [
   13,
   32,
@@ -30,9 +35,9 @@
   "network.py": "97478a3dcdd0",
   "physics.py": "8c86aef52589",
   "reference.py": "efd3c627ad7a",
-  "sets.py": "8b99efa77d42",
-  "sim.py": "5cf5ca175654",
+  "sets.py": "31d561d5d75c",
+  "sim.py": "a63120142085",
   "track.py": "2f5edb440929",
-  "train.py": "b0b34c9733f1"
+  "train.py": "e5d50f718d8f"
  }
 }

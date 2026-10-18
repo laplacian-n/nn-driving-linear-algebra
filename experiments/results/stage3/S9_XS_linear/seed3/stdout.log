@@ -1,0 +1,135 @@
+[stage3/S9_XS_linear s3] gen 25 diff 0.17 V1 9.2 finish 0% (401s)
+[stage3/S9_XS_linear s3] gen 50 diff 0.38 V1 4.7 finish 0% (766s)
+[stage3/S9_XS_linear s3] gen 75 diff 0.50 V1 8.3 finish 0% (1118s)
+[stage3/S9_XS_linear s3] station 0.50 gen 75 VS 148.5 best 148.5 since 0
+[stage3/S9_XS_linear s3] gen 100 diff 0.50 V1 7.1 finish 0% (1493s)
+[stage3/S9_XS_linear s3] station 0.50 gen 100 VS 149.7 best 149.7 since 0
+[stage3/S9_XS_linear s3] gen 125 diff 0.50 V1 6.5 finish 0% (1858s)
+[stage3/S9_XS_linear s3] station 0.50 gen 125 VS 168.3 best 168.3 since 0
+[stage3/S9_XS_linear s3] gen 150 diff 0.50 V1 7.0 finish 0% (2217s)
+[stage3/S9_XS_linear s3] station 0.50 gen 150 VS 149.5 best 168.3 since 1
+[stage3/S9_XS_linear s3] gen 175 diff 0.50 V1 6.5 finish 0% (2559s)
+[stage3/S9_XS_linear s3] station 0.50 gen 175 VS 168.1 best 168.3 since 2
+[stage3/S9_XS_linear s3] gen 200 diff 0.50 V1 6.6 finish 0% (2913s)
+[stage3/S9_XS_linear s3] station 0.50 gen 200 VS 163.6 best 168.3 since 3
+[stage3/S9_XS_linear s3] gen 225 diff 0.50 V1 1.9 finish 0% (3274s)
+[stage3/S9_XS_linear s3] station 0.50 gen 225 VS 178.8 best 178.8 since 0
+[stage3/S9_XS_linear s3] gen 250 diff 0.50 V1 2.0 finish 0% (3622s)
+[stage3/S9_XS_linear s3] station 0.50 gen 250 VS 129.8 best 178.8 since 1
+[stage3/S9_XS_linear s3] gen 275 diff 0.50 V1 1.4 finish 0% (4008s)
+[stage3/S9_XS_linear s3] station 0.50 gen 275 VS 167.8 best 178.8 since 2
+[stage3/S9_XS_linear s3] gen 300 diff 0.50 V1 3.7 finish 0% (4336s)
+[stage3/S9_XS_linear s3] station 0.50 gen 300 VS 158.0 best 178.8 since 3
+[stage3/S9_XS_linear s3] gen 325 diff 0.50 V1 1.7 finish 0% (4657s)
+[stage3/S9_XS_linear s3] station 0.50 gen 325 VS 141.3 best 178.8 since 4
+[stage3/S9_XS_linear s3] TEST station 0.50: finish 93%  speed 34.5 m/s  score 171.8
+[stage3/S9_XS_linear s3] gen 350 diff 0.60 V1 1.5 finish 0% (4975s)
+[stage3/S9_XS_linear s3] gen 375 diff 0.62 V1 1.9 finish 0% (5265s)
+[stage3/S9_XS_linear s3] gen 400 diff 0.75 V1 3.1 finish 0% (5681s)
+[stage3/S9_XS_linear s3] station 0.75 gen 400 VS 177.5 best 177.5 since 0
+[stage3/S9_XS_linear s3] gen 425 diff 0.75 V1 15.4 finish 8% (6083s)
+[stage3/S9_XS_linear s3] station 0.75 gen 425 VS 160.9 best 177.5 since 1
+[stage3/S9_XS_linear s3] gen 450 diff 0.75 V1 8.6 finish 0% (6481s)
+[stage3/S9_XS_linear s3] station 0.75 gen 450 VS 162.3 best 177.5 since 2
+[stage3/S9_XS_linear s3] gen 475 diff 0.75 V1 2.7 finish 0% (6871s)
+[stage3/S9_XS_linear s3] station 0.75 gen 475 VS 141.6 best 177.5 since 3
+[stage3/S9_XS_linear s3] gen 500 diff 0.75 V1 3.7 finish 0% (7303s)
+[stage3/S9_XS_linear s3] station 0.75 gen 500 VS 167.8 best 177.5 since 4
+[stage3/S9_XS_linear s3] TEST station 0.75: finish 83%  speed 28.5 m/s  score 161.1
+[stage3/S9_XS_linear s3] gen 525 diff 0.88 V1 30.2 finish 17% (7703s)
+[stage3/S9_XS_linear s3] gen 550 diff 1.00 V1 44.1 finish 25% (8088s)
+[stage3/S9_XS_linear s3] station 1.00 gen 550 VS 113.2 best 113.2 since 0
+[stage3/S9_XS_linear s3] gen 575 diff 1.00 V1 48.9 finish 25% (8493s)
+[stage3/S9_XS_linear s3] station 1.00 gen 575 VS 111.8 best 113.2 since 1
+[stage3/S9_XS_linear s3] gen 600 diff 1.00 V1 75.3 finish 42% (8916s)
+[stage3/S9_XS_linear s3] station 1.00 gen 600 VS 156.4 best 156.4 since 0
+[stage3/S9_XS_linear s3] gen 625 diff 1.00 V1 56.1 finish 33% (9300s)
+[stage3/S9_XS_linear s3] station 1.00 gen 625 VS 158.5 best 158.5 since 0
+[stage3/S9_XS_linear s3] gen 650 diff 1.00 V1 58.6 finish 33% (9710s)
+[stage3/S9_XS_linear s3] station 1.00 gen 650 VS 157.2 best 158.5 since 1
+[stage3/S9_XS_linear s3] gen 675 diff 1.00 V1 59.6 finish 33% (10128s)
+[stage3/S9_XS_linear s3] station 1.00 gen 675 VS 142.9 best 158.5 since 2
+[stage3/S9_XS_linear s3] gen 700 diff 1.00 V1 62.9 finish 33% (10528s)
+[stage3/S9_XS_linear s3] station 1.00 gen 700 VS 143.6 best 158.5 since 3
+[stage3/S9_XS_linear s3] gen 725 diff 1.00 V1 77.8 finish 42% (10934s)
+[stage3/S9_XS_linear s3] station 1.00 gen 725 VS 137.1 best 158.5 since 4
+[stage3/S9_XS_linear s3] TEST station 1.00: finish 60%  speed 23.5 m/s  score 116.2
+[stage3/S9_XS_linear s3] gen 750 diff 1.12 V1 68.3 finish 33% (11361s)
+[stage3/S9_XS_linear s3] gen 775 diff 1.23 V1 90.4 finish 50% (11768s)
+[stage3/S9_XS_linear s3] gen 800 diff 1.25 V1 92.2 finish 50% (12196s)
+[stage3/S9_XS_linear s3] station 1.25 gen 800 VS 122.9 best 122.9 since 0
+[stage3/S9_XS_linear s3] gen 825 diff 1.25 V1 85.6 finish 50% (12615s)
+[stage3/S9_XS_linear s3] station 1.25 gen 825 VS 128.1 best 128.1 since 0
+[stage3/S9_XS_linear s3] gen 850 diff 1.25 V1 91.1 finish 50% (13038s)
+[stage3/S9_XS_linear s3] station 1.25 gen 850 VS 114.8 best 128.1 since 1
+[stage3/S9_XS_linear s3] gen 875 diff 1.25 V1 65.1 finish 33% (13457s)
+[stage3/S9_XS_linear s3] station 1.25 gen 875 VS 109.4 best 128.1 since 2
+[stage3/S9_XS_linear s3] gen 900 diff 1.25 V1 61.8 finish 33% (13900s)
+[stage3/S9_XS_linear s3] station 1.25 gen 900 VS 112.2 best 128.1 since 3
+[stage3/S9_XS_linear s3] gen 925 diff 1.25 V1 80.5 finish 42% (14340s)
+[stage3/S9_XS_linear s3] station 1.25 gen 925 VS 129.5 best 129.5 since 0
+[stage3/S9_XS_linear s3] gen 950 diff 1.25 V1 89.4 finish 50% (14779s)
+[stage3/S9_XS_linear s3] station 1.25 gen 950 VS 131.7 best 131.7 since 0
+[stage3/S9_XS_linear s3] gen 975 diff 1.25 V1 91.5 finish 50% (15228s)
+[stage3/S9_XS_linear s3] station 1.25 gen 975 VS 125.4 best 131.7 since 1
+[stage3/S9_XS_linear s3] gen 1000 diff 1.25 V1 69.5 finish 33% (15675s)
+[stage3/S9_XS_linear s3] station 1.25 gen 1000 VS 121.5 best 131.7 since 2
+[stage3/S9_XS_linear s3] gen 1025 diff 1.25 V1 92.2 finish 50% (16206s)
+[stage3/S9_XS_linear s3] station 1.25 gen 1025 VS 130.4 best 131.7 since 3
+[stage3/S9_XS_linear s3] gen 1050 diff 1.25 V1 114.3 finish 67% (16707s)
+[stage3/S9_XS_linear s3] station 1.25 gen 1050 VS 123.2 best 131.7 since 4
+[stage3/S9_XS_linear s3] TEST station 1.25: finish 67%  speed 22.9 m/s  score 130.9
+[stage3/S9_XS_linear s3] gen 1075 diff 1.38 V1 93.0 finish 50% (17185s)
+[stage3/S9_XS_linear s3] gen 1100 diff 1.48 V1 97.3 finish 50% (17615s)
+[stage3/S9_XS_linear s3] gen 1125 diff 1.50 V1 106.3 finish 58% (18055s)
+[stage3/S9_XS_linear s3] station 1.50 gen 1125 VS 136.7 best 136.7 since 0
+[stage3/S9_XS_linear s3] gen 1150 diff 1.50 V1 104.6 finish 58% (18491s)
+[stage3/S9_XS_linear s3] station 1.50 gen 1150 VS 120.4 best 136.7 since 1
+[stage3/S9_XS_linear s3] gen 1175 diff 1.50 V1 106.4 finish 58% (18893s)
+[stage3/S9_XS_linear s3] station 1.50 gen 1175 VS 158.9 best 158.9 since 0
+[stage3/S9_XS_linear s3] gen 1200 diff 1.50 V1 101.2 finish 50% (19321s)
+[stage3/S9_XS_linear s3] station 1.50 gen 1200 VS 157.5 best 158.9 since 1
+[stage3/S9_XS_linear s3] gen 1225 diff 1.50 V1 109.3 finish 58% (19761s)
+[stage3/S9_XS_linear s3] station 1.50 gen 1225 VS 135.1 best 158.9 since 2
+[stage3/S9_XS_linear s3] gen 1250 diff 1.50 V1 108.3 finish 58% (20186s)
+[stage3/S9_XS_linear s3] station 1.50 gen 1250 VS 137.8 best 158.9 since 3
+[stage3/S9_XS_linear s3] gen 1275 diff 1.50 V1 105.2 finish 58% (20615s)
+[stage3/S9_XS_linear s3] station 1.50 gen 1275 VS 153.0 best 158.9 since 4
+[stage3/S9_XS_linear s3] TEST station 1.50: finish 73%  speed 23.4 m/s  score 138.7
+[stage3/S9_XS_linear s3] gen 1300 diff 1.68 V1 119.0 finish 67% (21072s)
+[stage3/S9_XS_linear s3] gen 1325 diff 1.75 V1 156.2 finish 92% (21501s)
+[stage3/S9_XS_linear s3] station 1.75 gen 1325 VS 169.4 best 169.4 since 0
+[stage3/S9_XS_linear s3] gen 1350 diff 1.75 V1 147.9 finish 83% (21946s)
+[stage3/S9_XS_linear s3] station 1.75 gen 1350 VS 158.9 best 169.4 since 1
+[stage3/S9_XS_linear s3] gen 1375 diff 1.75 V1 160.9 finish 92% (22387s)
+[stage3/S9_XS_linear s3] station 1.75 gen 1375 VS 173.5 best 173.5 since 0
+[stage3/S9_XS_linear s3] gen 1400 diff 1.75 V1 162.7 finish 92% (22845s)
+[stage3/S9_XS_linear s3] station 1.75 gen 1400 VS 174.8 best 174.8 since 0
+[stage3/S9_XS_linear s3] gen 1425 diff 1.75 V1 160.0 finish 92% (23272s)
+[stage3/S9_XS_linear s3] station 1.75 gen 1425 VS 172.6 best 174.8 since 1
+[stage3/S9_XS_linear s3] gen 1450 diff 1.75 V1 133.8 finish 75% (23745s)
+[stage3/S9_XS_linear s3] station 1.75 gen 1450 VS 159.8 best 174.8 since 2
+[stage3/S9_XS_linear s3] gen 1475 diff 1.75 V1 149.1 finish 83% (24198s)
+[stage3/S9_XS_linear s3] station 1.75 gen 1475 VS 170.5 best 174.8 since 3
+[stage3/S9_XS_linear s3] gen 1500 diff 1.75 V1 160.9 finish 92% (24673s)
+[stage3/S9_XS_linear s3] station 1.75 gen 1500 VS 171.5 best 174.8 since 4
+[stage3/S9_XS_linear s3] TEST station 1.75: finish 83%  speed 23.0 m/s  score 150.7
+[stage3/S9_XS_linear s3] gen 1525 diff 1.93 V1 171.6 finish 100% (25189s)
+[stage3/S9_XS_linear s3] gen 1550 diff 2.00 V1 173.0 finish 100% (25663s)
+[stage3/S9_XS_linear s3] station 2.00 gen 1550 VS 173.0 best 173.0 since 0
+[stage3/S9_XS_linear s3] gen 1575 diff 2.00 V1 162.3 finish 92% (26134s)
+[stage3/S9_XS_linear s3] station 2.00 gen 1575 VS 155.1 best 173.0 since 1
+[stage3/S9_XS_linear s3] gen 1600 diff 2.00 V1 135.5 finish 67% (26614s)
+[stage3/S9_XS_linear s3] station 2.00 gen 1600 VS 143.6 best 173.0 since 2
+[stage3/S9_XS_linear s3] gen 1625 diff 2.00 V1 161.2 finish 92% (27078s)
+[stage3/S9_XS_linear s3] station 2.00 gen 1625 VS 171.7 best 173.0 since 3
+[stage3/S9_XS_linear s3] gen 1650 diff 2.00 V1 162.2 finish 92% (27582s)
+[stage3/S9_XS_linear s3] station 2.00 gen 1650 VS 159.7 best 173.0 since 4
+[stage3/S9_XS_linear s3] TEST station 2.00: finish 60%  speed 22.4 m/s  score 121.4
+[stage3/S9_XS_linear s3] RETEST 0.50: finish 33%  speed 28.4 m/s
+[stage3/S9_XS_linear s3] RETEST 0.75: finish 67%  speed 27.1 m/s
+[stage3/S9_XS_linear s3] RETEST 1.00: finish 80%  speed 25.5 m/s
+[stage3/S9_XS_linear s3] RETEST 1.25: finish 70%  speed 24.6 m/s
+[stage3/S9_XS_linear s3] RETEST 1.50: finish 73%  speed 23.6 m/s
+[stage3/S9_XS_linear s3] RETEST 1.75: finish 70%  speed 23.2 m/s
+[stage3/S9_XS_linear s3] RETEST 2.00: finish 60%  speed 22.4 m/s

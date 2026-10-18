@@ -1,0 +1,31 @@
+[stage3/S9_M_2x16 s0] gen 25 diff 0.17 V1 2.4 finish 0% (259s)
+[stage3/S9_M_2x16 s0] gen 50 diff 0.40 V1 10.0 finish 0% (549s)
+[stage3/S9_M_2x16 s0] gen 75 diff 0.60 V1 9.8 finish 0% (867s)
+[stage3/S9_M_2x16 s0] gen 100 diff 0.80 V1 6.8 finish 0% (1208s)
+[stage3/S9_M_2x16 s0] gen 125 diff 0.95 V1 6.1 finish 0% (1538s)
+[stage3/S9_M_2x16 s0] gen 150 diff 1.00 V1 33.1 finish 17% (1868s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 150 VS 119.5 best 119.5 since 0
+[stage3/S9_M_2x16 s0] gen 175 diff 1.00 V1 42.3 finish 25% (2198s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 175 VS 139.1 best 139.1 since 0
+[stage3/S9_M_2x16 s0] gen 200 diff 1.00 V1 52.6 finish 33% (2579s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 200 VS 139.0 best 139.1 since 1
+[stage3/S9_M_2x16 s0] gen 225 diff 1.00 V1 58.7 finish 33% (2939s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 225 VS 144.7 best 144.7 since 0
+[stage3/S9_M_2x16 s0] gen 250 diff 1.00 V1 54.9 finish 33% (3313s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 250 VS 140.7 best 144.7 since 1
+[stage3/S9_M_2x16 s0] gen 275 diff 1.00 V1 46.2 finish 25% (3672s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 275 VS 130.6 best 144.7 since 2
+[stage3/S9_M_2x16 s0] gen 300 diff 1.00 V1 55.0 finish 33% (4021s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 300 VS 145.9 best 145.9 since 0
+[stage3/S9_M_2x16 s0] gen 325 diff 1.00 V1 43.6 finish 25% (4364s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 325 VS 154.2 best 154.2 since 0
+[stage3/S9_M_2x16 s0] gen 350 diff 1.00 V1 56.3 finish 33% (4687s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 350 VS 102.9 best 154.2 since 1
+[stage3/S9_M_2x16 s0] gen 375 diff 1.00 V1 54.9 finish 33% (5203s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 375 VS 130.0 best 154.2 since 2
+[stage3/S9_M_2x16 s0] gen 400 diff 1.00 V1 53.5 finish 33% (5746s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 400 VS 162.2 best 162.2 since 0
+[stage3/S9_M_2x16 s0] gen 425 diff 1.00 V1 52.9 finish 33% (6162s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 425 VS 125.6 best 162.2 since 1
+[stage3/S9_M_2x16 s0] gen 450 diff 1.00 V1 54.7 finish 33% (6509s)
+[stage3/S9_M_2x16 s0] station 1.00 gen 450 VS 140.1 best 162.2 since 2

@@ -1,0 +1,35 @@
+{
+ "stop_reason": "stations_done",
+ "generations": 725,
+ "reached_full_difficulty_at": 164,
+ "final_difficulty": 2.0,
+ "best_v1": 142.97589301487918,
+ "wall_seconds": 18170.50888991356,
+ "sim_seconds": 295676.33333332115,
+ "stations": [
+  {
+   "level": 1.0,
+   "entered_gen": 175,
+   "best_gen": 200,
+   "left_gen": 300,
+   "best_vs": 154.79079070284087,
+   "outcome": "saturated"
+  },
+  {
+   "level": 1.5,
+   "entered_gen": 400,
+   "best_gen": 400,
+   "left_gen": 500,
+   "best_vs": 166.39008455635928,
+   "outcome": "saturated"
+  },
+  {
+   "level": 2.0,
+   "entered_gen": 625,
+   "best_gen": 625,
+   "left_gen": 725,
+   "best_vs": 147.76238535200062,
+   "outcome": "saturated"
+  }
+ ]
+}

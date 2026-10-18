@@ -1,0 +1,68 @@
+[stage3/S9_L_2x32 s2] gen 25 diff 0.17 V1 4.2 finish 0% (365s)
+[stage3/S9_L_2x32 s2] gen 50 diff 0.38 V1 5.2 finish 0% (697s)
+[stage3/S9_L_2x32 s2] gen 75 diff 0.55 V1 4.7 finish 0% (1006s)
+[stage3/S9_L_2x32 s2] gen 100 diff 0.65 V1 2.0 finish 0% (1338s)
+[stage3/S9_L_2x32 s2] gen 125 diff 0.78 V1 5.6 finish 0% (1706s)
+[stage3/S9_L_2x32 s2] gen 150 diff 0.85 V1 7.2 finish 0% (2114s)
+[stage3/S9_L_2x32 s2] gen 175 diff 0.93 V1 9.9 finish 0% (2502s)
+[stage3/S9_L_2x32 s2] gen 200 diff 1.00 V1 43.0 finish 25% (2878s)
+[stage3/S9_L_2x32 s2] station 1.00 gen 200 VS 95.0 best 95.0 since 0
+[stage3/S9_L_2x32 s2] gen 225 diff 1.00 V1 52.7 finish 33% (3315s)
+[stage3/S9_L_2x32 s2] station 1.00 gen 225 VS 136.5 best 136.5 since 0
+[stage3/S9_L_2x32 s2] gen 250 diff 1.00 V1 43.6 finish 17% (3744s)
+[stage3/S9_L_2x32 s2] station 1.00 gen 250 VS 145.4 best 145.4 since 0
+[stage3/S9_L_2x32 s2] gen 275 diff 1.00 V1 50.1 finish 25% (4151s)
+[stage3/S9_L_2x32 s2] station 1.00 gen 275 VS 94.9 best 145.4 since 1
+[stage3/S9_L_2x32 s2] gen 300 diff 1.00 V1 55.3 finish 33% (4567s)
+[stage3/S9_L_2x32 s2] station 1.00 gen 300 VS 154.0 best 154.0 since 0
+[stage3/S9_L_2x32 s2] gen 325 diff 1.00 V1 56.6 finish 33% (4993s)
+[stage3/S9_L_2x32 s2] station 1.00 gen 325 VS 154.8 best 154.0 since 1
+[stage3/S9_L_2x32 s2] gen 350 diff 1.00 V1 55.4 finish 33% (5421s)
+[stage3/S9_L_2x32 s2] station 1.00 gen 350 VS 114.3 best 154.0 since 2
+[stage3/S9_L_2x32 s2] gen 375 diff 1.00 V1 55.7 finish 33% (5799s)
+[stage3/S9_L_2x32 s2] station 1.00 gen 375 VS 141.4 best 154.0 since 3
+[stage3/S9_L_2x32 s2] gen 400 diff 1.00 V1 42.9 finish 25% (6157s)
+[stage3/S9_L_2x32 s2] station 1.00 gen 400 VS 132.3 best 154.0 since 4
+[stage3/S9_L_2x32 s2] gen 425 diff 1.07 V1 54.8 finish 33% (6554s)
+[stage3/S9_L_2x32 s2] gen 450 diff 1.20 V1 42.8 finish 25% (6952s)
+[stage3/S9_L_2x32 s2] gen 475 diff 1.25 V1 52.3 finish 33% (7351s)
+[stage3/S9_L_2x32 s2] gen 500 diff 1.43 V1 62.8 finish 33% (7755s)
+[stage3/S9_L_2x32 s2] gen 525 diff 1.50 V1 93.5 finish 58% (8132s)
+[stage3/S9_L_2x32 s2] station 1.50 gen 525 VS 115.3 best 115.3 since 0
+[stage3/S9_L_2x32 s2] gen 550 diff 1.50 V1 84.5 finish 50% (8536s)
+[stage3/S9_L_2x32 s2] station 1.50 gen 550 VS 124.8 best 124.8 since 0
+[stage3/S9_L_2x32 s2] gen 575 diff 1.50 V1 83.0 finish 50% (8930s)
+[stage3/S9_L_2x32 s2] station 1.50 gen 575 VS 129.5 best 129.5 since 0
+[stage3/S9_L_2x32 s2] gen 600 diff 1.50 V1 91.0 finish 50% (9340s)
+[stage3/S9_L_2x32 s2] station 1.50 gen 600 VS 117.5 best 129.5 since 1
+[stage3/S9_L_2x32 s2] gen 625 diff 1.50 V1 92.1 finish 58% (9739s)
+[stage3/S9_L_2x32 s2] station 1.50 gen 625 VS 143.0 best 143.0 since 0
+[stage3/S9_L_2x32 s2] gen 650 diff 1.50 V1 86.0 finish 50% (10140s)
+[stage3/S9_L_2x32 s2] station 1.50 gen 650 VS 163.0 best 163.0 since 0
+[stage3/S9_L_2x32 s2] gen 675 diff 1.50 V1 90.0 finish 50% (10551s)
+[stage3/S9_L_2x32 s2] station 1.50 gen 675 VS 146.2 best 163.0 since 1
+[stage3/S9_L_2x32 s2] gen 700 diff 1.50 V1 121.7 finish 75% (10970s)
+[stage3/S9_L_2x32 s2] station 1.50 gen 700 VS 145.9 best 163.0 since 2
+[stage3/S9_L_2x32 s2] gen 725 diff 1.50 V1 113.6 finish 67% (11400s)
+[stage3/S9_L_2x32 s2] station 1.50 gen 725 VS 159.8 best 163.0 since 3
+[stage3/S9_L_2x32 s2] gen 750 diff 1.50 V1 106.1 finish 58% (11841s)
+[stage3/S9_L_2x32 s2] station 1.50 gen 750 VS 146.0 best 163.0 since 4
+[stage3/S9_L_2x32 s2] gen 775 diff 1.65 V1 99.0 finish 58% (12257s)
+[stage3/S9_L_2x32 s2] gen 800 diff 1.75 V1 88.3 finish 42% (12656s)
+[stage3/S9_L_2x32 s2] gen 825 diff 1.82 V1 116.2 finish 67% (13042s)
+[stage3/S9_L_2x32 s2] gen 850 diff 2.00 V1 126.3 finish 75% (13473s)
+[stage3/S9_L_2x32 s2] station 2.00 gen 850 VS 118.0 best 118.0 since 0
+[stage3/S9_L_2x32 s2] gen 875 diff 2.00 V1 139.5 finish 83% (13895s)
+[stage3/S9_L_2x32 s2] station 2.00 gen 875 VS 126.7 best 126.7 since 0
+[stage3/S9_L_2x32 s2] gen 900 diff 2.00 V1 133.7 finish 83% (14309s)
+[stage3/S9_L_2x32 s2] station 2.00 gen 900 VS 125.5 best 126.7 since 1
+[stage3/S9_L_2x32 s2] gen 925 diff 2.00 V1 111.9 finish 67% (14726s)
+[stage3/S9_L_2x32 s2] station 2.00 gen 925 VS 128.2 best 128.2 since 0
+[stage3/S9_L_2x32 s2] gen 950 diff 2.00 V1 129.0 finish 75% (15264s)
+[stage3/S9_L_2x32 s2] station 2.00 gen 950 VS 142.4 best 142.4 since 0
+[stage3/S9_L_2x32 s2] gen 975 diff 2.00 V1 158.2 finish 100% (15889s)
+[stage3/S9_L_2x32 s2] station 2.00 gen 975 VS 132.7 best 142.4 since 1
+[stage3/S9_L_2x32 s2] gen 1000 diff 2.00 V1 146.8 finish 92% (16409s)
+[stage3/S9_L_2x32 s2] station 2.00 gen 1000 VS 153.3 best 153.3 since 0
+[stage3/S9_L_2x32 s2] gen 1025 diff 2.00 V1 125.8 finish 75% (16854s)
+[stage3/S9_L_2x32 s2] station 2.00 gen 1025 VS 163.8 best 163.8 since 0

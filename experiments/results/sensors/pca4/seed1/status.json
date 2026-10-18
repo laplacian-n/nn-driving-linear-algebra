@@ -1,0 +1,63 @@
+{
+ "stop_reason": "stations_done",
+ "generations": 130,
+ "wall_seconds": 4085.9946794509888,
+ "stations": [
+  {
+   "level": 0.5,
+   "entered_gen": 0,
+   "best_gen": 20,
+   "left_gen": 28,
+   "best_vs": 194.01551418668947,
+   "outcome": "saturated"
+  },
+  {
+   "level": 0.75,
+   "entered_gen": 28,
+   "best_gen": 33,
+   "left_gen": 41,
+   "best_vs": 192.16289626761352,
+   "outcome": "saturated"
+  },
+  {
+   "level": 1.0,
+   "entered_gen": 41,
+   "best_gen": 51,
+   "left_gen": 59,
+   "best_vs": 189.67915957161688,
+   "outcome": "saturated"
+  },
+  {
+   "level": 1.25,
+   "entered_gen": 59,
+   "best_gen": 61,
+   "left_gen": 69,
+   "best_vs": 178.26598641088242,
+   "outcome": "saturated"
+  },
+  {
+   "level": 1.5,
+   "entered_gen": 69,
+   "best_gen": 83,
+   "left_gen": 91,
+   "best_vs": 172.13855025214775,
+   "outcome": "saturated"
+  },
+  {
+   "level": 1.75,
+   "entered_gen": 91,
+   "best_gen": 95,
+   "left_gen": 103,
+   "best_vs": 192.55708045930675,
+   "outcome": "saturated"
+  },
+  {
+   "level": 2.0,
+   "entered_gen": 103,
+   "best_gen": 122,
+   "left_gen": 130,
+   "best_vs": 194.64383523885772,
+   "outcome": "saturated"
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "name": "bc_t75_long/S9_S_2x8",
+ "rays": 9,
+ "depth": 2,
+ "width": 8,
+ "seed": 2,
+ "stations": [
+  0.5,
+  0.75,
+  1.0,
+  1.25,
+  1.5,
+  1.75,
+  2.0
+ ],
+ "aggregate": "all",
+ "teacher_grip": 0.75,
+ "teacher_brake": 0.62,
+ "steps": 3000,
+ "patience": 8,
+ "method": "behavior_cloning_dagger",
+ "layer_sizes": [
+  13,
+  8,
+  8,
+  4
+ ],
+ "params": 220,
+ "preprocessing_params": 18,
+ "source_hashes": {
+  "__init__.py": "da39a3ee5e6b",
+  "bc.py": "3c833c506087",
+  "compress.py": "03ea09752f8b",
+  "ga.py": "c1bb4049b2ad",
+  "inputs.py": "206fd5a16bb2",
+  "network.py": "97478a3dcdd0",
+  "physics.py": "8c86aef52589",
+  "reference.py": "efd3c627ad7a",
+  "sets.py": "31d561d5d75c",
+  "sim.py": "a63120142085",
+  "track.py": "2f5edb440929",
+  "train.py": "e5d50f718d8f"
+ },
+ "hyper": {
+  "tracks_per_iter": 4,
+  "rehearsal": 2,
+  "steps_per_iter": 1500,
+  "batch": 256,
+  "lr": 0.003,
+  "patience": 4,
+  "cap": 60
+ }
+}

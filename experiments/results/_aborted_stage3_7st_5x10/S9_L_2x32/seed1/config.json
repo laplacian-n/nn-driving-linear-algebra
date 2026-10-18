@@ -1,0 +1,42 @@
+{
+ "name": "stage3/S9_L_2x32",
+ "rays": 9,
+ "reduction": null,
+ "k": null,
+ "depth": 2,
+ "width": 32,
+ "seed": 1,
+ "gens": 400,
+ "saturate": true,
+ "max_gens": 6000,
+ "stations": [
+  0.5,
+  0.75,
+  1.0,
+  1.25,
+  1.5,
+  1.75,
+  2.0
+ ],
+ "layer_sizes": [
+  13,
+  32,
+  32,
+  4
+ ],
+ "params": 1636,
+ "preprocessing_params": 18,
+ "source_hashes": {
+  "__init__.py": "da39a3ee5e6b",
+  "compress.py": "03ea09752f8b",
+  "ga.py": "c1bb4049b2ad",
+  "inputs.py": "206fd5a16bb2",
+  "network.py": "97478a3dcdd0",
+  "physics.py": "8c86aef52589",
+  "reference.py": "efd3c627ad7a",
+  "sets.py": "31d561d5d75c",
+  "sim.py": "a63120142085",
+  "track.py": "2f5edb440929",
+  "train.py": "eaf0f08075a7"
+ }
+}
