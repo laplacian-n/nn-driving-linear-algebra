@@ -20,16 +20,18 @@ ROOT = style.ROOT
 RES = os.path.join(ROOT, "experiments", "results")
 TRAINED = [("S9_XS_linear", "XS Linear"), ("S9_S_2x8", "S 2×8"), ("S9_L_2x32", "L 2×32"), ("S9_XL_2x64", "XL 2×64")]
 SRC_LABEL = {"S9_XL_2x64": "XL 2×64", "S9_L_2x32": "L 2×32"}
+COMP, TRAIN, PREFIX, TAG = "stage4", "stage3", "s4", "GA"   # switched by --bc
 METHODS = [("prune_ls", "Prune + least squares", style.SERIES[0]),
            ("prune_importance", "Prune by importance", style.SERIES[1]),
            ("prune_random", "Prune at random (control)", style.SERIES[4]),
            ("quantise", "Quantise (fewer bits)", style.SERIES[2]),
-           ("prune_ls+quantise", "Prune LS + 4-bit", style.SERIES[6])]
+           ("prune_ls+quantise", "Prune LS + 4-bit", style.SERIES[6]),
+           ("low_rank", "Low rank (truncated SVD)", style.SERIES[5])]
 
 
 def load_compressed(src):
     out = {}
-    for f in sorted(glob.glob(os.path.join(RES, "stage4", src, "seed*.json"))):
+    for f in sorted(glob.glob(os.path.join(RES, COMP, src, "seed*.json"))):
         for v in json.load(open(f))["variants"]:
             out.setdefault(v["name"], []).append(v)
     return out
@@ -39,7 +41,7 @@ def load_trained():
     out = {}
     for key, lab in TRAINED:
         vals, params = [], None
-        for d in sorted(glob.glob(os.path.join(RES, "stage3", key, "seed*"))):
+        for d in sorted(glob.glob(os.path.join(RES, TRAIN, key, "seed*"))):
             p = os.path.join(d, "final_test.json")
             if os.path.exists(p):
                 vals.append(np.mean(json.load(open(p))["finished"]) * 100)
@@ -66,6 +68,10 @@ def fig_pareto(src, comp, trained):
             for n, xi, yi in zip(names, x, y):
                 ax.annotate(f"{comp[n][0]['bits']} bit", (xi, yi), xytext=(5, -11), textcoords="offset points",
                             fontsize=8, color=style.TEXT_2)
+        elif m == "low_rank":
+            for n, xi, yi in zip(names, x, y):
+                ax.annotate(f"rank {n[7:]}", (xi, yi), xytext=(5, 5), textcoords="offset points",
+                            fontsize=8, color=style.TEXT_2)
         elif m == "prune_ls":
             for n, xi, yi in zip(names, x, y):
                 ax.annotate(f"width {comp[n][0]['width']}", (xi, yi), xytext=(5, 5), textcoords="offset points",
@@ -85,10 +91,10 @@ def fig_pareto(src, comp, trained):
     ax.set_xlabel("Model size (kilobits, log scale)")
     ax.set_ylabel("Laps finished on test T (%)")
     ax.set_ylim(-3, 105)
-    ax.set_title(f"Compressing {SRC_LABEL[src]}: size vs skill (median of seeds)")
+    ax.set_title(f"[{TAG}] Compressing {SRC_LABEL[src]}: size vs skill (median of seeds)")
     ax.legend(loc="upper left", bbox_to_anchor=(1.01, 1.0), fontsize=8.5)
     fig.tight_layout()
-    return style.save(fig, f"s4_pareto_{SRC_LABEL[src].split()[0]}.png")
+    return style.save(fig, f"{PREFIX}_pareto_{SRC_LABEL[src].split()[0]}.png")
 
 
 def fig_matched(comps, trained):
@@ -114,13 +120,16 @@ def fig_matched(comps, trained):
                   [f"{SRC_LABEL[s]} → width {w}\nvs trained {trained[t]['label']}" for s, w, t in pairs])
     ax.set_ylabel("Laps finished on test T (%)")
     ax.set_ylim(0, 105)
-    ax.set_title("Same shape: compressed big model vs small model trained from scratch")
+    ax.set_title(f"[{TAG}] Same shape: compressed big model vs small model trained from scratch")
     ax.legend(loc="upper left", bbox_to_anchor=(1.01, 1.0), fontsize=8.5)
     fig.tight_layout()
-    return style.save(fig, "s4_matched_shape.png")
+    return style.save(fig, f"{PREFIX}_matched_shape.png")
 
 
 def main():
+    global COMP, TRAIN, PREFIX, TAG
+    if "--bc" in sys.argv:
+        COMP, TRAIN, PREFIX, TAG = "stage4_bc", "bc_t75_long", "s4bc", "BC teacher 75%"
     style.apply()
     trained = load_trained()
     comps = {src: load_compressed(src) for src in SRC_LABEL}
@@ -134,7 +143,7 @@ def main():
                                         "finish_per_seed": np.round(finish(vs), 1).tolist(),
                                         "open_loop_rms_per_seed": [round(v["open_loop_rms"], 4) for v in vs]}
                                     for n, vs in comp.items()} for src, comp in comps.items()}}
-    with open(os.path.join(ROOT, "data", "stage4_summary.json"), "w") as f:
+    with open(os.path.join(ROOT, "data", f"{PREFIX}_summary.json" if PREFIX != "s4" else "stage4_summary.json"), "w") as f:
         json.dump(summary, f, indent=1)
     for src, comp in comps.items():
         for n in sorted(comp, key=lambda n: -comp[n][0]["size_bits"]):

@@ -28,7 +28,8 @@ RES = os.path.join(ROOT, "experiments", "results")
 OUT = os.path.join(RES, "stage4")
 SOURCES = {"S9_XL_2x64": [32, 16, 8, 4], "S9_L_2x32": [16, 8, 4]}
 BITS = [8, 6, 4, 3, 2]
-COMBO = [(16, 4), (8, 4)]          # (width, bits) for prune(ls) + quantise
+COMBO = [(16, 4), (8, 4)]
+RANKS = [2, 4, 8, 16]          # truncated SVD ranks          # (width, bits) for prune(ls) + quantise
 
 
 def calibration_inputs(pop1, spec, sets):
@@ -46,7 +47,7 @@ def calibration_inputs(pop1, spec, sets):
     return X[np.random.default_rng(0).choice(len(X), min(len(X), 20000), replace=False)]
 
 
-def run_source(run_dir):
+def run_source(run_dir, out_root=OUT):
     from racing import compress as C
     from racing.inputs import Calibration, InputSpec
     from racing.network import Population
@@ -54,7 +55,7 @@ def run_source(run_dir):
     from racing.sim import evaluate
     size_key = os.path.basename(os.path.dirname(run_dir))
     seed = int(run_dir[-1])
-    out_path = os.path.join(OUT, size_key, f"seed{seed}.json")
+    out_path = os.path.join(out_root, size_key, f"seed{seed}.json")
     if os.path.exists(out_path):
         return out_path, "skip"
     cfg = json.load(open(os.path.join(run_dir, "config.json")))
@@ -84,6 +85,10 @@ def run_source(run_dir):
             q, _ = C.quantise(p, b)
             variants.append({"name": f"prune_ls_{w}+quant{b}", "method": "prune_ls+quantise", "width": w,
                              "bits": b, "net": q, "size_bits": C.quantised_size(p, b)})
+    for rank in RANKS:   # truncated SVD of every weight matrix, W ~ U_r S_r V_r^T
+        lr_net, bits = C.low_rank(net, rank)
+        variants.append({"name": f"lowrank{rank}", "method": "low_rank", "width": src.sizes[1], "bits": 32,
+                         "rank": rank, "net": lr_net, "size_bits": bits})
     for v in variants:
         v["open_loop_rms"] = C.open_loop_error(net, v["net"], X)
 
@@ -113,12 +118,14 @@ def run_source(run_dir):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--jobs", type=int, default=8)
+    ap.add_argument("--source", default="stage3", help="results folder of the trained models (stage3, bc_t75_long, ...)")
+    ap.add_argument("--out", default="stage4", help="results folder for the compressed models")
     a = ap.parse_args()
-    runs = [d for k in SOURCES for d in sorted(glob.glob(os.path.join(RES, "stage3", k, "seed*")))
+    runs = [d for k in SOURCES for d in sorted(glob.glob(os.path.join(RES, a.source, k, "seed*")))
             if os.path.exists(os.path.join(d, "final_test.json"))]
     print(len(runs), "source models", flush=True)
     with ProcessPoolExecutor(a.jobs) as ex:
-        for path, msg in ex.map(run_source, runs):
+        for path, msg in ex.map(run_source, runs, [os.path.join(RES, a.out)] * len(runs)):
             print(os.path.relpath(path, ROOT), msg, flush=True)
 
 
