@@ -11,7 +11,7 @@
 | 3:30–4:30 | `figures/data_*.png`, notebook หัวข้อ 5 | ข้อมูล 22,819 แถว → ทำความสะอาด → PCA: ค่าไอเกนของเมทริกซ์ความแปรปรวนร่วม, แกนมีความหมาย |
 | 4:30–5:30 | `figures/s3_station_finish.png`, `cmp_variants_by_level.png` | ฝึก 2 แบบ: GA (การกลายพันธุ์ = บวกเวกเตอร์) vs เรียนจากครู (backprop = ผลคูณเมทริกซ์ทรานสโพส); ผล: ขนาดเหมาะขึ้นกับวิธีฝึก |
 | 5:30–6:15 | `figures/sens_dimensions.png`, `s4bc_pareto_XL.png` | เซนเซอร์/PCA และการบีบอัด (สมการปกติ, quantization, SVD) |
-| 6:15–7:30 | demo: สนามวาดเอง + ตัวโชว์บนระดับ 3.0 | โชว์ตัวดีที่สุด และสรุป |
+| 6:15–7:30 | demo: สนามวาดเอง + SHOW (17 rays + PCA 8) บนระดับ 3.0, `figures/showcase_pca8_training.png` | ตัวโชว์: เรียนจากครู → สนามโหด → GA ฝึกต่อ จนเร็วกว่าครู (24.3 vs 23.3 ม./วิ.) และสรุป |
 
 คำสั่งสำหรับอัดภาพนิ่ง/เฟรมแบบไม่เปิดหน้าต่าง: `python -m app.viewer --run <run> --snapshot <file> --track <seed> --difficulty <d> --frames 600 --frame-every 2`
 (เฟรมอยู่ใน `figures/frames/` นำไปต่อเป็นวิดีโอด้วย `ffmpeg -framerate 30 -i figures/frames/f%05d.png -pix_fmt yuv420p clip.mp4`)

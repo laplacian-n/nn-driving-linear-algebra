@@ -21,6 +21,9 @@ networks, genetic algorithm, behavior cloning (hand-written backprop + Adam) and
 - **ขนาดโมเดลที่เหมาะขึ้นกับวิธีฝึก:** GA ดีที่สุดกับโมเดลเล็ก ส่วน gradient ได้ประโยชน์จากโมเดลใหญ่เมื่องานยากพอ
 - **PCA:** เซนเซอร์ 17 รังสีที่บีบเหลือ 4 มิติด้วยเวกเตอร์ไอเกน (93 %) ดีกว่าใช้รังสีจริง 9 เส้น (88 %) และดีกว่าการฉายแบบสุ่ม 4 มิติ (50 %)
 - **การบีบอัด:** ลดเหลือ 8 bit แทบไม่เสียความสามารถ ส่วนการตัดโหนดและ low-rank SVD ทำให้ระบบขับแบบวงปิดพัง
+- **โมเดลตัวโชว์:** XL 2×64, 17 รังสี + PCA 8 เรียนจากครูแล้วให้ GA ฝึกต่อบนสนามโหดระดับ 3.0 (ถนนกว้าง 7 เมตร)
+  จบรอบสนามโชว์ที่ไม่เคยเห็น 80 % (โมเดลก่อนฝึกต่อ 5 %) ที่ความเร็ว 24.3 ม./วิ. **เร็วกว่าครู** (23.3 ม./วิ.)
+- **GA กับเซนเซอร์:** อินพุตยิ่งมาก GA ยิ่งฝึกช้า และ PCA ไม่ได้ช่วย GA (ต่างจากการเรียนจากครู)
 
 รายละเอียด ตัวเลข และกราฟทั้งหมดอยู่ใน [`docs/RESULTS_LOG.md`](docs/RESULTS_LOG.md) และ [`figures/`](figures)
 
@@ -46,6 +49,7 @@ python -m racing.bc --name test_bc --depth 2 --width 64 --seed 0 --aggregate all
        --teacher-grip 0.75 --teacher-brake 0.62 --steps 3000 --patience 8   # behavior cloning + DAgger
 python experiments/run_stage.py stage3 --rays 9 --jobs 12 --seeds 0,1,2,3    # การทดลองขนาดโมเดล (GA)
 python experiments/compress_stage4.py --source bc_t75_long --out stage4_bc   # การบีบอัด
+experiments/run_showcase_pca.sh    # โมเดลตัวโชว์: BC 17 รังสี + PCA 8 → สนามพิเศษ → GA
 python tools/build_dataset.py      # ชุดข้อมูลการขับ สถิติ การทำความสะอาด PCA
 python tools/physics_check.py      # ชุดทดสอบฟิสิกส์ 12 รายการ
 ```
